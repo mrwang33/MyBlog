@@ -237,7 +237,7 @@
 							</span><span class="commentnum">评论(<a
 								href="http://www.zynblog.com/Archives/Index/1#comments-title">58</a>)
 							</span><span class="praisebtn"> <img class="praisenum"
-								src="Zynblog%20_%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2_files/ico_praise.png"
+								src="images/ico_praise.png"
 								height="15" width="15">(<a data-id="1" praise-flag="0"
 								href="http://www.zynblog.com/">463</a>)
 							</span>
@@ -273,7 +273,7 @@
 							</span><span class="commentnum">评论(<a
 								href="http://www.zynblog.com/Archives/Index/2#comments-title">15</a>)
 							</span><span class="praisebtn"> <img class="praisenum"
-								src="Zynblog%20_%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2_files/ico_praise.png"
+								src="images/ico_praise.png"
 								height="15" width="15">(<a data-id="2" praise-flag="0"
 								href="http://www.zynblog.com/">143</a>)
 							</span>
@@ -308,7 +308,7 @@
 							</span><span class="commentnum">评论(<a
 								href="http://www.zynblog.com/Archives/Index/3#comments-title">7</a>)
 							</span><span class="praisebtn"> <img class="praisenum"
-								src="Zynblog%20_%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2_files/ico_praise.png"
+								src="images/ico_praise.png"
 								height="15" width="15">(<a data-id="3" praise-flag="0"
 								href="http://www.zynblog.com/">56</a>)
 							</span>
@@ -338,7 +338,7 @@
 							</span><span class="commentnum">评论(<a
 								href="http://www.zynblog.com/Archives/Index/32#comments-title">5</a>)
 							</span><span class="praisebtn"> <img class="praisenum"
-								src="Zynblog%20_%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2_files/ico_praise.png"
+								src="images/ico_praise.png"
 								height="15" width="15">(<a data-id="32" praise-flag="0"
 								href="http://www.zynblog.com/">32</a>)
 							</span>
@@ -371,7 +371,7 @@
 							</span><span class="commentnum">评论(<a
 								href="http://www.zynblog.com/Archives/Index/31#comments-title">7</a>)
 							</span><span class="praisebtn"> <img class="praisenum"
-								src="Zynblog%20_%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2_files/ico_praise.png"
+								src="images/ico_praise.png"
 								height="15" width="15">(<a data-id="31" praise-flag="0"
 								href="http://www.zynblog.com/">36</a>)
 							</span>
