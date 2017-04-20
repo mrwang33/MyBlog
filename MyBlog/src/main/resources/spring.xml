@@ -14,7 +14,7 @@
 	<context:component-scan base-package="com.mb" />
 
 	<!-- 引入配置文件 -->
-	<context:property-placeholder order="1" location="classpath:jdbc.properties" /> 
+	<context:property-placeholder location="classpath:jdbc.properties" /> 
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -51,7 +51,11 @@
 			<!-- 默认只处理运行时异常，可加rollback-for="Exception/Throwable"等处理所有异常或包括错误 -->
 			<tx:method name="insert*" propagation="REQUIRED"
 				rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED"
+				rollback-for="Exception" />
 			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="Exception" />
+			<tx:method name="alter*" propagation="REQUIRED"
 				rollback-for="Exception" />
 			<tx:method name="delete*" propagation="REQUIRED"
 				rollback-for="Exception" />

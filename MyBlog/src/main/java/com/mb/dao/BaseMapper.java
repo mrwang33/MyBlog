@@ -3,7 +3,7 @@ package com.mb.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseDAO<T> {
+public interface BaseMapper<T> {
 	//查找所有
 	public List<T> getAll();
 	//根据id查找实体类
