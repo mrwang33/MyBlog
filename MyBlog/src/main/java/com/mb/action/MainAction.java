@@ -19,5 +19,8 @@ public class MainAction {
 		return "leaveMsg";
 	}
 	
+	public String admin() {
+		return "admin";
+	}
 	
 }
