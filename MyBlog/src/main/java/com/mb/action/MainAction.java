@@ -19,9 +19,9 @@ public class MainAction {
 		return "leaveMsg";
 	}
 	
+	@RequestMapping("/admin")
 	public String admin() {
-		//TODO
-		return "admin";
+		return "admin/login";
 	}
 	
 }

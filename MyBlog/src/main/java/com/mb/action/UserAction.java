@@ -17,8 +17,8 @@ public class UserAction {
 
 	@RequestMapping("/getUser")
 	public String getUser(User user,Model model) {
-		User byId = userService.getById(user.getId());
-		model.addAttribute("user", byId);
+//		User byId = userService.getById(user.get);
+//		model.addAttribute("user", byId);
 		return "success";
 	}
 }

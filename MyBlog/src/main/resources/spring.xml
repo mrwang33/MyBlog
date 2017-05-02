@@ -89,4 +89,6 @@
         <property name="basePackage" value="com.mb.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
+    <!-- 引入shiro配置 -->
+    <import resource="spring-shiro.xml"/>
 </beans>
