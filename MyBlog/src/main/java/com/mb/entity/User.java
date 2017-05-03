@@ -1,8 +1,10 @@
 package com.mb.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author 王欢
@@ -16,18 +18,21 @@ public class User implements Serializable{
     private String username;
     //密码
     private String password;
-    //注册时间
-    private Date createdate;
-    //用户状态 true 表示可用 false表示不可用
+    //注册时间s
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")  
+    private Timestamp createdate;
+    //用户状态 true 表示可用 false表示不可用s
     private Boolean userState;
     //用户的角色
     private List<Role> roles;
     
     public User() {
+    	
 	}
 
-	public User(String userId, String username, String password, Date createdate, Boolean userState, List<Role> roles) {
-		super();
+
+	public User(String userId, String username, String password, Timestamp createdate, Boolean userState,
+			List<Role> roles) {
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
@@ -35,6 +40,7 @@ public class User implements Serializable{
 		this.userState = userState;
 		this.roles = roles;
 	}
+
 
 	public String getUserId() {
         return userId;
@@ -60,21 +66,21 @@ public class User implements Serializable{
         this.password = password == null ? null : password.trim();
     }
 
-    public Date getCreatedate() {
-        return createdate;
-    }
+	public Timestamp getCreatedate() {
+		return createdate;
+	}
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
-    }
+	public void setCreatedate(Timestamp createdate) {
+		this.createdate = createdate;
+	}
 
-    public Boolean getUserState() {
-        return userState;
-    }
+	public Boolean getUserState() {
+		return userState;
+	}
 
-    public void setUserState(Boolean userState) {
-        this.userState = userState;
-    }
+	public void setUserState(Boolean userState) {
+		this.userState = userState;
+	}
 
 	public List<Role> getRoles() {
 		return roles;
@@ -83,6 +89,7 @@ public class User implements Serializable{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
     
     
 }

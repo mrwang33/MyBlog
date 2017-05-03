@@ -1,10 +1,12 @@
 package com.mb.action;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mb.entity.User;
 import com.mb.service.UserService;
@@ -14,11 +16,11 @@ import com.mb.service.UserService;
 public class UserAction {
 	@Resource
 	private UserService userService;
-
-	@RequestMapping("/getUser")
-	public String getUser(User user,Model model) {
-//		User byId = userService.getById(user.get);
-//		model.addAttribute("user", byId);
-		return "success";
+	
+	@RequestMapping("/getAll")
+	@ResponseBody //json格式
+	public Object getAll(){
+		List<User> all = userService.getAll();
+		return all;
 	}
 }
