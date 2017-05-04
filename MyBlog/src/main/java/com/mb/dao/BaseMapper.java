@@ -13,7 +13,7 @@ public interface BaseMapper<T> {
 	//更新
 	public int update(T t);
 	//根据id删除
-	public void delete(Serializable id);
+	public int delete(Serializable id);
 	//根据数组删除
-	public void deleteList(Serializable[] id);
+	public int deleteList(Serializable[] id);
 }

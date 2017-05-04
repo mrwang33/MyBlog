@@ -80,12 +80,6 @@
     delete from user
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.mb.entity.User" >
-    insert into user (user_id, username, password, 
-      createDate, user_state)
-    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{createdate,jdbcType=TIMESTAMP}, #{userState,jdbcType=BIT})
-  </insert>
   <insert id="insertSelective" parameterType="com.mb.entity.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -184,12 +178,26 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   
-  
+  <!-- 登录 -->
   <select id="login" parameterType="com.mb.entity.User" resultMap="UserMap">
   	select <include refid="Base_Column_List"></include> from user where username=#{username} and password=#{password};
   </select>
-  
+  <!-- 获取所有 -->
   <select id="getAll" resultMap="UserMap">
-  	select <include refid="Base_Column_List"></include> from user;
+  	SELECT u.user_id, username, `password`, createDate, user_state , role_id, role_name FROM `user` u LEFT JOIN (SELECT t_user_id AS user_id, role_id, role_name FROM role, user_role WHERE t_role_id = role_id ) t ON u.user_id = t.user_id;
   </select>
+  <!-- 添加新用户 -->
+  <insert id="insert" parameterType="com.mb.entity.User" >
+    insert into user (user_id, username, password, 
+      createDate, user_state)
+    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{userState,jdbcType=BIT})
+  </insert>
+  <!-- 批量删除 -->
+  <delete id="deleteList">
+  	  	delete from user where user_id in
+	<foreach collection="array" open="(" close=")" separator="," item="pk">
+		#{pk}
+	</foreach>
+  </delete>
 </mapper>

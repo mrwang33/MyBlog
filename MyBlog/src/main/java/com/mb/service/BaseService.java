@@ -13,7 +13,7 @@ public interface BaseService<T> {
 	//更新
 	public int update(T t) throws Exception;
 	//根据id删除
-	public void delete(Serializable id) throws Exception;
+	public int delete(Serializable id) throws Exception;
 	//根据数组删除
-	public void deleteList(Serializable[] id) throws Exception;
+	public int deleteList(Serializable[] id) throws Exception;
 }

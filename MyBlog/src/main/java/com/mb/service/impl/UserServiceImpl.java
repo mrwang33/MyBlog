@@ -1,12 +1,15 @@
 package com.mb.service.impl;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mb.common.CommonUtils;
 import com.mb.dao.UserMapper;
 import com.mb.entity.User;
 import com.mb.service.UserService;
@@ -28,8 +31,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int insert(User t) {
-		return userMapper.insert(t);
+	public int insert(User user) {
+		user.setUserId(CommonUtils.getUUID());
+		user.setCreatedate(new Timestamp(new Date().getTime()));
+		return userMapper.insert(user);
 	}
 
 	@Override
@@ -38,13 +43,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(Serializable id) {
-		userMapper.delete(id);
+	public int delete(Serializable id) {
+		return userMapper.delete(id);
 	}
 
 	@Override
-	public void deleteList(Serializable[] id) {
-		// TODO Auto-generated method stub
+	public int deleteList(Serializable[] ids) {
+		return userMapper.deleteList(ids);
 	}
 
 	@Override
