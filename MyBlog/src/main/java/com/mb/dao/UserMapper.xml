@@ -7,6 +7,7 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
     <result column="user_state" property="userState" jdbcType="BIT" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
     <collection property="roles" resultMap="com.mb.dao.RoleMapper.RoleMap"></collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, username, password, createDate, user_state
+    user_id, username, password, createDate, user_email, user_state
   </sql>
   <select id="selectByPrimaryKey" resultMap="UserMap" parameterType="java.lang.String" >
     select 
@@ -184,14 +185,24 @@
   </select>
   <!-- 获取所有 -->
   <select id="getAll" resultMap="UserMap">
-  	SELECT u.user_id, username, `password`, createDate, user_state , role_id, role_name FROM `user` u LEFT JOIN (SELECT t_user_id AS user_id, role_id, role_name FROM role, user_role WHERE t_role_id = role_id ) t ON u.user_id = t.user_id;
+  	SELECT u.user_id, username, `password`, createDate, user_state, user_email, role_id, role_name FROM `user` u LEFT JOIN (SELECT t_user_id AS user_id, role_id, role_name FROM role, user_role WHERE t_role_id = role_id ) t ON u.user_id = t.user_id;
+  </select>
+  <!-- 根据用户名查找用户 -->
+  <select id="getUserByName" parameterType="com.mb.entity.User" resultMap="UserMap">
+  	select user_id from user where username=#{username};
   </select>
   <!-- 添加新用户 -->
   <insert id="insert" parameterType="com.mb.entity.User" >
     insert into user (user_id, username, password, 
-      createDate, user_state)
+      createDate, user_state, user_email)
     values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{createdate,jdbcType=TIMESTAMP}, #{userState,jdbcType=BIT})
+      #{createdate,jdbcType=TIMESTAMP}, #{userState,jdbcType=BIT},#{userEmail,jdbcType=VARCHAR});
+      <if test="roles != null" >
+         <foreach collection="roles" item="role" index="index">
+	         insert into user_role(t_user_id,t_role_id)
+	         values(#{userId},#{role.roleId});
+        </foreach>
+      </if>
   </insert>
   <!-- 批量删除 -->
   <delete id="deleteList">

@@ -23,24 +23,26 @@ public class User implements Serializable{
     private Timestamp createdate;
     //用户状态 true 表示可用 false表示不可用s
     private Boolean userState;
+    //用户邮箱
+    private String userEmail;
     //用户的角色
     private List<Role> roles;
+    
     
     public User() {
     	
 	}
 
-
 	public User(String userId, String username, String password, Timestamp createdate, Boolean userState,
-			List<Role> roles) {
+			String userEmail, List<Role> roles) {
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.createdate = createdate;
 		this.userState = userState;
+		this.userEmail = userEmail;
 		this.roles = roles;
 	}
-
 
 	public String getUserId() {
         return userId;
@@ -88,6 +90,14 @@ public class User implements Serializable{
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
     
