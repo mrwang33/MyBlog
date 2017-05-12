@@ -152,24 +152,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="update" parameterType="com.mb.entity.User" >
-    update user
-    <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="createdate != null" >
-        createDate = #{createdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userState != null" >
-        user_state = #{userState,jdbcType=BIT},
-      </if>
-    </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
-  </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.User" >
     update user
     set username = #{username,jdbcType=VARCHAR},
@@ -189,7 +172,20 @@
   </select>
   <!-- 根据用户名查找用户 -->
   <select id="getUserByName" parameterType="com.mb.entity.User" resultMap="UserMap">
-  	select user_id from user where username=#{username};
+  	select user_id,username from user where username=#{username};
+  </select>
+  <!-- 根据用户id查找用户 -->
+  <select id="getById" parameterType="java.lang.String" resultMap="UserMap">
+  	SELECT  u.user_id,username,`password`,createDate,user_state,user_email,u_r.role_id,u_r.role_name 
+		FROM `user` u
+			LEFT JOIN (SELECT r.role_id, ur.t_user_id AS user_id, r.role_name
+				FROM role r, (SELECT ur.t_role_id, ur.t_user_id
+						FROM user_role ur
+						WHERE t_user_id = #{userId}
+						) ur
+				WHERE r.role_id = ur.t_role_id
+				) u_r ON u_r.user_id = u.user_id
+		WHERE u.user_id = #{userId};
   </select>
   <!-- 添加新用户 -->
   <insert id="insert" parameterType="com.mb.entity.User" >
@@ -211,4 +207,33 @@
 		#{pk}
 	</foreach>
   </delete>
+  <!-- 清空该用户下所有角色 -->
+  <delete id="emptyUserRole" parameterType="com.mb.entity.User">
+  	delete from user_role where t_user_id=#{userId};
+  </delete>
+  <!-- 更新用户信息 -->
+  <update id="update" parameterType="com.mb.entity.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+        user_state = #{userState,jdbcType=BIT},
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR};
+    <!-- 更新用户角色 -->
+   <if test="roles != null" >
+      <foreach collection="roles" item="role" index="index">
+       insert into user_role(t_user_id,t_role_id)
+       values(#{userId},#{role.roleId});
+     </foreach>
+   </if>
+  </update>
+  
 </mapper>

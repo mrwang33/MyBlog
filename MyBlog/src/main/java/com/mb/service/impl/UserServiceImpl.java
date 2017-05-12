@@ -26,8 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getById(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userMapper.getById(id);
 	}
 
 	@Override
@@ -39,6 +38,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int update(User t) {
+		//先清空该用户的所有角色
+		userMapper.emptyUserRole(t);
 		return userMapper.update(t);
 	}
 
