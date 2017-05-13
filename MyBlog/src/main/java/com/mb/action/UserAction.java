@@ -19,6 +19,10 @@ import com.mb.entity.User;
 import com.mb.service.RoleService;
 import com.mb.service.UserService;
 
+/**
+ * @author 王欢
+ * 用户相关操作action
+ */
 @Controller
 @RequestMapping("/user")
 public class UserAction {
