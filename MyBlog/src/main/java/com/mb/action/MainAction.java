@@ -24,4 +24,8 @@ public class MainAction {
 		return "admin/login";
 	}
 	
+	@RequestMapping("/noPermission")
+	public String error() {
+		return "noPermission";
+	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.json.Json;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import com.mb.service.UserService;
 
 /**
  * @author 王欢
- * 用户相关操作action
+ * 用户操作controller
  */
 @Controller
 @RequestMapping("/user")
@@ -115,7 +116,6 @@ public class UserAction {
 	//根据用户名查找用户,用于注册和修改时检查用户名是否存在
 	/**
 	 * @param user 前端传来的用户名
-	 * @param type 决定是新增用户还是修改用户
 	 * @return
 	 */
 	@RequestMapping("/getUserByName")
