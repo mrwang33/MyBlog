@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+<!--
+	<properties resource="conn.properties" />
+	  -->
+	  
+	 <classPathEntry location="E:\study\jar\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+	<!-- 指定运行环境是mybatis3的版本 -->
+	<context id="testTables" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+		<!-- 是否取消注释 -->
+			<property name="suppressAllComments" value="true" />
+			 <!-- 是否生成注释代时间戳 -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<!-- jdbc 连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/myblog?useUnicode=true&amp;characterEncoding=UTF-8" userId="root" password="admin">
+		</jdbcConnection>
+		
+        <!-- targetPackage指定模型在生成在哪个包 ,targetProject指定项目的src,-->        
+		<javaModelGenerator targetPackage="com.mb.entity"
+			targetProject="MyBlog\src\main\java">
+			<!-- 去除字段前后空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- 指定dao类生成在哪个包 -->
+		<sqlMapGenerator targetPackage="com.mb.dao"
+			targetProject="MyBlog\src\main\java" />
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mb.dao" targetProject="MyBlog\src\main\java" />
+
+<!-- 		<table tableName="account" domainObjectName="Account" /> 
+			
+		<table tableName="supplier" domainObjectName="Supplier" />
+			<table tableName="sys_param" domainObjectName="SysParam" />
+				
+				<table tableName="account_records" domainObjectName="AccountRecords" />
+				<table tableName="buy_order" domainObjectName="BuyOrder" />
+				<table tableName="buy_order_detail" domainObjectName="BuyOrderDetail" />
+				-->	
+				<table tableName="user" domainObjectName="User" />
+				<table tableName="role" domainObjectName="Role" />
+				<table tableName="permission" domainObjectName="Permission" />
+				<table tableName="article" domainObjectName="Article" />
+				<table tableName="comment" domainObjectName="Comment" />
+				<table tableName="classify" domainObjectName="Classify" />
+				<table tableName="leavemsg" domainObjectName="LeaveMsg" />
+	
+	</context>
+</generatorConfiguration>

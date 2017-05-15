@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mb.dao.PermissionMapper" >
+  <resultMap id="PermissionMap" type="com.mb.entity.Permission" >
+    <id column="per_id" property="perId" jdbcType="VARCHAR" />
+    <result column="permissions" property="permissions" jdbcType="VARCHAR" />
+    <result column="per_code" property="perCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    per_id, permissions, per_code
+  </sql>
+  <!-- 根据id查找权限 -->
+  <select id="getById" resultMap="PermissionMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where per_id = #{perId,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据id删除 -->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from permission
+    where per_id = #{perId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.mb.entity.Permission" >
+    insert into permission (per_id, permissions, per_code
+      )
+    values (#{perId,jdbcType=VARCHAR}, #{permissions,jdbcType=VARCHAR}, #{perCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- 根据id更新 -->
+  <update id="update" parameterType="com.mb.entity.Permission" >
+    update permission
+    set permissions = #{permissions,jdbcType=VARCHAR},
+      per_code = #{perCode,jdbcType=VARCHAR}
+    where per_id = #{perId,jdbcType=VARCHAR}
+  </update>
+  <!-- 查找指定用户下的所有权限 -->
+  <select id="getRolePermissions" parameterType="com.mb.entity.Role" resultMap="PermissionMap">
+  	SELECT p.* FROM permission p WHERE p.per_id IN (SELECT pr.t_per_id FROM per_role pr WHERE pr.t_role_id=#{roleId,jdbcType=VARCHAR});
+  </select>
+</mapper>
