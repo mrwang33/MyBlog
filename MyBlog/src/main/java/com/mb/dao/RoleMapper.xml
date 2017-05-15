@@ -33,6 +33,13 @@
     delete from role
     where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
+  <!-- 批量删除 -->
+  <delete id="deleteList" >
+  	delete from role where role_id in
+  	<foreach collection="array" open="(" close=")" separator="," item="pk">
+		#{pk}
+	</foreach>
+  </delete>
   <!-- 根据id更新 -->
   <update id="update" parameterType="com.mb.entity.Role" >
     update role
@@ -41,7 +48,14 @@
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
     </set>
-    where role_id = #{roleId,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR};
+    <!-- 更新角色 -->
+    <if test="permissions != null" >
+         <foreach collection="permissions" item="per" index="index">
+	         insert into per_role(t_role_id,t_per_id)
+	         values(#{roleId,jdbcType=VARCHAR},#{per.perId});
+        </foreach>
+      </if>
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.Role" >
     update role
@@ -67,4 +81,8 @@
         </foreach>
       </if>
   </insert>
+  <!-- 清空该角色权限 -->
+  <delete id="emptyRolePer" parameterType="com.mb.entity.Role">
+  	delete from per_role where t_role_id=#{roleId,jdbcType=VARCHAR};
+  </delete>
 </mapper>

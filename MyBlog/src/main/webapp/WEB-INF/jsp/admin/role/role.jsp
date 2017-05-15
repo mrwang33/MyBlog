@@ -162,24 +162,73 @@
 		});
 		function actionFormatter(value, row, index) {
 			return [
-				'<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>　',
 				'<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
 				'<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
 			].join('');
 		}
 	
 		window.actionEvents = {
-			'click .like' : function(e, value, row, index) {
-				alert('You click like icon, row: ' + JSON.stringify(row));
-				console.log(value, row, index);
-			},
 			'click .edit' : function(e, value, row, index) {
-				alert('You click edit icon, row: ' + JSON.stringify(row));
-				console.log(value, row, index);
+				location.href = "role/goEdit.action?roleId="+row.roleId;
 			},
 			'click .remove' : function(e, value, row, index) {
-				alert('You click remove icon, row: ' + JSON.stringify(row));
-				console.log(value, row, index);
+				$.confirm({
+					type : 'red',
+					animationSpeed : 300,
+					title : false,
+					content : '确认删除该条记录吗？',
+					buttons : {
+						confirm : {
+							text : '确认',
+							btnClass : 'waves-effect waves-button',
+							action : function() {
+								$.ajax({
+								  url: "role/deleteRole.action",
+								  type:"POST",
+								  //设置为传统方式传送参数
+								  traditional:true,
+								  data:{pks:row.roleId},
+								  success: function(data){
+									  if(data>0){
+									  	$.confirm({
+											title : false,
+											content : '已删除'+data+"条数据",
+											autoClose : 'cancel|3000',
+											backgroundDismiss : true,
+											onClose : function() {
+												$('#table').bootstrapTable('refresh');
+											},
+											buttons : {
+												cancel : {
+													text : '取消',
+													btnClass : 'waves-effect waves-button'
+												}
+											}
+										});
+									  }else{
+									  	$.confirm({
+											title : false,
+											content : "删除数据失败",
+											autoClose : 'cancel|3000',
+											backgroundDismiss : true,
+											buttons : {
+												cancel : {
+													text : '取消',
+													btnClass : 'waves-effect waves-button'
+												}
+											}
+										});
+									  }
+								  }
+								});
+							}
+						},
+						cancel : {
+							text : '取消',
+							btnClass : 'waves-effect waves-button'
+						}
+					}
+				});
 			}
 		};
 		function detailFormatter(index, row) {

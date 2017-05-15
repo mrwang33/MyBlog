@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="admin/vendors/wizard/jquery.bootstrap.wizard.min.js"></script>
 
 	<script type="text/javascript" src="admin/vendors/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="admin/assets/form-validation-role.js"></script>
+	<script src="admin/assets/form-validation-role-edit.js"></script>
         
 	<script src="assets/scripts.js"></script>
         <script>
