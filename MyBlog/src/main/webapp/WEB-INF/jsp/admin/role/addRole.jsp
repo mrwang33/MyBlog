@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="block-content collapse in">
                                 <div class="span12">
 					<!-- BEGIN FORM-->
-					<form action="user/addUser.action" method="post" id="form_sample_1" class="form-horizontal">
+					<form action="role/addRole.action" method="post" id="form_sample_1" class="form-horizontal">
 						<fieldset>
 							<div class="alert alert-error hide">
 								<button class="close" data-dismiss="alert"></button>
@@ -44,42 +44,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								新增成功!即将跳转回列表!
 							</div>
   							<div class="control-group">
-  								<label class="control-label">用户名<span class="required">*</span></label>
+  								<label class="control-label">角色名<span class="required">*</span></label>
   								<div class="controls">
-  									<input type="text" id="username" name="username" data-required="1" class="span6 m-wrap"/>
-  								</div>
-  							</div>
-  							<div class="control-group">
-  								<label class="control-label">Email<span class="required">*</span></label>
-  								<div class="controls">
-  									<input name="userEmail" type="text" class="span6 m-wrap"/>
-  								</div>
-  							</div>
-  							<div class="control-group">
-  								<label class="control-label">密码<span class="required">*</span></label>
-  								<div class="controls">
-  									<input name="password" type="text" class="span6 m-wrap"/>
+  									<input type="text" id="roleName" name="roleName" data-required="1" class="span6 m-wrap"/>
   								</div>
   							</div>
   							<!-- 多选select -->
   							<div class="control-group">
-                                  <label class="control-label" for="multiSelect">角色</label>
+                                  <label class="control-label" for="multiSelect">权限</label>
                                   <div class="controls">
-                                    <select multiple="multiple" name="roleIds" id="multiSelect" class="chzn-select span4">
-                                      <c:forEach var="role" items="${roles}">
-									       <option value='${role.roleId}'>${role.roleName}</option>
+                                    <select multiple="multiple" name="perIds" id="multiSelect" class="chzn-select span4">
+                                      <c:forEach var="per" items="${pers}">
+									       <option value='${per.perId}'>${per.permissions}</option>
 									  </c:forEach>
                                     </select>
                                   </div>
-                             </div>
-                             <div class="control-group">
-                                <label class="control-label" for="optionsCheckbox">状态</label>
-                                <div class="controls">
-                                  <label class="uniform">
-                                    <input class="uniform_on" name="userState" type="checkbox" id="optionsCheckbox">
-                                    			立即启用该用户
-                                  </label>
-                                </div>
                              </div>
   							<div class="form-actions">
   								<button type="submit" class="btn btn-primary">添加</button>
@@ -118,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="admin/vendors/wizard/jquery.bootstrap.wizard.min.js"></script>
 
 	<script type="text/javascript" src="admin/vendors/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="admin/assets/form-validation.js"></script>
+	<script src="admin/assets/form-validation-role.js"></script>
         
 	<script src="assets/scripts.js"></script>
         <script>

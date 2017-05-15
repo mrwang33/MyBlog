@@ -42,6 +42,10 @@ public class UserRealm extends AuthorizingRealm {
 		ArrayList<String> perList = new ArrayList<String>();
 		//获取该用户所有角色
 		List<Role> roles = roleService.getUserRole(user.getUserId());
+		//没有角色 就是没有权限
+		if (roles==null||roles.size()==0) {
+			return new SimpleAuthorizationInfo();  
+		}
 		//获取所有权限
 		for (Role role : roles) {
 			List<Permission> pers = permissionService.getRolePermissions(role);

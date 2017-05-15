@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   $.each($.parseJSON('${user.roles}'),function(index,role){
 			$("#role_"+role.roleId).attr("selected",true)
 		});
-		//checkbox选中问题
+		//解决checkbox选中问题
 		var userState = '${user.userState}';
 		if(userState=="true") {
 			$("#optionsCheckbox").attr("checked",true);

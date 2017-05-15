@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mb.common.CommonUtils;
 import com.mb.dao.RoleMapper;
 import com.mb.entity.Role;
+import com.mb.entity.User;
 import com.mb.service.RoleService;
 
 @Service("roleService")
@@ -28,14 +30,13 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public int insert(Role t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		t.setRoleId(CommonUtils.getUUID());
+		return roleMapper.insert(t);
 	}
 
 	@Override
 	public int update(Role t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return roleMapper.update(t);
 	}
 
 	@Override
@@ -52,5 +53,11 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> getUserRole(Serializable userId) {
 		return roleMapper.getUserRole(userId);
 	}
+
+	@Override
+	public List<Role> getRoleByName(Role role) {
+		return roleMapper.getRoleByName(role);
+	}
+
 
 }

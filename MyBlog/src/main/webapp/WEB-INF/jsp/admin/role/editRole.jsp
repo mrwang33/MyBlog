@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="admin/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
         <link href="admin/assets/styles.css" rel="stylesheet" media="screen">
         <script src="admin/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        
     </head>
     
     <body>
@@ -34,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="block-content collapse in">
                                 <div class="span12">
 					<!-- BEGIN FORM-->
-					<form action="user/editUser.action" method="post" id="form_sample_1" class="form-horizontal">
+					<form action="role/editRole.action" method="post" id="form_sample_1" class="form-horizontal">
 						<fieldset>
 							<div class="alert alert-error hide">
 								<button class="close" data-dismiss="alert"></button>
@@ -42,47 +41,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="alert alert-success hide">
 								<button class="close" data-dismiss="alert"></button>
-								新增成功!即将跳转回列表!
+								修改成功!即将跳转回列表!
 							</div>
   							<div class="control-group">
-  								<label class="control-label">用户名<span class="required">*</span></label>
+  								<label class="control-label">角色名<span class="required">*</span></label>
   								<div class="controls">
-  									<input type="text" id="username" value="${user.username}" name="username" data-required="1" class="span6 m-wrap"/>
-  								</div>
-  							</div>
-  							<div class="control-group">
-  								<label class="control-label">Email<span class="required">*</span></label>
-  								<div class="controls">
-  									<input name="userEmail" type="text" value="${user.userEmail}" class="span6 m-wrap"/>
-  								</div>
-  							</div>
-  							<div class="control-group">
-  								<label class="control-label">密码<span class="required">*</span></label>
-  								<div class="controls">
-  									<input name="password" type="text" value="${user.password}" class="span6 m-wrap"/>
+  									<input type="text" id="roleName" name="roleName" value="${role.roleName}" data-required="1" class="span6 m-wrap"/>
   								</div>
   							</div>
   							<!-- 多选select -->
   							<div class="control-group">
-                                  <label class="control-label" for="multiSelect">角色</label>
+                                  <label class="control-label" for="multiSelect">权限</label>
                                   <div class="controls">
-                                    <select multiple="multiple" name="roleIds" id="multiSelect" class="chzn-select span4">
-                                      <c:forEach var="role" items="${roles}">
-									       <option id="role_${role.roleId}" value='${role.roleId}'>${role.roleName}</option>
+                                    <select multiple="multiple" name="perIds" id="multiSelect" class="chzn-select span4">
+                                      <c:forEach var="per" items="${pers}">
+									       <option id="per_${per.perId}" value='${per.perId}'>${per.permissions}</option>
 									  </c:forEach>
                                     </select>
                                   </div>
                              </div>
-                             <div class="control-group">
-                                <label class="control-label" for="optionsCheckbox">状态</label>
-                                <div class="controls">
-                                  <label class="uniform">
-                                    <input class="uniform_on" name="userState" type="checkbox" id="optionsCheckbox">
-                                    			立即启用该用户
-                                  </label>
-                                </div>
-                             </div>
-                             <input type="hidden" id="userId" name="userId" value="${user.userId}" />
+                             <input type="hidden" id="roleId" name="roleId" value="${role.roleId}" />
   							<div class="form-actions">
   								<button type="submit" class="btn btn-primary">修改</button>
   								<button type="button" onclick="history.go(-1)" class="btn">取消</button>
@@ -120,23 +98,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="admin/vendors/wizard/jquery.bootstrap.wizard.min.js"></script>
 
 	<script type="text/javascript" src="admin/vendors/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="admin/assets/form-validation-edit.js"></script>
+	<script src="admin/assets/form-validation-role.js"></script>
         
-	<script src="admin/assets/scripts.js"></script>
+	<script src="assets/scripts.js"></script>
         <script>
 
 	jQuery(document).ready(function() {   
 	   FormValidation.init();
-	   //回显用户对应的角色
-	   $.each($.parseJSON('${user.roles}'),function(index,role){
-			$("#role_"+role.roleId).attr("selected",true)
+	    //回显角色对应的权限
+	   $.each($.parseJSON('${role.permissions}'),function(index,per){
+			$("#per_"+per.perId).attr("selected",true)
 		});
-		//checkbox选中问题
-		var userState = '${user.userState}';
-		if(userState=="true") {
-			$("#optionsCheckbox").attr("checked",true);
-		}
 	});
+	
+
         $(function() {
             $(".datepicker").datepicker();
             $(".uniform_on").uniform();

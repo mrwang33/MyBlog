@@ -9,25 +9,31 @@
   <sql id="Base_Column_List" >
     role_id, role_name
   </sql>
+  <!--根据id查找 -->
   <select id="getById" resultMap="RoleMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from role
-    where role_id = #{roleId,jdbcType=VARCHAR}
+    SELECT  r.role_id,r.role_name,per.per_id,per.permissions,per.per_code 
+		FROM role r
+			LEFT JOIN (SELECT per_id, permissions, per_code, t_role_id AS role_id
+				FROM permission p, (SELECT pr.*
+						FROM per_role pr
+						WHERE pr.t_role_id = #{roleId,jdbcType=VARCHAR}
+						) p_r
+				WHERE p.per_id = p_r.t_per_id
+				) per ON r.role_id = per.role_id
+		WHERE r.role_id = #{roleId,jdbcType=VARCHAR};
   </select>
+  <!-- 获取全部 -->
   <select id="getAll" resultMap="RoleMap" >
   	select 
     <include refid="Base_Column_List" />
     from role;
   </select>
+  <!-- 删除 -->
   <delete id="delete" parameterType="java.lang.String" >
     delete from role
     where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.mb.entity.Role" >
-    insert into role (role_id, role_name)
-    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR})
-  </insert>
+  <!-- 根据id更新 -->
   <update id="update" parameterType="com.mb.entity.Role" >
     update role
     <set >
@@ -42,7 +48,23 @@
     set role_name = #{roleName,jdbcType=VARCHAR}
     where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
+  <!-- 获取该用户下的所有角色 -->
   <select id="getUserRole" parameterType="java.lang.String" resultMap="RoleMap">
   	SELECT <include refid="Base_Column_List" /> FROM role WHERE role_id IN (SELECT ur.t_role_id FROM user_role ur WHERE ur.t_user_id=#{userId,jdbcType=VARCHAR});
   </select>
+  <!-- 根据角色名查找角色 -->
+  <select id="getRoleByName" parameterType="java.lang.String" resultMap="RoleMap">
+  	SELECT role_name FROM role WHERE role_name=#{roleName,jdbcType=VARCHAR};
+  </select>
+  <!-- 添加角色 -->
+  <insert id="insert" parameterType="com.mb.entity.Role" >
+    insert into role (role_id, role_name)
+    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR});
+      <if test="permissions != null" >
+         <foreach collection="permissions" item="per" index="index">
+	         insert into per_role(t_role_id,t_per_id)
+	         values(#{roleId,jdbcType=VARCHAR},#{per.perId});
+        </foreach>
+      </if>
+  </insert>
 </mapper>

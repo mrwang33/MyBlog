@@ -191,33 +191,15 @@
 		}
 		// 新增
 		function createAction() {
-			$.confirm({
-				type : 'dark',
-				animationSpeed : 300,
-				title : '新增系统',
-				content : $('#createDialog').html(),
-				buttons : {
-					confirm : {
-						text : '确认',
-						btnClass : 'waves-effect waves-button',
-						action : function() {
-							$.alert($("#input2").val());
-						}
-					},
-					cancel : {
-						text : '取消',
-						btnClass : 'waves-effect waves-button'
-					}
-				}
-			});
+			location.href = "role/goAdd.action";
 		}
 		// 编辑
 		function updateAction() {
 			var rows = $table.bootstrapTable('getSelections');
-			if (rows.length == 0) {
+			if (rows.length == 0 || rows.length>1) {
 				$.confirm({
 					title : false,
-					content : '请至少选择一条记录！',
+					content : '请选择一条记录！',
 					autoClose : 'cancel|3000',
 					backgroundDismiss : true,
 					buttons : {
@@ -228,25 +210,7 @@
 					}
 				});
 			} else {
-				$.confirm({
-					type : 'blue',
-					animationSpeed : 300,
-					title : '编辑系统',
-					content : $('#createDialog').html(),
-					buttons : {
-						confirm : {
-							text : '确认',
-							btnClass : 'waves-effect waves-button',
-							action : function() {
-								$.alert('确认');
-							}
-						},
-						cancel : {
-							text : '取消',
-							btnClass : 'waves-effect waves-button'
-						}
-					}
-				});
+				location.href = "role/goEdit.action?roleId="+rows[0].roleId;
 			}
 		}
 		// 删除
@@ -270,17 +234,55 @@
 					type : 'red',
 					animationSpeed : 300,
 					title : false,
-					content : '确认删除该系统吗？',
+					content : '确认删除该条记录吗？',
 					buttons : {
 						confirm : {
 							text : '确认',
 							btnClass : 'waves-effect waves-button',
 							action : function() {
-								var ids = new Array();
-								for (var i in rows) {
-									ids.push(rows[i].systemId);
+								var roleIds = new Array();
+								for (var i = 0; i < rows.length; i++) {
+									roleIds[i] = rows[i].roleId;
 								}
-								$.alert('删除：id=' + ids.join("-"));
+								$.ajax({
+								  url: "role/deleteRole.action",
+								  type:"POST",
+								  //设置为传统方式传送参数
+								  traditional:true,
+								  data:{pks:roleIds},
+								  success: function(data){
+									  if(data>0){
+									  	$.confirm({
+											title : false,
+											content : '已删除'+data+"条数据",
+											autoClose : 'cancel|3000',
+											backgroundDismiss : true,
+											onClose : function() {
+												$('#table').bootstrapTable('refresh');
+											},
+											buttons : {
+												cancel : {
+													text : '取消',
+													btnClass : 'waves-effect waves-button'
+												}
+											}
+										});
+									  }else{
+									  	$.confirm({
+											title : false,
+											content : "删除数据失败",
+											autoClose : 'cancel|3000',
+											backgroundDismiss : true,
+											buttons : {
+												cancel : {
+													text : '取消',
+													btnClass : 'waves-effect waves-button'
+												}
+											}
+										});
+									  }
+								  }
+								});
 							}
 						},
 						cancel : {

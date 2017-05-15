@@ -9,6 +9,10 @@
   <sql id="Base_Column_List" >
     per_id, permissions, per_code
   </sql>
+  <!-- 查找所有 -->
+  <select id="getAll" resultMap="PermissionMap">
+  	SELECT <include refid="Base_Column_List" /> FROM permission;
+  </select>
   <!-- 根据id查找权限 -->
   <select id="getById" resultMap="PermissionMap" parameterType="java.lang.String" >
     select 
