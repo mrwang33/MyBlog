@@ -16,13 +16,14 @@
     article_id, article_title, article_date, article_keywords, article_views, article_stars, 
     art_clas, article_content
   </sql>
+  
   <insert id="insert" parameterType="com.mb.entity.Article" >
     insert into article (article_id, article_title, article_date, 
       article_keywords, article_views, article_stars, 
-      art_clas, article_content)
+      article_content,art_clas)
     values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleDate,jdbcType=TIMESTAMP}, 
       #{articleKeywords,jdbcType=VARCHAR}, #{articleViews,jdbcType=INTEGER}, #{articleStars,jdbcType=INTEGER}, 
-      #{artClas,jdbcType=INTEGER}, #{articleContent,jdbcType=LONGVARCHAR})
+      #{articleContent,jdbcType=LONGVARCHAR},#{classify.classifyId,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.Article" >
     update article

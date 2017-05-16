@@ -1,12 +1,15 @@
 package com.mb.service.impl;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mb.common.CommonUtils;
 import com.mb.dao.ArticleMapper;
 import com.mb.entity.Article;
 import com.mb.service.ArticleService;
@@ -27,8 +30,12 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public int insert(Article t) throws Exception {
-		return articleMapper.insert(t);
+	public int insert(Article article) throws Exception {
+		article.setArticleId(CommonUtils.getUUID());
+		article.setArticleDate(new Timestamp(new Date().getTime()));
+		article.setArticleViews(0);
+		article.setArticleStars(0);
+		return articleMapper.insert(article);
 	}
 
 	@Override
