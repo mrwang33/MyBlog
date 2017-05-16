@@ -28,14 +28,14 @@ public class ArticleAction {
 		return all;
 	}
 	
-	/*//跳转到添加页面
+	//跳转到添加页面
 	@RequestMapping("/goAdd")
 	public String goAdd(Model model) {
 		List<Role> roles = roleService.getAll();
 		model.addAttribute("roles", roles);
 		return "admin/article/addArticle";
 	}
-	
+	/*
 	//跳转到修改页面
 	@RequestMapping("/goEdit")
 	public String goEdit(String articleId,Model model) {
