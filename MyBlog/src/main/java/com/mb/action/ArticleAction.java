@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,8 +32,8 @@ public class ArticleAction {
 	//跳转到添加页面
 	@RequestMapping("/goAdd")
 	public String goAdd(Model model) {
-		List<Role> roles = roleService.getAll();
-		model.addAttribute("roles", roles);
+//		List<Role> roles = roleService.getAll();
+//		model.addAttribute("roles", roles);
 		return "admin/article/addArticle";
 	}
 	/*
