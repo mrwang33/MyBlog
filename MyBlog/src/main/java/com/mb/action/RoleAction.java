@@ -120,24 +120,16 @@ public class RoleAction {
 			return "error";
 		}
 	}
-	/*
-	//删除用户
+	//删除角色
 	@RequestMapping("/deleteRole")
 	@ResponseBody //json格式
 	public Object deleteRole(String[] pks) {
 		try {
 			return roleService.deleteList(pks);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			return "error";
 		}
 	}
 	
-	//根据用户名查找用户,用于注册和修改时检查用户名是否存在
-	*//**
-	 * @param role 前端传来的用户名
-	 * @return
-	 *//*
-	*/
 }

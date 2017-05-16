@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.mb.common.CommonUtils;
 import com.mb.dao.RoleMapper;
 import com.mb.entity.Role;
-import com.mb.entity.User;
 import com.mb.service.RoleService;
 
 @Service("roleService")
@@ -36,6 +35,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public int update(Role t) throws Exception {
+		//更新前先清空角色权限
+		roleMapper.emptyRolePer(t);
 		return roleMapper.update(t);
 	}
 
@@ -45,8 +46,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public int deleteList(Serializable[] id) throws Exception {
-		return roleMapper.deleteList(id);
+	public int deleteList(Serializable[] ids) throws Exception {
+		return roleMapper.deleteList(ids);
 	}
 
 	@Override
