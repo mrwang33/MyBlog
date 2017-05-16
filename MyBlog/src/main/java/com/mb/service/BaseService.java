@@ -15,5 +15,5 @@ public interface BaseService<T> {
 	//根据id删除
 	public int delete(Serializable id) throws Exception;
 	//根据数组删除
-	public int deleteList(Serializable[] id) throws Exception;
+	public int deleteList(Serializable[] ids) throws Exception;
 }

@@ -1,131 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mb.dao.ArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.mb.entity.Article" >
+  <resultMap id="ArticleMap" type="com.mb.entity.Article" >
     <id column="article_id" property="articleId" jdbcType="VARCHAR" />
     <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR" />
     <result column="article_date" property="articleDate" jdbcType="TIMESTAMP" />
     <result column="article_keywords" property="articleKeywords" jdbcType="VARCHAR" />
     <result column="article_views" property="articleViews" jdbcType="INTEGER" />
     <result column="article_stars" property="articleStars" jdbcType="INTEGER" />
-    <result column="art_clas" property="artClas" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.mb.entity.Article" extends="BaseResultMap" >
     <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR" />
+    <association property="classify" resultMap="com.mb.dao.ClassifyMapper.ClassifyMap"></association>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     article_id, article_title, article_date, article_keywords, article_views, article_stars, 
-    art_clas
+    art_clas, article_content
   </sql>
-  <sql id="Blob_Column_List" >
-    article_content
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.mb.entity.ArticleExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from article
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mb.entity.ArticleExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from article
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from article
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from article
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.mb.entity.ArticleExample" >
-    delete from article
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
   <insert id="insert" parameterType="com.mb.entity.Article" >
     insert into article (article_id, article_title, article_date, 
       article_keywords, article_views, article_stars, 
@@ -134,164 +24,6 @@
       #{articleKeywords,jdbcType=VARCHAR}, #{articleViews,jdbcType=INTEGER}, #{articleStars,jdbcType=INTEGER}, 
       #{artClas,jdbcType=INTEGER}, #{articleContent,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mb.entity.Article" >
-    insert into article
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="articleId != null" >
-        article_id,
-      </if>
-      <if test="articleTitle != null" >
-        article_title,
-      </if>
-      <if test="articleDate != null" >
-        article_date,
-      </if>
-      <if test="articleKeywords != null" >
-        article_keywords,
-      </if>
-      <if test="articleViews != null" >
-        article_views,
-      </if>
-      <if test="articleStars != null" >
-        article_stars,
-      </if>
-      <if test="artClas != null" >
-        art_clas,
-      </if>
-      <if test="articleContent != null" >
-        article_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="articleId != null" >
-        #{articleId,jdbcType=VARCHAR},
-      </if>
-      <if test="articleTitle != null" >
-        #{articleTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="articleDate != null" >
-        #{articleDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articleKeywords != null" >
-        #{articleKeywords,jdbcType=VARCHAR},
-      </if>
-      <if test="articleViews != null" >
-        #{articleViews,jdbcType=INTEGER},
-      </if>
-      <if test="articleStars != null" >
-        #{articleStars,jdbcType=INTEGER},
-      </if>
-      <if test="artClas != null" >
-        #{artClas,jdbcType=INTEGER},
-      </if>
-      <if test="articleContent != null" >
-        #{articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.mb.entity.ArticleExample" resultType="java.lang.Integer" >
-    select count(*) from article
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update article
-    <set >
-      <if test="record.articleId != null" >
-        article_id = #{record.articleId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleTitle != null" >
-        article_title = #{record.articleTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleDate != null" >
-        article_date = #{record.articleDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.articleKeywords != null" >
-        article_keywords = #{record.articleKeywords,jdbcType=VARCHAR},
-      </if>
-      <if test="record.articleViews != null" >
-        article_views = #{record.articleViews,jdbcType=INTEGER},
-      </if>
-      <if test="record.articleStars != null" >
-        article_stars = #{record.articleStars,jdbcType=INTEGER},
-      </if>
-      <if test="record.artClas != null" >
-        art_clas = #{record.artClas,jdbcType=INTEGER},
-      </if>
-      <if test="record.articleContent != null" >
-        article_content = #{record.articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update article
-    set article_id = #{record.articleId,jdbcType=VARCHAR},
-      article_title = #{record.articleTitle,jdbcType=VARCHAR},
-      article_date = #{record.articleDate,jdbcType=TIMESTAMP},
-      article_keywords = #{record.articleKeywords,jdbcType=VARCHAR},
-      article_views = #{record.articleViews,jdbcType=INTEGER},
-      article_stars = #{record.articleStars,jdbcType=INTEGER},
-      art_clas = #{record.artClas,jdbcType=INTEGER},
-      article_content = #{record.articleContent,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update article
-    set article_id = #{record.articleId,jdbcType=VARCHAR},
-      article_title = #{record.articleTitle,jdbcType=VARCHAR},
-      article_date = #{record.articleDate,jdbcType=TIMESTAMP},
-      article_keywords = #{record.articleKeywords,jdbcType=VARCHAR},
-      article_views = #{record.articleViews,jdbcType=INTEGER},
-      article_stars = #{record.articleStars,jdbcType=INTEGER},
-      art_clas = #{record.artClas,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mb.entity.Article" >
-    update article
-    <set >
-      <if test="articleTitle != null" >
-        article_title = #{articleTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="articleDate != null" >
-        article_date = #{articleDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="articleKeywords != null" >
-        article_keywords = #{articleKeywords,jdbcType=VARCHAR},
-      </if>
-      <if test="articleViews != null" >
-        article_views = #{articleViews,jdbcType=INTEGER},
-      </if>
-      <if test="articleStars != null" >
-        article_stars = #{articleStars,jdbcType=INTEGER},
-      </if>
-      <if test="artClas != null" >
-        art_clas = #{artClas,jdbcType=INTEGER},
-      </if>
-      <if test="articleContent != null" >
-        article_content = #{articleContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mb.entity.Article" >
-    update article
-    set article_title = #{articleTitle,jdbcType=VARCHAR},
-      article_date = #{articleDate,jdbcType=TIMESTAMP},
-      article_keywords = #{articleKeywords,jdbcType=VARCHAR},
-      article_views = #{articleViews,jdbcType=INTEGER},
-      article_stars = #{articleStars,jdbcType=INTEGER},
-      art_clas = #{artClas,jdbcType=INTEGER},
-      article_content = #{articleContent,jdbcType=LONGVARCHAR}
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.Article" >
     update article
     set article_title = #{articleTitle,jdbcType=VARCHAR},
@@ -302,4 +34,16 @@
       art_clas = #{artClas,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
+   <!-- 获取全部 -->
+  <select id="getAll" resultMap="ArticleMap">
+  	SELECT a.article_id, a.article_title, a.article_date, a.article_keywords, a.article_views
+	, a.article_stars, a.article_content, c.classify_id, c.classify_name
+		FROM article a
+			LEFT JOIN classify c ON a.art_clas = c.classify_id;
+  </select>
+  <!-- 根据主键删除 -->
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from article
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

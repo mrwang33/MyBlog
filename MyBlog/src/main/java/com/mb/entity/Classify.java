@@ -1,5 +1,9 @@
 package com.mb.entity;
 
+/**
+ * @author 王欢
+ * 文章所属种类实体类
+ */
 public class Classify {
     private Integer classifyId;
 

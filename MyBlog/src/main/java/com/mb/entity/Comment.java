@@ -2,6 +2,10 @@ package com.mb.entity;
 
 import java.util.Date;
 
+/**
+ * @author 王欢
+ * 评论实体类
+ */
 public class Comment {
     private String commentId;
 

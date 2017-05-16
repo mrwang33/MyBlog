@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>角色管理</title>
+<title>博文管理</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -39,35 +39,31 @@
 	<div id="main">
 		<div id="toolbar">
 			<a class="waves-effect waves-button" href="javascript:;"
-				onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a> <a
+				onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增博文</a> <a
 				class="waves-effect waves-button" href="javascript:;"
-				onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a> <a
+				onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑博文</a> <a
 				class="waves-effect waves-button" href="javascript:;"
-				onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除用户</a>
+				onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除博文</a>
 		</div>
 		<table id="table" style="font-size:12px"></table>
 	</div>
 	<!-- 新增 -->
 	<div id="createDialog" class="crudDialog" hidden>
-		<form>
+		<form id="add" action="article/addArticle.action" method="post">
 			<div class="form-group">
-				<label for="input1">标题</label> <input id="input1" type="text"
+				<label for="input1" id="lable1">博文名</label> <input id="input1" type="text" name="articlename"
 					class="form-control">
 			</div>
 			<div class="form-group">
-				<label for="input2">名称</label> <input id="input2" type="text"
+				<label for="input2" id="lable2">密码</label> <input id="input2" type="text" name="password"
 					class="form-control">
 			</div>
 			<div class="form-group">
-				<label for="input3">根目录</label> <input id="input3" type="text"
-					class="form-control">
-			</div>
-			<div class="form-group">
-				<label for="input4">图标</label> <input id="input4" type="text"
-					class="form-control">
+				<input type="checkbox" id="enableCheckbox" value=""> <a>启用</a>s
 			</div>
 		</form>
 	</div>
+	
 	<script src="plugins/jquery.1.12.4.min.js"></script>
 	<script src="plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
 	<script
@@ -92,7 +88,7 @@
 			// bootstrap table初始化
 			// http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
 			$table.bootstrapTable({
-				url : 'role/getAll.action',
+				url : 'article/getAll.action',
 				height : getHeight(),
 				striped : true,
 				search : true,
@@ -125,22 +121,51 @@
 						checkbox : true
 					},
 					{
-						field : 'roleId',
+						field : 'articleId',
 						title : '编号',
 						sortable : true,
 						align : 'center',
 						halign : 'center'
+						
 					},
 					{
-						field : 'roleName',
-						title : '角色名',
+						field : 'articleTitle',
+						title : '标题',
 						sortable : true,
 						align : 'center',
 						halign : 'center'
 					},
 					{
-						field : 'name',
-						title : '角色状态',
+						field : 'articleKeywords',
+						title : '关键字',
+						sortable : true,
+						align : 'center',
+						halign : 'center'
+					},
+					{
+						field : 'articleViews',
+						title : '浏览次数',
+						sortable : true,
+						align : 'center',
+						halign : 'center'
+					},
+					{
+						field : 'articleStars',
+						title : '点赞数',
+						sortable : true,
+						align : 'center',
+						halign : 'center',
+					},
+					{
+						field : 'classify.classifyName',
+						title : '种类',
+						sortable : true,
+						align : 'center',
+						halign : 'center',
+					},
+					{
+						field : 'articleDate',
+						title : '发表时间',
 						sortable : true,
 						align : 'center',
 						halign : 'center'
@@ -169,7 +194,7 @@
 	
 		window.actionEvents = {
 			'click .edit' : function(e, value, row, index) {
-				location.href = "role/goEdit.action?roleId="+row.roleId;
+				location.href = "article/goEdit.action?articleId="+row.articleId;
 			},
 			'click .remove' : function(e, value, row, index) {
 				$.confirm({
@@ -183,11 +208,11 @@
 							btnClass : 'waves-effect waves-button',
 							action : function() {
 								$.ajax({
-								  url: "role/deleteRole.action",
+								  url: "article/deleteArticle.action",
 								  type:"POST",
 								  //设置为传统方式传送参数
 								  traditional:true,
-								  data:{pks:row.roleId},
+								  data:{pks:row.articleId},
 								  success: function(data){
 									  if(data>0){
 									  	$.confirm({
@@ -240,7 +265,7 @@
 		}
 		// 新增
 		function createAction() {
-			location.href = "role/goAdd.action";
+			location.href = "article/goAdd.action";
 		}
 		// 编辑
 		function updateAction() {
@@ -259,7 +284,7 @@
 					}
 				});
 			} else {
-				location.href = "role/goEdit.action?roleId="+rows[0].roleId;
+				location.href = "article/goEdit.action?articleId="+rows[0].articleId;
 			}
 		}
 		// 删除
@@ -289,16 +314,16 @@
 							text : '确认',
 							btnClass : 'waves-effect waves-button',
 							action : function() {
-								var roleIds = new Array();
+								var articleIds = new Array();
 								for (var i = 0; i < rows.length; i++) {
-									roleIds[i] = rows[i].roleId;
+									articleIds[i] = rows[i].articleId;
 								}
 								$.ajax({
-								  url: "role/deleteRole.action",
+								  url: "article/deleteArticle.action",
 								  type:"POST",
 								  //设置为传统方式传送参数
 								  traditional:true,
-								  data:{pks:roleIds},
+								  data:{pks:articleIds},
 								  success: function(data){
 									  if(data>0){
 									  	$.confirm({
