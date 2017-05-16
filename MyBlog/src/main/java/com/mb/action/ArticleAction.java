@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mb.entity.Article;
+import com.mb.entity.Classify;
 import com.mb.service.ArticleService;
+import com.mb.service.ClassifyService;
 
 /**
  * @author 王欢
@@ -21,7 +23,10 @@ import com.mb.service.ArticleService;
 public class ArticleAction {
 	@Resource
 	private ArticleService articleService;
-	//获取所有用户
+	@Resource
+	private ClassifyService classifyService;
+	
+	//获取所有博文
 	@RequestMapping("/getAll")
 	@ResponseBody //json格式
 	public Object getAll(){
@@ -32,9 +37,21 @@ public class ArticleAction {
 	//跳转到添加页面
 	@RequestMapping("/goAdd")
 	public String goAdd(Model model) {
-//		List<Role> roles = roleService.getAll();
-//		model.addAttribute("roles", roles);
+		 List<Classify> all = classifyService.getAll();
+		 model.addAttribute("classifys", all);
 		return "admin/article/addArticle";
+	}
+	
+	//添加新博文
+	@RequestMapping("/addArticle")
+	public String addArticle(Article article) {
+		try{
+			articleService.insert(article);
+			return "admin/article/article";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	/*
 	//跳转到修改页面
@@ -47,28 +64,8 @@ public class ArticleAction {
 		return "admin/article/editArticle";
 	}
 	
-	//添加新用户
-	@RequestMapping("/addArticle")
-	public String addArticle(Article article,String[] roleIds) {
-		try {
-			if (roleIds!=null&&roleIds.length>0) {
-				ArrayList<Role> roleList = new ArrayList<Role>();
-				for (String roleId : roleIds) {
-					Role role = new Role();
-					role.setRoleId(roleId);
-					roleList.add(role);
-				}
-				article.setRoles(roleList);
-			}
-			articleService.insert(article);
-			return "admin/article/article";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-	}
 	
-	//修改用户信息
+	//修改博文信息
 	@RequestMapping("/editArticle")
 	public String editArticle(Article article,String[] roleIds) {
 		try {
@@ -89,7 +86,7 @@ public class ArticleAction {
 		}
 	}
 	
-	//删除用户
+	//删除博文
 	@RequestMapping("/deleteArticle")
 	@ResponseBody //json格式
 	public Object deleteArticle(String[] pks) {
@@ -102,18 +99,18 @@ public class ArticleAction {
 		}
 	}
 	
-	//根据用户名查找用户,用于注册和修改时检查用户名是否存在
+	//根据博文名查找博文,用于注册和修改时检查博文名是否存在
 	*//**
-	 * @param article 前端传来的用户名
+	 * @param article 前端传来的博文名
 	 * @return
 	 *//*
 	@RequestMapping("/getArticleByName")
 	@ResponseBody //json格式
 	public Object getArticleByName(Article article) {
 		List<Article> articles = articleService.getArticleByName(article);
-		//如果是修改用户信息页 则需要移除list中需要修改的用户的本身
+		//如果是修改博文信息页 则需要移除list中需要修改的博文的本身
 		if (article.getArticleId()!=null) {
-			//查得当前正在进行修改的用户的信息
+			//查得当前正在进行修改的博文的信息
 			Article currentArticle = articleService.getById(article.getArticleId());
 			Iterator<Article> iterator = articles.iterator();
 			while(iterator.hasNext()) {
@@ -124,7 +121,7 @@ public class ArticleAction {
 			}
 		}
 		if (articles!=null&&articles.size()>0) {
-			//如果用户存在,则返回false表示验证不通过
+			//如果博文存在,则返回false表示验证不通过
 			return false;
 		}
 		return true;
