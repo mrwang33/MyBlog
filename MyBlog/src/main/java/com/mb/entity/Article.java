@@ -1,85 +1,112 @@
 package com.mb.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+/**
+ * @author 王欢
+ * 博文实体类
+ */
 public class Article {
+	//主键
     private String articleId;
-
+    //博文标题
     private String articleTitle;
-
-    private Date articleDate;
-
+    //博文发表时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")  
+    private Timestamp articleDate;
+    //博文关键字
     private String articleKeywords;
-
+    //博文被浏览次数
     private Integer articleViews;
-
+    //博文被点赞数
     private Integer articleStars;
-
-    private Integer artClas;
-
+    //博文内容
     private String articleContent;
+    //博文种类
+    private Classify classify;
+    
+    
+	public Article() {
+	}
 
-    public String getArticleId() {
-        return articleId;
-    }
+	public Article(String articleId, String articleTitle, Timestamp articleDate, String articleKeywords,
+			Integer articleViews, Integer articleStars, Classify classify, String articleContent) {
+		this.articleId = articleId;
+		this.articleTitle = articleTitle;
+		this.articleDate = articleDate;
+		this.articleKeywords = articleKeywords;
+		this.articleViews = articleViews;
+		this.articleStars = articleStars;
+		this.classify = classify;
+		this.articleContent = articleContent;
+	}
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
-    }
+	public String getArticleId() {
+		return articleId;
+	}
 
-    public String getArticleTitle() {
-        return articleTitle;
-    }
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle == null ? null : articleTitle.trim();
-    }
+	public String getArticleTitle() {
+		return articleTitle;
+	}
 
-    public Date getArticleDate() {
-        return articleDate;
-    }
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
 
-    public void setArticleDate(Date articleDate) {
-        this.articleDate = articleDate;
-    }
+	public Timestamp getArticleDate() {
+		return articleDate;
+	}
 
-    public String getArticleKeywords() {
-        return articleKeywords;
-    }
+	public void setArticleDate(Timestamp articleDate) {
+		this.articleDate = articleDate;
+	}
 
-    public void setArticleKeywords(String articleKeywords) {
-        this.articleKeywords = articleKeywords == null ? null : articleKeywords.trim();
-    }
+	public String getArticleKeywords() {
+		return articleKeywords;
+	}
 
-    public Integer getArticleViews() {
-        return articleViews;
-    }
+	public void setArticleKeywords(String articleKeywords) {
+		this.articleKeywords = articleKeywords;
+	}
 
-    public void setArticleViews(Integer articleViews) {
-        this.articleViews = articleViews;
-    }
+	public Integer getArticleViews() {
+		return articleViews;
+	}
 
-    public Integer getArticleStars() {
-        return articleStars;
-    }
+	public void setArticleViews(Integer articleViews) {
+		this.articleViews = articleViews;
+	}
 
-    public void setArticleStars(Integer articleStars) {
-        this.articleStars = articleStars;
-    }
+	public Integer getArticleStars() {
+		return articleStars;
+	}
 
-    public Integer getArtClas() {
-        return artClas;
-    }
+	public void setArticleStars(Integer articleStars) {
+		this.articleStars = articleStars;
+	}
 
-    public void setArtClas(Integer artClas) {
-        this.artClas = artClas;
-    }
+	public Classify getClassify() {
+		return classify;
+	}
 
-    public String getArticleContent() {
-        return articleContent;
-    }
+	public void setClassify(Classify classify) {
+		this.classify = classify;
+	}
 
-    public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent == null ? null : articleContent.trim();
-    }
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArticleContent(String articleContent) {
+		this.articleContent = articleContent;
+	}
+
+    
+    
 }

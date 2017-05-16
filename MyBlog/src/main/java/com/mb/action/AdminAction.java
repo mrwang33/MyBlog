@@ -7,6 +7,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,14 +30,9 @@ public class AdminAction {
 		}
 	}
 	
-	@RequestMapping("/role")
-	public String role() {
-		return "admin/role/role";
-	}
-	
-	@RequestMapping("/user")
-	public String user() {
-		return "admin/user/user";
+	@RequestMapping("/{loc}")
+	public String loc(@PathVariable("loc")String loc) {
+		return "admin/"+loc+"/"+loc;
 	}
 	
 }

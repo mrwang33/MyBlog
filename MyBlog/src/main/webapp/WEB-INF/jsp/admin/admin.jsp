@@ -195,11 +195,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</ul>
 			</li>
 			<li class="sub-menu system_menus system_1 7">
-			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-more"></i> 其他数据管理</a>
+			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 文章内容管理</a>
 			<ul>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('公共码表', '/manage/coder/index');">公共码表</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('会话管理', '/manage/session/index');">会话管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', '/manage/log/index');">日志记录</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('公共码表', 'admin/article.action');">博文管理</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('会话管理', '/manage/session/index');">评论管理</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', '/manage/log/index');">留言管理</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('键值设置', '/manage/map/index');">键值设置</a></li>
 			</ul>
 			</li>
