@@ -1,30 +1,15 @@
 package com.mb.dao;
 
-import com.mb.entity.LeaveMsg;
-import com.mb.entity.LeaveMsgExample;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface LeaveMsgMapper {
-    int countByExample(LeaveMsgExample example);
+import com.mb.entity.LeaveMsg;
 
-    int deleteByExample(LeaveMsgExample example);
-
-    int deleteByPrimaryKey(String lmId);
-
-    int insert(LeaveMsg record);
-
-    int insertSelective(LeaveMsg record);
-
-    List<LeaveMsg> selectByExample(LeaveMsgExample example);
-
-    LeaveMsg selectByPrimaryKey(String lmId);
-
-    int updateByExampleSelective(@Param("record") LeaveMsg record, @Param("example") LeaveMsgExample example);
-
-    int updateByExample(@Param("record") LeaveMsg record, @Param("example") LeaveMsgExample example);
-
-    int updateByPrimaryKeySelective(LeaveMsg record);
-
-    int updateByPrimaryKey(LeaveMsg record);
+public interface LeaveMsgMapper extends BaseMapper<LeaveMsg>{
+	//获取根回复
+	public List<LeaveMsg> getRootLeaveMsg();
+	//获取该回复的子回复
+	public List<LeaveMsg> getChild(LeaveMsg leaveMsg);
+	//获取总留言数
+	public int getCount();
 }

@@ -10,28 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mb.entity.Article;
+import com.mb.entity.LeaveMsg;
 import com.mb.entity.Classify;
-import com.mb.service.ArticleService;
+import com.mb.service.LeaveMsgService;
 import com.mb.service.ClassifyService;
 
 /**
  * @author 王欢
- * 博文管理controller
+ * 留言管理controller
  */
 @Controller
-@RequestMapping("/article")
-public class ArticleAction {
+@RequestMapping("/leaveMsg")
+public class LeaveMsgAction {
 	@Resource
-	private ArticleService articleService;
+	private LeaveMsgService leaveMsgService;
 	@Resource
 	private ClassifyService classifyService;
 	
-	//获取所有博文
+	//获取所有留言
 	@RequestMapping("/getAll")
 	@ResponseBody //json格式
 	public Object getAll(){
-		List<Article> all = articleService.getAll();
+		List<LeaveMsg> all = leaveMsgService.getAll();
 		return all;
 	}
 	
@@ -40,15 +40,20 @@ public class ArticleAction {
 	public String goAdd(Model model) {
 		 List<Classify> all = classifyService.getAll();
 		 model.addAttribute("classifys", all);
-		return "admin/article/addArticle";
+		return "admin/leaveMsg/addLeaveMsg";
 	}
 	
-	//添加新博文
-	@RequestMapping("/addArticle")
-	public String addArticle(Article article) {
+	//添加新留言
+	@RequestMapping("/addLeaveMsg")
+	public String addLeaveMsg(LeaveMsg leaveMsg) {
 		try{
-			articleService.insert(article);
-			return "admin/article/article";
+			if (leaveMsg!=null) {
+				if ("".equals(leaveMsg.getLmFatherid())) {
+					leaveMsg.setLmFatherid(null);
+				}
+				leaveMsgService.insert(leaveMsg);
+			}
+			return "redirect:../leaveMsg.action";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -57,32 +62,32 @@ public class ArticleAction {
 	
 	//跳转到修改页面
 	@RequestMapping("/goEdit")
-	public String goEdit(String articleId,Model model) {
+	public String goEdit(String leaveMsgId,Model model) {
 		List<Classify> all = classifyService.getAll();
-		Article article = articleService.getById(articleId);
-		model.addAttribute("article", article);
+		LeaveMsg leaveMsg = leaveMsgService.getById(leaveMsgId);
+		model.addAttribute("leaveMsg", leaveMsg);
 		model.addAttribute("classifys", all);
-		return "admin/article/editArticle";
+		return "admin/leaveMsg/editLeaveMsg";
 	}
 	
 	
-	//修改博文信息
-	@RequestMapping("/editArticle")
-	public String editArticle(Article article) {
+	//修改留言信息
+	@RequestMapping("/editLeaveMsg")
+	public String editLeaveMsg(LeaveMsg leaveMsg) {
 		try {
-			articleService.update(article);
-			return "admin/article/article";
+			leaveMsgService.update(leaveMsg);
+			return "admin/leaveMsg/leaveMsg";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
 	}
-	//删除博文
-	@RequestMapping("/deleteArticle")
+	//删除留言
+	@RequestMapping("/deleteLeaveMsg")
 	@ResponseBody //json格式
-	public Object deleteArticle(String[] pks) {
+	public Object deleteLeaveMsg(String[] pks) {
 		try {
-			return articleService.deleteList(pks);
+			return leaveMsgService.deleteList(pks);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

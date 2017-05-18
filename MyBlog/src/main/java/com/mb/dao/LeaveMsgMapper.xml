@@ -1,105 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mb.dao.LeaveMsgMapper" >
-  <resultMap id="BaseResultMap" type="com.mb.entity.LeaveMsg" >
+  <resultMap id="LeaveMsgMap" type="com.mb.entity.LeaveMsg" >
     <id column="lm_id" property="lmId" jdbcType="VARCHAR" />
     <result column="lm_content" property="lmContent" jdbcType="VARCHAR" />
     <result column="lm_email" property="lmEmail" jdbcType="VARCHAR" />
     <result column="lm_name" property="lmName" jdbcType="VARCHAR" />
     <result column="lm_date" property="lmDate" jdbcType="TIMESTAMP" />
     <result column="lm_fatherId" property="lmFatherid" jdbcType="VARCHAR" />
+    <collection property="childLm" ofType="com.mb.entity.LeaveMsg" >
+    	<id column="c_lm_id" property="lmId" jdbcType="VARCHAR" />
+	    <result column="c_lm_content" property="lmContent" jdbcType="VARCHAR" />
+	    <result column="c_lm_email" property="lmEmail" jdbcType="VARCHAR" />
+	    <result column="c_lm_name" property="lmName" jdbcType="VARCHAR" />
+	    <result column="c_lm_date" property="lmDate" jdbcType="TIMESTAMP" />
+	    <result column="c_lm_fatherId" property="lmFatherid" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
     lm_id, lm_content, lm_email, lm_name, lm_date, lm_fatherId
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mb.entity.LeaveMsgExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from leavemsg
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!-- 根据主键查找 -->
+  <select id="select" resultMap="LeaveMsgMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from leavemsg
     where lm_id = #{lmId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!-- 根据主键删除 -->
+  <delete id="delete" parameterType="java.lang.String" >
     delete from leavemsg
     where lm_id = #{lmId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mb.entity.LeaveMsgExample" >
-    delete from leavemsg
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+  <!-- 新增 -->
   <insert id="insert" parameterType="com.mb.entity.LeaveMsg" >
     insert into leavemsg (lm_id, lm_content, lm_email, 
       lm_name, lm_date, lm_fatherId
@@ -108,114 +41,7 @@
       #{lmName,jdbcType=VARCHAR}, #{lmDate,jdbcType=TIMESTAMP}, #{lmFatherid,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mb.entity.LeaveMsg" >
-    insert into leavemsg
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="lmId != null" >
-        lm_id,
-      </if>
-      <if test="lmContent != null" >
-        lm_content,
-      </if>
-      <if test="lmEmail != null" >
-        lm_email,
-      </if>
-      <if test="lmName != null" >
-        lm_name,
-      </if>
-      <if test="lmDate != null" >
-        lm_date,
-      </if>
-      <if test="lmFatherid != null" >
-        lm_fatherId,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="lmId != null" >
-        #{lmId,jdbcType=VARCHAR},
-      </if>
-      <if test="lmContent != null" >
-        #{lmContent,jdbcType=VARCHAR},
-      </if>
-      <if test="lmEmail != null" >
-        #{lmEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="lmName != null" >
-        #{lmName,jdbcType=VARCHAR},
-      </if>
-      <if test="lmDate != null" >
-        #{lmDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lmFatherid != null" >
-        #{lmFatherid,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.mb.entity.LeaveMsgExample" resultType="java.lang.Integer" >
-    select count(*) from leavemsg
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update leavemsg
-    <set >
-      <if test="record.lmId != null" >
-        lm_id = #{record.lmId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lmContent != null" >
-        lm_content = #{record.lmContent,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lmEmail != null" >
-        lm_email = #{record.lmEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lmName != null" >
-        lm_name = #{record.lmName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lmDate != null" >
-        lm_date = #{record.lmDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lmFatherid != null" >
-        lm_fatherId = #{record.lmFatherid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update leavemsg
-    set lm_id = #{record.lmId,jdbcType=VARCHAR},
-      lm_content = #{record.lmContent,jdbcType=VARCHAR},
-      lm_email = #{record.lmEmail,jdbcType=VARCHAR},
-      lm_name = #{record.lmName,jdbcType=VARCHAR},
-      lm_date = #{record.lmDate,jdbcType=TIMESTAMP},
-      lm_fatherId = #{record.lmFatherid,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mb.entity.LeaveMsg" >
-    update leavemsg
-    <set >
-      <if test="lmContent != null" >
-        lm_content = #{lmContent,jdbcType=VARCHAR},
-      </if>
-      <if test="lmEmail != null" >
-        lm_email = #{lmEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="lmName != null" >
-        lm_name = #{lmName,jdbcType=VARCHAR},
-      </if>
-      <if test="lmDate != null" >
-        lm_date = #{lmDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lmFatherid != null" >
-        lm_fatherId = #{lmFatherid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where lm_id = #{lmId,jdbcType=VARCHAR}
-  </update>
+  <!-- 更新 -->
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.LeaveMsg" >
     update leavemsg
     set lm_content = #{lmContent,jdbcType=VARCHAR},
@@ -225,4 +51,22 @@
       lm_fatherId = #{lmFatherid,jdbcType=VARCHAR}
     where lm_id = #{lmId,jdbcType=VARCHAR}
   </update>
+  <!-- 获取根回复 -->
+  <select id="getRootLeaveMsg" resultMap="LeaveMsgMap">
+  	SELECT rl.lm_id, rl.lm_content, rl.lm_email, rl.lm_name, rl.lm_date
+		, cl.lm_id AS c_lm_id, cl.lm_content AS c_lm_content, cl.lm_email AS c_lm_email, cl.lm_name AS c_lm_name, cl.lm_date AS c_lm_date
+		, cl.lm_fatherId AS c_lm_fatherId
+	FROM leavemsg rl
+		LEFT JOIN leavemsg cl ON cl.lm_fatherId = rl.lm_id
+	WHERE rl.lm_fatherId IS NULL ORDER BY rl.lm_date;
+  </select>
+  <!-- 获取该回复的所有一级子回复 -->
+  <select id="getChild" parameterType="com.mb.entity.LeaveMsg" resultMap="LeaveMsgMap">
+  	select 
+    <include refid="Base_Column_List" /> FROM leavemsg WHERE lm_fatherId=#{lmId,jdbcType=VARCHAR} ORDER BY lm_date;
+  </select>
+  <!-- 总记录数 -->
+  <select id="getCount" resultType="java.lang.Integer">
+  	SELECT COUNT(lm_id) FROM leavemsg;
+  </select>
 </mapper>

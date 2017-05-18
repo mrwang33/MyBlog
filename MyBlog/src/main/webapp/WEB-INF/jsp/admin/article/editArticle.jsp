@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>新增博文</title>
+<title>修改博文</title>
 
 <link href="admin/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -37,12 +37,12 @@
 					<!-- block -->
 					<div class="block">
 						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">新增博文</div>
+							<div class="muted pull-left">修改博文</div>
 						</div>
 						<div class="block-content collapse in">
 							<div class="span12">
 								<!-- BEGIN FORM-->
-								<form action="article/addArticle.action" method="post"
+								<form action="article/editArticle.action" method="post"
 									id="form_sample_1" class="form-horizontal">
 									<fieldset>
 										<div class="alert alert-error hide">
@@ -51,13 +51,13 @@
 										</div>
 										<div class="alert alert-success hide">
 											<button class="close" data-dismiss="alert"></button>
-											新增成功!即将跳转回列表!
+											修改成功!即将跳转回列表!
 										</div>
 										<div class="control-group">
 											<label class="control-label">标题<span class="required">*</span></label>
 											<div class="controls">
 												<input type="text" id="articleTitle" name="articleTitle"
-													data-required="1" class="span6 m-wrap" />
+													data-required="1" class="span6 m-wrap" value="${article.articleTitle}" />
 											</div>
 										</div>
 										<div class="control-group">
@@ -65,13 +65,13 @@
 												class="required">*</span></label>
 											<div class="controls">
 												<input name="articleKeywords" type="text"
-													class="span6 m-wrap" />
+													class="span6 m-wrap" value="${article.articleKeywords}" />
 											</div>
 										</div>
 										<div class="control-group">
                                           <label class="control-label" for="textarea2">博文内容</label>
                                           <div class="controls">
-                                            <textarea class="" id="articleContent" name="articleContent" placeholder="Enter text ..." style="width: 810px; height: 200px"></textarea>
+                                            <textarea class="" id="articleContent" name="articleContent" style="width: 810px; height: 200px">${article.articleContent}</textarea>
                                           </div>
                                         </div>
 										<!-- 多选select -->
@@ -79,15 +79,18 @@
 											<label class="control-label" for="multiSelect">博文分类</label>
 											<div class="controls">
 												<select class="span6 m-wrap" name="classify.classifyId" id="optionsCheckbox">
-													<option value="">请选择博文分类</option>
 													<c:forEach var="classify" items="${classifys}">
-														<option value='${classify.classifyId}'>${classify.classifyName}</option>
+														<option id="art_${classify.classifyId}" value='${classify.classifyId}'>${classify.classifyName}</option>
 													</c:forEach>
 												</select>
 											</div>
 										</div>
+										<input type="hidden" name="articleId" value="${article.articleId}" />
+										<input type="hidden" name="articleDate" value="${article.articleDate}" />
+										<input type="hidden" name="articleViews" value="${article.articleViews}" />
+										<input type="hidden" name="articleStars" value="${article.articleStars}" />
 										<div class="form-actions">
-											<button type="submit" class="btn btn-primary">添加</button>
+											<button type="submit" class="btn btn-primary">修改</button>
 											<button type="button" onclick="history.go(-1)" class="btn">取消</button>
 										</div>
 									</fieldset>
@@ -136,6 +139,8 @@
 
 	jQuery(document).ready(function() {   
 	   FormValidation.init();
+	   var clas = "${article.classify.classifyId}";
+	   $("#art_"+clas).attr("selected",true);  
 	});
 	
 
