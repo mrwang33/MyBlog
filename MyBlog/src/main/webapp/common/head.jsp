@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <link href="css/csss.css" rel="stylesheet">
 <script src="js/push.js"></script>
-<script src="js/Script.js"></script>
 <script src="js/jquery.min.js"></script>
 <!--顶部静态导航-->
 <!--导航条 navbar-fixed-top：固定在顶部。navbar-default：白色的背景黑色的字。navbar-inverse：黑色的背景加白色的字；-->

@@ -1,5 +1,6 @@
 package com.mb.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author 王欢
  * 博文实体类
  */
-public class Article {
+public class Article implements Serializable{
+	private static final long serialVersionUID = -5766288268819637751L;
 	//主键
     private String articleId;
     //博文标题

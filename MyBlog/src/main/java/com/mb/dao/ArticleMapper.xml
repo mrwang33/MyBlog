@@ -25,14 +25,15 @@
       #{articleKeywords,jdbcType=VARCHAR}, #{articleViews,jdbcType=INTEGER}, #{articleStars,jdbcType=INTEGER}, 
       #{articleContent,jdbcType=LONGVARCHAR},#{classify.classifyId,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.mb.entity.Article" >
+  <update id="update" parameterType="com.mb.entity.Article" >
     update article
     set article_title = #{articleTitle,jdbcType=VARCHAR},
       article_date = #{articleDate,jdbcType=TIMESTAMP},
       article_keywords = #{articleKeywords,jdbcType=VARCHAR},
       article_views = #{articleViews,jdbcType=INTEGER},
       article_stars = #{articleStars,jdbcType=INTEGER},
-      art_clas = #{artClas,jdbcType=INTEGER}
+      article_content = #{articleContent,jdbcType=LONGVARCHAR},
+      art_clas = #{classify.classifyId,jdbcType=VARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
    <!-- 获取全部 -->
@@ -46,5 +47,22 @@
   <delete id="delete" parameterType="java.lang.String" >
     delete from article
     where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据主键获取 -->
+  <select id="getById" parameterType="java.lang.String" resultMap="ArticleMap" >
+  	SELECT aa.article_id, aa.article_title, aa.article_date, aa.article_keywords, aa.article_views, aa.article_stars
+	, aa.article_content, c.classify_id, c.classify_name
+	FROM classify c
+		RIGHT JOIN (SELECT *
+			FROM article a
+			WHERE a.article_id = #{articleId,jdbcType=VARCHAR}
+			) aa ON aa.art_clas = c.classify_id
+  </select>
+  <!-- 批量删除 -->
+  <delete id="deleteList">
+  	DELETE FROM article WHERE article_id IN
+  	<foreach collection="array" open="(" close=")" separator="," item="pk">
+		#{pk}
+	</foreach>
   </delete>
 </mapper>

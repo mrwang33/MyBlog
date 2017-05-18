@@ -5391,163 +5391,38 @@ var zyn = {
 			jQuery("#commentform").validate({
 				onkeyup : !1,
 				rules : {
-					VName : {
+					lmName : {
 						required : !0,
 						maxlength : 15
 					},
-					VEmail : {
+					lmEmail : {
 						required : !0,
 						email : !0,
 						maxlength : 30
 					},
-					CmtText : {
-						required : !0,
-						maxlength : 500
-					},
-					LMessage : {
+					lmContent : {
 						required : !0,
 						maxlength : 200
 					}
 				},
 				messages : {
-					VName : {
+					lmName : {
 						required : "请输入昵称",
 						maxlength : "昵称不用太长"
 					},
-					VEmail : {
+					lmEmail : {
 						required : "邮箱不能为空！",
 						email : "邮箱格式有误",
 						maxlength : "邮箱有这么长?"
 					},
-					CmtText : {
-						required : "什么都没写?",
-						maxlength : "请将评论限制在500个字符以内"
-					},
-					LMessage : {
+					lmContent : {
 						required : "什么都没写?",
 						maxlength : "请将留言限制在200个字符以内"
 					}
 				}
 			})
 		},
-		ajaxCommentsReply : function() {
-			function s() {
-				r > 0 ? (i.val(r), r--, setTimeout(s, 1e3)) : (i.val(o).attr("disabled", !1).fadeTo("slow", 1), r = 10)
-			}
-			var t = jQuery.noConflict(),
-				l = t("#commentform"),
-				h = "取消编辑",
-				u = 1,
-				f = t("#comments-title"),
-				e = t("#cancel-comment-reply-link"),
-				c = e.text(),
-				i = t("#commentform #submit"),
-				r,
-				o;
-			i.attr("disabled", !1);
-			$body = window.opera ? document.compatMode == "CSS1Compat" ? t("html") : t("body") : t("html,body");
-			comm_array = [];comm_array.push("");t("#comment").after('<div id="loading"> <img src="/Content/images/ico_loading2.gif" /> <span>正在提交, 请稍候...<\/span><\/div><div id="error">#<\/div>');t("#loading").hide();t("#error").hide();t(document).on("submit", "#commentform", function() {
-				return i.attr("disabled", !0).fadeTo("slow", .5), t("#loading").slideDown(), t.ajax({
-						url : t("#comments").attr("data-url"),
-						data : t(this).serialize(),
-						type : t(this).attr("method"),
-						error : function(n) {
-							t("#loading").hide();t("#error").slideDown().html(n.responseText);setTimeout(function() {
-								i.attr("disabled", !1).fadeTo("slow", 1);t("#error").slideUp()
-							}, 3e3)
-						},
-						success : function(r) {
-							var l;
-							if (r.Status == "1") {
-								t("#loading").hide();comm_array.push(t("#comment").val());t("#vid").val(r.Message);t("#vname").attr("disabled", !0);t("#vemail").attr("disabled", !0);t("textarea").each(function() {
-									this.value = ""
-								});
-								var e = addComment,
-									h = e.I("cancel-comment-reply-link"),
-									o = e.I("wp-temp-form-div"),
-									c = e.I(e.respondId);
-								post = e.I("comment_post_ID").value;
-								parent2 = t("#comment_parent:hidden").val();parent2 == 0 && f.length && (n = parseInt(f.text().match(/\d+/)), f.text(f.text().replace(n, n + 1)), cmtNum = t(".commentcount a"), l = parseInt(cmtNum.text().match(/\d+/)), cmtNum.text(cmtNum.text().replace(n, n + 1)));
-								new_htm = '" id="new-comm-' + u + '"><\/';
-								new_htm = parent2 == "0" ? '\n<ol class="commentlist' + new_htm + "ol>" : '\n<ol class="children' + new_htm + "ol>";
-								div_ = document.body.innerHTML.indexOf("div-comment-") == -1 ? "" : document.body.innerHTML.indexOf("li-comment-") == -1 ? "div-" : "";t("#respond").before(new_htm);t("#new-comm-" + u).append(r.CoreData);$body.animate({
-									scrollTop : t("#new-comm-" + u).offset().top - 65
-								}, 500);s();u++;
-								h.style.display = "none";
-								h.onclick = null;
-								e.I("comment_parent").value = "0";
-								parent3 = e.I("comment_parent").value;o && c && (o.parentNode.insertBefore(c, o), o.parentNode.removeChild(o))
-							} else
-								r.Status == "0" ? (alert(r.Message), window.location.href = r.GotoUrl + "/#respond") : r.Status == "2" ? (alert(r.Message), t("#vname").focus(), t("#comment").val(r.CoreData), i.attr("disabled", !1).fadeTo("slow", .5), t("#loading").hide()) : r.Status == "3" && (window.location.href = r.GotoUrl)
-						}
-					}), !1
-			});
-			addComment = {
-				moveForm : function(n, i, r, u, f) {
-					var o = this,
-						s,
-						a = o.I(n),
-						l = o.I(r),
-						v = o.I("cancel-comment-reply-link"),
-						p = o.I("comment_parent"),
-						y = o.I("comment_post_ID");
-					f ? (o.I("comment").value = comm_array[f], $new_sucs = t("#success_" + f), $new_sucs.hide(), $new_comm = t("#new-comm-" + f), e.text(h)) : e.text(c);
-					o.respondId = r;
-					u = u || !1;o.I("wp-temp-form-div") || (s = document.createElement("div"), s.id = "wp-temp-form-div", s.style.display = "none", l.parentNode.insertBefore(s, l));
-					a ? a.parentNode.insertBefore(l, a.nextSibling) : (temp = o.I("wp-temp-form-div"), o.I("comment_parent").value = "0", temp.parentNode.insertBefore(l, temp), temp.parentNode.removeChild(temp));$body.animate({
-						scrollTop : t("#respond").offset().top - 200
-					}, 400);y && u && (y.value = u);
-					p.value = i;
-					v.style.display = "";
-					v.onclick = function() {
-						t("#comment").val("");
-						var i = addComment,
-							n = i.I("wp-temp-form-div"),
-							r = i.I(i.respondId);
-						return i.I("comment_parent").value = "0", n && r && (n.parentNode.insertBefore(r, n), n.parentNode.removeChild(n)), this.style.display = "none", this.onclick = null, !1
-					};try {
-						o.I("comment").focus()
-					} catch (w) {} return !1
-				},
-				I : function(n) {
-					return document.getElementById(n)
-				}
-			};
-			r = 10;
-			o = i.val()
+		success:function(){
+			jQuery("#commentform").submit();
 		}
-	},
-	radius = 100,
-	dtr = Math.PI / 180,
-	d = 200,
-	mcList = [],
-	active = !1,
-	lasta = 1,
-	lastb = 1,
-	distr = !0,
-	tspeed = 2,
-	size = 250,
-	mouseX = 0,
-	mouseY = 0,
-	howElliptical = 1,
-	aA = null,
-	oDiv = null;
-window.onload = function() {
-	var n = 0,
-		t = null;
-	for (oDiv = document.getElementById("tagbox"), aA = oDiv.getElementsByTagName("a"), n = 0; n < aA.length; n++) t = {}, t.offsetWidth = aA[n].offsetWidth, t.offsetHeight = aA[n].offsetHeight, mcList.push(t);
-	sineCosine(0, 0, 0);positionAll();
-	oDiv.onmouseover = function() {
-		active = !0
-	};
-	oDiv.onmouseout = function() {
-		active = !1
-	};
-	oDiv.onmousemove = function(n) {
-		var t = window.event || n;
-		mouseX = t.clientX - (oDiv.offsetLeft + oDiv.offsetWidth / 2);
-		mouseY = t.clientY - (oDiv.offsetTop + oDiv.offsetHeight / 2);
-		mouseX /= 5;
-		mouseY /= 5
-	};setInterval(update, 30)
 }
