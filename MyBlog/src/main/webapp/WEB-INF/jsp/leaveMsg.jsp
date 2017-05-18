@@ -122,11 +122,6 @@
 									${length} 条留言&nbsp; &nbsp; <a style="color:red" href="#submit">快速留言&gt;&gt;&gt;</a>
 								</h3>
 
-
-
-
-
-
 								<ol class="commentlist">
 									<%
 										deployLeaveMsg(root, 0, out);

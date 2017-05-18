@@ -11,4 +11,6 @@ public interface LeaveMsgService extends BaseService<LeaveMsg> {
 	public List<LeaveMsg> getAllChild(List<LeaveMsg> root);
 	//获取总留言数
 	public int getCount();
+	//获取子回复
+	public List<LeaveMsg> getLeaveMsgChild(LeaveMsg leaveMsg);
 }

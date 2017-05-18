@@ -21,8 +21,7 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public List<LeaveMsg> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return leaveMsgMapper.getAll();
 	}
 
 	@Override
@@ -52,8 +51,7 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public int deleteList(Serializable[] ids) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return leaveMsgMapper.deleteList(ids);
 	}
 
 	@Override
@@ -75,6 +73,11 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 	@Override
 	public int getCount() {
 		return leaveMsgMapper.getCount();
+	}
+
+	@Override
+	public List<LeaveMsg> getLeaveMsgChild(LeaveMsg leaveMsg) {
+		return leaveMsgMapper.getChild(leaveMsg);
 	}
 
 	

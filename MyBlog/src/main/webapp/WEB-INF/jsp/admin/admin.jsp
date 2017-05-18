@@ -199,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('公共码表', 'admin/article.action');">博文管理</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('会话管理', '/manage/session/index');">评论管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', '/manage/log/index');">留言管理</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', 'admin/leaveMsg.action');">留言管理</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('键值设置', '/manage/map/index');">键值设置</a></li>
 			</ul>
 			</li>

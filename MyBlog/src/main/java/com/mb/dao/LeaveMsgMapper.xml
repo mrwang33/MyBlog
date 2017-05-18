@@ -27,6 +27,12 @@
     from leavemsg
     where lm_id = #{lmId,jdbcType=VARCHAR}
   </select>
+  <!-- 获取全部 -->
+  <select id="getAll" resultMap="LeaveMsgMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from leavemsg;
+  </select>
   <!-- 根据主键删除 -->
   <delete id="delete" parameterType="java.lang.String" >
     delete from leavemsg
@@ -69,4 +75,10 @@
   <select id="getCount" resultType="java.lang.Integer">
   	SELECT COUNT(lm_id) FROM leavemsg;
   </select>
+  <delete id="deleteList">
+  	  	DELETE FROM leavemsg WHERE lm_id IN
+	<foreach collection="array" open="(" close=")" separator="," item="pk">
+		#{pk}
+	</foreach>
+  </delete>
 </mapper>

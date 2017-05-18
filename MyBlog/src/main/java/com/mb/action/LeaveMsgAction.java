@@ -24,8 +24,6 @@ import com.mb.service.ClassifyService;
 public class LeaveMsgAction {
 	@Resource
 	private LeaveMsgService leaveMsgService;
-	@Resource
-	private ClassifyService classifyService;
 	
 	//获取所有留言
 	@RequestMapping("/getAll")
@@ -33,14 +31,6 @@ public class LeaveMsgAction {
 	public Object getAll(){
 		List<LeaveMsg> all = leaveMsgService.getAll();
 		return all;
-	}
-	
-	//跳转到添加页面
-	@RequestMapping("/goAdd")
-	public String goAdd(Model model) {
-		 List<Classify> all = classifyService.getAll();
-		 model.addAttribute("classifys", all);
-		return "admin/leaveMsg/addLeaveMsg";
 	}
 	
 	//添加新留言
@@ -60,28 +50,31 @@ public class LeaveMsgAction {
 		}
 	}
 	
-	//跳转到修改页面
-	@RequestMapping("/goEdit")
-	public String goEdit(String leaveMsgId,Model model) {
-		List<Classify> all = classifyService.getAll();
-		LeaveMsg leaveMsg = leaveMsgService.getById(leaveMsgId);
-		model.addAttribute("leaveMsg", leaveMsg);
-		model.addAttribute("classifys", all);
-		return "admin/leaveMsg/editLeaveMsg";
-	}
-	
-	
-	//修改留言信息
-	@RequestMapping("/editLeaveMsg")
-	public String editLeaveMsg(LeaveMsg leaveMsg) {
-		try {
-			leaveMsgService.update(leaveMsg);
-			return "admin/leaveMsg/leaveMsg";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
+	//获取该留言下的子回复
+	@RequestMapping("/getLeaveMsgChild")
+	@ResponseBody //json格式
+	public Object getLeaveMsgChild(LeaveMsg leaveMsg) {
+		List<LeaveMsg> leaveMsgChild = leaveMsgService.getLeaveMsgChild(leaveMsg);
+		if (leaveMsgChild!=null&&leaveMsgChild.size()>0) {
+			return 1;
 		}
+		return 0;
 	}
+	//多选删除
+	@RequestMapping("/getLeaveMsgChildByPks")
+	@ResponseBody //json格式
+	public Object getLeaveMsgChildByPks(String[] pks) {
+		for (String pk : pks) {
+			LeaveMsg leaveMsg = new LeaveMsg();
+			leaveMsg.setLmId(pk);
+			List<LeaveMsg> leaveMsgChild = leaveMsgService.getLeaveMsgChild(leaveMsg);
+			if (leaveMsgChild!=null&&leaveMsgChild.size()>0) {
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
 	//删除留言
 	@RequestMapping("/deleteLeaveMsg")
 	@ResponseBody //json格式
