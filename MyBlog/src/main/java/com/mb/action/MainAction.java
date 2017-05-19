@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mb.entity.LeaveMsg;
+import com.mb.service.ArticleService;
 import com.mb.service.LeaveMsgService;
 
 @Controller
@@ -16,6 +17,8 @@ import com.mb.service.LeaveMsgService;
 public class MainAction {
 	@Resource
 	private LeaveMsgService leaveMsgService;
+	@Resource
+	private ArticleService articleService;
 
 	@RequestMapping("/about")
 	public String about() {
@@ -41,5 +44,12 @@ public class MainAction {
 	@RequestMapping("/noPermission")
 	public String error() {
 		return "noPermission";
+	}
+	
+	@RequestMapping("/blog")
+	public String blog() {
+		//查找所有博文
+		
+		return "blog";
 	}
 }
