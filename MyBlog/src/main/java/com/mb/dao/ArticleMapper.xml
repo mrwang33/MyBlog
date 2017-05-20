@@ -65,4 +65,21 @@
 		#{pk}
 	</foreach>
   </delete>
+  <!-- 查找出分页类 -->
+  <select id="getPage" parameterType="com.mb.common.Page" resultMap="ArticleMap">
+  	SELECT *
+	FROM article a, classify c
+	WHERE a.art_clas = c.classify_id
+		<if test="keyWords!=null">
+			AND a.article_title LIKE "%"#{keyWords}"%"
+		</if>
+		<if test="classifyId!=null">
+			AND c.classify_id = 1
+		</if>
+		ORDER BY isStick DESC,article_date DESC LIMIT #{start},#{pageSize};
+  </select>
+  <!-- 查找总记录数 -->
+  <select id="getCount" resultType="java.lang.Integer">
+  	SELECT COUNT(article_id) FROM article;
+  </select>
 </mapper>

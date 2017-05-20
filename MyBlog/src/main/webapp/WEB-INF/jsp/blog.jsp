@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -18,8 +20,7 @@
 <meta http-equiv="description" content="个人博客">
 <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-<script type="js/Script"></script>
-<script type="js/jquery-1.9.1.min.js"></script>
+<script src="js/Script1.js"></script>
 
 <script>
 	var _hmt = _hmt || [];
@@ -55,7 +56,7 @@
 </head>
 
 <body class="nav-fixed">
-<%@include file="../../common/head.jsp" %>
+	<%@include file="../../common/head.jsp"%>
 	<!--主体内容-->
 	<div id="zyn-bodyer">
 		<div class="container">
@@ -91,251 +92,61 @@
 						<div id="loading" style="display: none; text-align: center;">
 							<img src="images/ico_loading2.gif" height="32" width="32">
 						</div>
-						<article class="excerpt excerpt-first"> <header>
-						<a class="cat" href="#">ASP.NET MVC <i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/1" title="开篇">开篇</a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/28</span><span class="viewnum">浏览(<a
-								href="#">1924</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">58</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png"
-								height="15" width="15">(<a data-id="1" praise-flag="0"
-								href="http://www.zynblog.com/">463</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							开篇。本博客站基于ASP.NET MVC +
-							EF6.0，采用Bootstrap响应式布局搭建，因此使用IE8以下的浏览器访问时可能会出现错位等一系列问题。本站定位为个人技术博客，主要用来记
-							录工作中遇到的一些问题及其解决方案，以便日后查看，如果能无意间帮助遇到同类问题的人，那是再好不过了。mark本站虽小，但五脏俱全：MVC架构、
-							Spring依赖注入、云存储、响应式布局(几乎适应各种屏幕尺寸的设备)、令人抓狂的一堆css、NUnit单元测试、Log4Net日志记录、
-							Lucene站内检索、各式各样的jquery插件、自己下大功夫造了评论插件、点赞插件、分页插件，自定义Ueditor编辑器，就算是logo和
-							icon、favicon图标也是相当地精美 做博客的过程中发现，竟然同时用到了BAT三大厂的东西。首先，服务器用的是.......</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">ASP.NET</a><a rel="tag"
-							href="http://www.zynblog.com/">MVC</a><a rel="tag"
-							href="http://www.zynblog.com/">Bootstrap</a><a rel="tag"
-							href="http://www.zynblog.com/">响应式</a><a rel="tag"
-							href="http://www.zynblog.com/">博客</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/1">继续阅读 »</a></footer></article>
-						<article class="excerpt"> <header> <a
-							class="cat" href="#">前端<i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/2"
-								title="如何使用Bootstrap typeahead插件实现搜索框自动补全">如何使用Bootstrap
-								typeahead插件实现搜索框自动补全</a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/27</span><span class="viewnum">浏览(<a
-								href="#">779</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/2#comments-title">15</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png"
-								height="15" width="15">(<a data-id="2" praise-flag="0"
-								href="http://www.zynblog.com/">143</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							这就是贴代码的坏处之一：搜索框快被网友玩儿坏了！！！有故意输入空格的，有输入or
-							1=1的，有alert的，有html乱入的.......而且好像还在玩儿，随他们去吧，只要开心就好。
-							在项目中，经常会用到输入框的自动补全功能，就像百度、淘宝等搜索框一样：当用户输入首字母、关键词时，后台会迅速将与此相关的条目返回并显示到前台，以
-							便用户选择，提升用户体验。当然本项目的补全功能和这些大厂的技术是没有可比性的，但用于站内搜索也是绰绰有余了。接触到的自动补全插件主要有两
-							个：autocomplete和typeahead。本站使用的是typeahead. jQueryUI-Autocomplete
-							自动补全插件-bootstrap-3-typeahead相关参数说明：source：function(query,process){}。
-							query表示当前文本输入框中的字.......</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">搜索框</a><a rel="tag"
-							href="http://www.zynblog.com/">自动补全</a><a rel="tag"
-							href="http://www.zynblog.com/">autocomplete</a><a rel="tag"
-							href="http://www.zynblog.com/">typeahead</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/2">继续阅读 »</a></footer></article>
-						<article class="excerpt"> <header> <a
-							class="cat" href="#">开源工具<i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/3"
-								title="使用Lucene对分词结果进行倒排索引 ">使用Lucene对分词结果进行倒排索引 </a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/27</span><span class="viewnum">浏览(<a
-								href="#">315</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/3#comments-title">7</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png"
-								height="15" width="15">(<a data-id="3" praise-flag="0"
-								href="http://www.zynblog.com/">56</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							上一篇博文记录了搜索框自动补全的一些方法，本篇文章粗略说一下后台拿到搜索关键词后如何快速精准地为用户查询结果。
-							这里用到了一个十分流行的搜索框架：Lucene+盘古分词（实测盘古分词效果并不太好，或许是语料少；比较好的应该是中科大的那个分词系统）；其关键技
-							术就是中文分词+倒排索引。 1.0
-							鹿神Lucene是当前以及最近几年最受欢迎的免费Java信息检索程序库。它是apache软件基金会4
-							jakarta项目组的一个子项目，是一个开放源代码的全文检索引擎工具包，但它不是一个完整的全文检索引擎，而是一个全文检索引擎的架构，提供了完整的
-							查询引擎和索引引擎，部分文本分析引擎。
-							而ApacheLucene.net则是C#平台下的搜索引擎框架库，与Java平台下的Lucene用法完全一致.......</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"></span> <a class="more-link gotoArchive"
-							rel="nofollow" href="http://www.zynblog.com/Archives/Index/3">继续阅读
-							»</a></footer></article>
-						<article class="excerpt"> <header> <a
-							class="cat" href="#">软件工程<i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/32" title="总结软件架构特征">总结软件架构特征</a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/27</span><span class="viewnum">浏览(<a
-								href="#">195</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/32#comments-title">5</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png"
-								height="15" width="15">(<a data-id="32" praise-flag="0"
-								href="http://www.zynblog.com/">32</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							软件基本模型=实体(语言) +
-							连接和交互1.概念：软件架构设计的一个核心问题是能否使用重复的架构模式，即能否达到架构级的软件重用。也就是说，能否在不同的软件系绕中使用同一架
-							构。软件架构风格是描述某一特定应用领域中系统组织方式的惯用模式(idiomatic
-							paradigm).架构风格定义了一个系统家族，即一个架构定义一个词汇表和一组约束。词汇表中包含一些构件和连接件类型，而这组约束指出系统是如何将
-							这些构件和连接
-							件组合起来的。架构风格反映了领域中众多系统所共有的结构和语义特性，并指导如何将各个模块和子系统有效地组织成一个完整的系统。按这种方式理解，软件架
-							构风格定义了用于描述系统的术语表和一组指导构件系统的规则。 通用架构风格的分类如.......</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">软件架构</a><a rel="tag"
-							href="http://www.zynblog.com/">架构风格</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/32">继续阅读 »</a></footer></article>
-						<article class="excerpt"> <header> <a
-							class="cat" href="#">前端<i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/31"
-								title="怎么让百度蜘蛛快速收录自己的网站">怎么让百度蜘蛛快速收录自己的网站</a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/24</span><span class="viewnum">浏览(<a
-								href="#">307</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/31#comments-title">7</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png"
-								height="15" width="15">(<a data-id="31" praise-flag="0"
-								href="http://www.zynblog.com/">36</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-							新建的博客，论坛等网站如何可以让百度快速收录呢？网站收录对于那些新入门的站长来说就有些困难了。没有有经验的网站前辈来带，没有足够强劲的链接，想让
-							各大搜索引擎立刻收录你的小站谈何容易呀！呵呵，万事开头难，世事似乎并非如此，但是想让百度收录你的新站却是相当容易的。没事的时候随便做做以下几件小
-							事就ok了：一、网站域名。网站的域名一定要和网站主题相符，这样可以利用百度对你站的信誉评价。二、百度网站登录。提交百度网站登陆是让百度收录网站的
-							的第一步骤。百度登陆的网址是http://www.baidu.com/search/url_submit.html
-							但自百度调整算法以后，仅靠百度登陆就想让自己的网站被百度收录相对困难一点了。三、软文营销。这个是网站主要推广的方法。被各.......</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">百度爬虫</a><a rel="tag"
-							href="http://www.zynblog.com/">收录</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/31">继续阅读 »</a></footer></article>
-						<article class="excerpt"> <header> <a
-							class="cat" href="#">ASP.NET MVC <i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/30"
-								title="在IIS8上部署网站时如何设置使用域名和IP均可访问：">在IIS8上部署网站时如何设置使用域名和IP均可访问：</a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/23</span><span class="viewnum">浏览(<a
-								href="#">165</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/30#comments-title">5</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png" height="15" width="15">(<a
-								data-id="30" praise-flag="0" href="http://www.zynblog.com/">25</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只需保证主机头、IP、端口有一项不同即可：....</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">IIS8</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/30">继续阅读 »</a></footer></article>
-						<article class="excerpt excerpt-end"> <header>
-						<a class="cat" href="#">ASP.NET MVC <i></i></a>
-						<h2>
-							<a class="gotoArchive"
-								href="http://www.zynblog.com/Archives/Index/29"
-								title="使用腾讯云主机windows server 2012 IIS8部署ASP.NET MVC后访问出错:未能加载文件或程序集System.Web.Http.WebHost ">使用腾讯云主机windows
-								server 2012 IIS8部署ASP.NET
-								MVC后访问出错:未能加载文件或程序集System.Web.Http.WebHost </a>
-						</h2>
-						</header>
-						<p class="meta">
-							<span class="posttime">2016/6/23</span><span class="viewnum">浏览(<a
-								href="#">200</a>)
-							</span><span class="commentnum">评论(<a
-								href="http://www.zynblog.com/Archives/Index/29#comments-title">1</a>)
-							</span><span class="praisebtn"> <img class="praisenum"
-								src="images/ico_praise.png" height="15" width="15">(<a
-								data-id="29" praise-flag="0" href="http://www.zynblog.com/">13</a>)
-							</span>
-						</p>
-						<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							首先说明的是：不需要再服务器上安装MVC
-							4.0什么的，只需在bin下添加三个程序集即可：未能加载文件或程序集“System.Web.Http,
-							Version=4.0.0.0, Culture=neutral,
-							PublicKeyToken=31bf3856ad364e35”或它的某一个依赖项。系统找不到指定的文件。未能加载文件或程序集
-							“System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral,
-							PublicKeyToken=31bf3856ad364e35”或它的某一个依赖项。系统找不到指定的文件。未能加载文件或程序集
-							“System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral,
-							PublicKeyToken=31bf3856ad364e35”或它的某一个依赖项。系统找不到指定的文件。点击可直接下载：程序集.rar....</p>
-						<footer class="entry-footer"> <span itemprop="keywords"
-							class="tags-links"><a rel="tag"
-							href="http://www.zynblog.com/">WindowsServer2012R2</a><a
-							rel="tag" href="http://www.zynblog.com/">IIS8</a><a rel="tag"
-							href="http://www.zynblog.com/">WebHost</a></span> <a
-							class="more-link gotoArchive" rel="nofollow"
-							href="http://www.zynblog.com/Archives/Index/29">继续阅读 »</a></footer></article>
+						<c:forEach var="article" items="${page.pageList}">
+							<article class="excerpt excerpt-first"> <header>
+							<a class="cat" href="#">${article.classify.classifyName} <i></i></a>
+							<h2>
+								<a href="blogDetail.action?articleId=${article.articleId}" title="${article.articleTitle}">${article.articleTitle}</a>
+							</h2>
+							</header>
+							<p class="meta">
+								<span class="posttime">${article.articleDate}</span><span class="viewnum">浏览(<a
+									href="#">${article.articleViews}</a>)
+								</span><span class="commentnum">评论(<a
+									href="http://www.zynblog.com/Archives/Index/1#comments-title">58</a>)
+								</span><span class="praisebtn"> <img class="praisenum"
+									src="images/ico_praise.png" height="15" width="15">(<a
+									data-id="1" praise-flag="0" href="http://www.zynblog.com/">${article.articleStars}</a>)
+								</span>
+							</p>
+							<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${article.articleContent}</p>
+							<footer class="entry-footer"> <span itemprop="keywords"
+								class="tags-links"><a rel="tag"
+								href="http://www.zynblog.com/">ASP.NET</a><a rel="tag"
+								href="http://www.zynblog.com/">MVC</a><a rel="tag"
+								href="http://www.zynblog.com/">Bootstrap</a><a rel="tag"
+								href="http://www.zynblog.com/">响应式</a><a rel="tag"
+								href="http://www.zynblog.com/">博客</a></span> <a
+								class="more-link gotoArchive" rel="nofollow"
+								href="http://www.zynblog.com/Archives/Index/1">继续阅读 »</a></footer></article>
+						</c:forEach>
 					</div>
 
 
 					<div class="pagination">
 						<!--pagation本来就是BootStrap的类，现在用的是自定义的Bootstrap类-->
 						<ul>
-							<li id="start-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=1&amp;pageSize=7">首页</a></li>
-							<li class="active show-page"><span>1</span></li>
-							<li class="show-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=2&amp;pageSize=7">2</a></li>
-							<li class="show-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=3&amp;pageSize=7">3</a></li>
-							<li class="show-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=4&amp;pageSize=7">4</a></li>
-							<li class="next-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=2&amp;pageSize=7">下一页</a></li>
-							<li id="end-page"><a
-								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=4&amp;pageSize=7">末页</a></li>
-							<li id="total-page"><span>共-4-页</span></li>
+							<li id="start-page"><a href="blog.action">首页</a></li>
+							<c:forEach begin="1" end="${page.pageCount}" var="i">
+								<c:choose>
+									<c:when test="${i==page.pageIndex}">
+										<li class="active show-page"><span>${i}</span></li>
+									</c:when>
+									<c:otherwise>
+										<li class="show-page"><a href="blog.action?pageIndex=${i}">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+<!-- 							<li class="active show-page"><span>1</span></li> -->
+<!-- 							<li class="show-page"><a href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=2&amp;pageSize=7">2</a></li> -->
+<!-- 							<li class="show-page"><a href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=3&amp;pageSize=7">3</a></li> -->
+<!-- 							<li class="show-page"><a -->
+<!-- 								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=4&amp;pageSize=7">4</a></li> -->
+							<c:if test="${page.pageCount!=page.pageIndex}">
+								<li class="next-page"><a href="blog.action?pageIndex=${page.pageIndex+1}">下一页</a></li>
+								<li id="end-page"><a href="blog.action?pageIndex=${page.pageCount}">末页</a></li>
+							</c:if>
+							<li id="total-page"><span>共${page.pageCount}页</span></li>
 						</ul>
 					</div>
 
@@ -535,8 +346,7 @@
 					<div id="tagbox">
 						<a href="#" title="4个话题"
 							style="color: rgb(247, 107, 112); font-size: 17px; left: -2.98099px; top: 162.464px; opacity: 1.30167; z-index: 0;">ASP.NET
-							MVC</a>
-							<a href="#" title="4个话题"
+							MVC</a> <a href="#" title="4个话题"
 							style="color: rgb(247, 107, 112); font-size: 14px; left: -12.2043px; top: 163.683px; opacity: 0.592785; z-index: 1;">javascript</a><a
 							href="#" title="18个话题"
 							style="color: rgb(234, 176, 53); font-size: 14px; left: 43.3827px; top: 213.174px; opacity: 0.567623; z-index: 2;">Zynblog</a><a
@@ -585,6 +395,6 @@
 		</div>
 	</div>
 
-	<%@include file="../../common/foot.jsp" %>
+	<%@include file="../../common/foot.jsp"%>
 </body>
 </html>

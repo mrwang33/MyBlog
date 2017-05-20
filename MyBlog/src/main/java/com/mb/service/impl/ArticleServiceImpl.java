@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mb.common.CommonUtils;
+import com.mb.common.Page;
 import com.mb.dao.ArticleMapper;
 import com.mb.entity.Article;
 import com.mb.service.ArticleService;
@@ -51,6 +52,18 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public int deleteList(Serializable[] ids) throws Exception {
 		return articleMapper.deleteList(ids);
+	}
+
+	@Override
+	public Page<Article> getPage(Page<Article> page) {
+		List<Article> list = articleMapper.getPage(page);
+		page.setPageList(list);
+		return page;
+	}
+
+	@Override
+	public int getCount() {
+		return articleMapper.getCount();
 	}
 
 }
