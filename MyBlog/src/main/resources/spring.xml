@@ -59,6 +59,8 @@
 				rollback-for="Exception" />
 			<tx:method name="delete*" propagation="REQUIRED"
 				rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED"
+				rollback-for="Exception" />
 			<tx:method name="*" propagation="SUPPORTS" />
 		</tx:attributes>
 	</tx:advice>

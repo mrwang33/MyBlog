@@ -2,6 +2,7 @@ package com.mb.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,7 +29,8 @@ public class Article implements Serializable{
     private String articleContent;
     //博文种类
     private Classify classify;
-    
+    //关键词list方便前端显示(偷懒 不想改了)
+    private List<String> keyWordList;
     
 	public Article() {
 	}
@@ -107,6 +109,14 @@ public class Article implements Serializable{
 
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
+	}
+
+	public List<String> getKeyWordList() {
+		return keyWordList;
+	}
+
+	public void setKeyWordList(List<String> keyWordList) {
+		this.keyWordList = keyWordList;
 	}
 
     

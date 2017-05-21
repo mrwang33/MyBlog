@@ -27,7 +27,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public Article getById(Serializable id) {
-		return articleMapper.getById(id);
+		Article article = articleMapper.getById(id);
+		article.setKeyWordList(CommonUtils.dealKeyWords(article));
+		return article;
 	}
 
 	@Override
@@ -57,13 +59,25 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Page<Article> getPage(Page<Article> page) {
 		List<Article> list = articleMapper.getPage(page);
+		for (Article article : list) {
+			List<String> keyWordList = CommonUtils.dealKeyWords(article);
+			article.setKeyWordList(keyWordList);
+		}
 		page.setPageList(list);
 		return page;
 	}
 
 	@Override
-	public int getCount() {
-		return articleMapper.getCount();
+	public int getCount(String keyWords,String classifyId) {
+		return articleMapper.getCount(keyWords,classifyId);
 	}
 
+	@Override
+	public void addView(Article article) throws Exception {
+		article.setArticleViews(article.getArticleViews()+1);
+		articleMapper.update(article);
+	}
+
+
+	
 }

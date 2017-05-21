@@ -73,18 +73,13 @@
 					<!-- 内容主体 包含三部分内容：1.每日提示、2.文章列表、3. 分页条-->
 
 
-
-
-
-
-
 					<article class="article container well">
 
 					<div class="breadcrumb breadset">
 						<!-- 面包屑 -->
 						<span class="glyphicon glyphicon-home"></span> <a
-							title="Go to Zynblog" href="/" class=" home">Zynblog</a> / <a
-							title="ASP.NET MVC " href="/Home/Index/1"> ASP.NET MVC </a> /
+							title="Go to Zynblog" href="#" class=" home">Zynblog</a> / <a
+							title="ASP.NET MVC " href="/Home/Index/1"> ${article.classify.classifyName} </a> /
 					</div>
 
 					<header class="article-header">
@@ -94,9 +89,10 @@
 					<!--//文章关键词 上面放关键词,文章最下面放阅读、评论、点赞 -->
 
 					<div class="article-keyword">
-						关键词： <span class="item">ASP.NET</span> <span class="item">MVC</span>
-						<span class="item">Bootstrap</span> <span class="item">响应式</span>
-						<span class="item">博客</span>
+						关键词：
+						<c:forEach var="keyWord" items="${article.keyWordList}">
+							<span class="item">${keyWord}</span> 
+						</c:forEach>
 					</div>
 
 					</header> <article class="article-content">
@@ -107,11 +103,11 @@
 
 					<div class="article-meta">
 						<span class="item"><i>posted@</i> ${article.articleDate}</span> <span
-							class="item">浏览（<a href="#">2108</a>）
-						</span> <span class="item commentcount">评论（<a href="#">63</a>）
-						</span> <span class="praisebtn"> <img class="praisenum"
-							src="/Content/images/ico_praise.png" data-bd-imgshare-binded="1">
-							（<a data-id="1" praise-flag="0" href="#">493</a>）
+							class="item">浏览（<a href="#">${article.articleViews}</a>）
+						</span> 
+						 <span class="praisebtn"> <img class="praisenum"
+							src="images/ico_praise.png" data-bd-imgshare-binded="1">
+							（<a data-id="1" praise-flag="0" href="#">${article.articleStars}</a>）
 						</span>
 					</div>
 
@@ -645,8 +641,7 @@
 													</div>
 
 													<input type="text" size="20" id="vname" name="VName"
-														class="form-control" placeholder="起个昵称吧" value="wang33"
-														disabled="" required="">
+														class="form-control" placeholder="起个昵称吧" required="">
 												</div>
 											</div>
 										</div>
@@ -660,7 +655,7 @@
 
 													<input type="text" size="20" id="vemail" name="VEmail"
 														class="form-control" placeholder="请输入您的邮箱"
-														value="wang1386528@gmail.com" disabled="" required="">
+														required="">
 												</div>
 											</div>
 										</div>
@@ -668,10 +663,9 @@
 
 									<textarea id="comment" class="form-control"
 										placeholder="赶快发表你的见解吧！" name="CmtText" cols="30" rows="3"
-										required="">                        
-                    </textarea>
+										required=""></textarea>
 									<div id="loading" style="display: none;">
-										<img src="/Content/images/ico_loading2.gif"
+										<img src="images/ico_loading2.gif"
 											data-bd-imgshare-binded="1"> <span>正在提交, 请稍候...</span>
 									</div>
 									<div id="error" style="display: none;">#</div>

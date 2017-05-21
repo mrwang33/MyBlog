@@ -74,12 +74,20 @@
 			AND a.article_title LIKE "%"#{keyWords}"%"
 		</if>
 		<if test="classifyId!=null">
-			AND c.classify_id = 1
+			AND c.classify_id = #{classifyId}
 		</if>
 		ORDER BY isStick DESC,article_date DESC LIMIT #{start},#{pageSize};
   </select>
   <!-- 查找总记录数 -->
   <select id="getCount" resultType="java.lang.Integer">
-  	SELECT COUNT(article_id) FROM article;
+  	SELECT COUNT(article_id) FROM article
+  		<where>
+  			<if test="keyWords!=null">
+			    article_title LIKE "%"#{keyWords,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="classifyId!=null">
+				AND art_clas = #{classifyId,jdbcType=VARCHAR}
+			</if>
+  		</where>;
   </select>
 </mapper>

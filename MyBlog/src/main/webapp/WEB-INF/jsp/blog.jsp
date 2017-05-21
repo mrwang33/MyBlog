@@ -110,15 +110,14 @@
 								</span>
 							</p>
 							<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${article.articleContent}</p>
-							<footer class="entry-footer"> <span itemprop="keywords"
-								class="tags-links"><a rel="tag"
-								href="http://www.zynblog.com/">ASP.NET</a><a rel="tag"
-								href="http://www.zynblog.com/">MVC</a><a rel="tag"
-								href="http://www.zynblog.com/">Bootstrap</a><a rel="tag"
-								href="http://www.zynblog.com/">响应式</a><a rel="tag"
-								href="http://www.zynblog.com/">博客</a></span> <a
-								class="more-link gotoArchive" rel="nofollow"
-								href="http://www.zynblog.com/Archives/Index/1">继续阅读 »</a></footer></article>
+							<footer class="entry-footer"> 
+								<span itemprop="keywords" class="tags-links">
+								<c:forEach var="keyWord" items="${article.keyWordList}">
+									<a rel="tag">${keyWord}</a>
+								</c:forEach>
+								</span> 
+								<a class="more-link gotoArchive" rel="nofollow"
+								href="blogDetail.action?articleId=${article.articleId}">继续阅读 »</a></footer></article>
 						</c:forEach>
 					</div>
 
@@ -206,19 +205,9 @@
 						<span class="glyphicon glyphicon-tags newicon"></span> 文以类聚
 					</div>
 					<div class="d_tags">
-						<a href="http://www.zynblog.com/Home/Index/1"> ASP.NET MVC (8)
-						</a> <a href="http://www.zynblog.com/Home/Index/3"> 开源工具 (5) </a> <a
-							href="http://www.zynblog.com/Home/Index/4"> 前端 (11) </a> <a
-							href="http://www.zynblog.com/Home/Index/5"> 网络舆情 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/6"> 复杂网络 (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/7"> 推荐系统 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/8"> 机器学习 (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/9"> Python (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/10"> Matlab (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/11"> 软件工程 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/12"> Java (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/13"> C/C++ (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/14"> 算法 (0) </a>
+						<c:forEach items="${classify}" var="clas">
+							<a href="blog.action?classifyId=${clas.classifyId}">${clas.classifyName}</a> 
+						</c:forEach>
 					</div>
 				</div>
 				</aside> <aside id="hot_article">

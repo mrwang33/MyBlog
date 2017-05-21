@@ -57,7 +57,7 @@ public class MainAction {
 	@RequestMapping("/blog")
 	public String blog(Model model,Integer pageIndex,String keyWords,String classifyId) {
 		//查找所有博文
-		int count = articleService.getCount();
+		int count = articleService.getCount(keyWords,classifyId);
 		Page<Article> page = new Page<Article>(3, count, null, null, 1);
 		page = CommonUtils.createPage(page, pageIndex, keyWords, classifyId);
 		page = articleService.getPage(page);
@@ -70,8 +70,15 @@ public class MainAction {
 	//跳转到博客详情页
 	@RequestMapping("/blogDetail")
 	public String blogDetail(Model model,String articleId) {
-		Article article = articleService.getById(articleId);
-		model.addAttribute("article", article);
+		//先将浏览数加一
+		try {
+			Article article = articleService.getById(articleId);
+			articleService.addView(article);
+			model.addAttribute("article", article);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "blogDetail";
 	}
 }

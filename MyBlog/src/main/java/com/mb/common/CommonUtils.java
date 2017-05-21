@@ -1,5 +1,7 @@
 package com.mb.common;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.mb.entity.Article;
@@ -25,9 +27,21 @@ public class CommonUtils {
     	if (keyWords!=null&&!"".equals(keyWords)) {
 			page.setKeyWords(keyWords);
 		}
-    	if (classifyId!=null&&"".equals(classifyId)) {
+    	if (classifyId!=null&&!"".equals(classifyId)) {
 			page.setClassifyId(classifyId);
 		}
     	return page;
+    }
+    
+    //处理博文关键字
+    public static List<String> dealKeyWords(Article article) {
+    	ArrayList<String> keyWordList = new ArrayList<String>();
+    	if (article.getArticleKeywords()!=null&&!"".equals(article.getArticleKeywords())) {
+			String[] split = article.getArticleKeywords().split("#");
+			for (String string : split) {
+				keyWordList.add(string);
+			}
+		}
+    	return keyWordList;
     }
 }
