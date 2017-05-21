@@ -1,228 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mb.dao.CommentMapper" >
-  <resultMap id="BaseResultMap" type="com.mb.entity.Comment" >
+  <resultMap id="CommentMap" type="com.mb.entity.Comment" >
     <id column="comment_id" property="commentId" jdbcType="VARCHAR" />
     <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
     <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP" />
     <result column="comment_email" property="commentEmail" jdbcType="VARCHAR" />
     <result column="comment_name" property="commentName" jdbcType="VARCHAR" />
-    <result column="com_art_id" property="comArtId" jdbcType="VARCHAR" />
+    <result column="father_comment_id" property="fatherCommentId" jdbcType="VARCHAR" />
+    <association property="article" resultMap="com.mb.dao.ArticleMapper.ArticleMap"></association>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List" >
-    comment_id, comment_content, comment_date, comment_email, comment_name, com_art_id
+    comment_id, comment_content, comment_date, comment_email, comment_name, com_art_id,father_comment_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mb.entity.CommentExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from comment
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!-- 根据id获取评论 -->
+  <select id="getById" resultMap="CommentMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from comment
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!-- 根据id删除 -->
+  <delete id="delete" parameterType="java.lang.String" >
     delete from comment
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mb.entity.CommentExample" >
-    delete from comment
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+  <!-- 新增评论 -->
   <insert id="insert" parameterType="com.mb.entity.Comment" >
     insert into comment (comment_id, comment_content, comment_date, 
-      comment_email, comment_name, com_art_id
+      comment_email, comment_name, com_art_id,father_comment_id
       )
     values (#{commentId,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, #{commentDate,jdbcType=TIMESTAMP}, 
-      #{commentEmail,jdbcType=VARCHAR}, #{commentName,jdbcType=VARCHAR}, #{comArtId,jdbcType=VARCHAR}
+      #{commentEmail,jdbcType=VARCHAR}, #{commentName,jdbcType=VARCHAR}, #{article.articleId,jdbcType=VARCHAR},#{fatherCommentId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mb.entity.Comment" >
-    insert into comment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="commentId != null" >
-        comment_id,
-      </if>
-      <if test="commentContent != null" >
-        comment_content,
-      </if>
-      <if test="commentDate != null" >
-        comment_date,
-      </if>
-      <if test="commentEmail != null" >
-        comment_email,
-      </if>
-      <if test="commentName != null" >
-        comment_name,
-      </if>
-      <if test="comArtId != null" >
-        com_art_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="commentId != null" >
-        #{commentId,jdbcType=VARCHAR},
-      </if>
-      <if test="commentContent != null" >
-        #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="commentDate != null" >
-        #{commentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="commentEmail != null" >
-        #{commentEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="commentName != null" >
-        #{commentName,jdbcType=VARCHAR},
-      </if>
-      <if test="comArtId != null" >
-        #{comArtId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.mb.entity.CommentExample" resultType="java.lang.Integer" >
-    select count(*) from comment
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update comment
-    <set >
-      <if test="record.commentId != null" >
-        comment_id = #{record.commentId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.commentContent != null" >
-        comment_content = #{record.commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="record.commentDate != null" >
-        comment_date = #{record.commentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.commentEmail != null" >
-        comment_email = #{record.commentEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.commentName != null" >
-        comment_name = #{record.commentName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.comArtId != null" >
-        com_art_id = #{record.comArtId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update comment
-    set comment_id = #{record.commentId,jdbcType=VARCHAR},
-      comment_content = #{record.commentContent,jdbcType=VARCHAR},
-      comment_date = #{record.commentDate,jdbcType=TIMESTAMP},
-      comment_email = #{record.commentEmail,jdbcType=VARCHAR},
-      comment_name = #{record.commentName,jdbcType=VARCHAR},
-      com_art_id = #{record.comArtId,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mb.entity.Comment" >
-    update comment
-    <set >
-      <if test="commentContent != null" >
-        comment_content = #{commentContent,jdbcType=VARCHAR},
-      </if>
-      <if test="commentDate != null" >
-        comment_date = #{commentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="commentEmail != null" >
-        comment_email = #{commentEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="commentName != null" >
-        comment_name = #{commentName,jdbcType=VARCHAR},
-      </if>
-      <if test="comArtId != null" >
-        com_art_id = #{comArtId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where comment_id = #{commentId,jdbcType=VARCHAR}
-  </update>
+  <!-- 根据id更新 -->
   <update id="updateByPrimaryKey" parameterType="com.mb.entity.Comment" >
     update comment
     set comment_content = #{commentContent,jdbcType=VARCHAR},
       comment_date = #{commentDate,jdbcType=TIMESTAMP},
       comment_email = #{commentEmail,jdbcType=VARCHAR},
       comment_name = #{commentName,jdbcType=VARCHAR},
-      com_art_id = #{comArtId,jdbcType=VARCHAR}
+      com_art_id = #{article.articleId,jdbcType=VARCHAR}
+      father_comment_id=#{fatherCommentId,jdbcType=VARCHAR}
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
+  <!-- 获取此博文下的所有根评论 -->
+  <select id="getRootComment" parameterType="java.lang.String" resultMap="CommentMap">
+  	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE com_art_id=#{articleId} ORDER BY comment_date DESC;
+  </select>
+  <!-- 获取该评论的所有子回复 -->
+  <select id="getChild" parameterType="com.mb.entity.Comment" resultMap="CommentMap">
+  	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE father_comment_id=#{commentId} ORDER BY comment_date DESC;
+  </select>
 </mapper>

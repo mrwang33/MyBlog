@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.mb.entity.Comment"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -5,7 +7,54 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	List<Comment> root = (List<Comment>)request.getAttribute("commentList");
 %>
+
+<%!
+	//其实我并不想在jsp里面写java代码的 这是我的无奈之举 如果您有不用java代码解决这个问题的方法 请您不吝赐教
+	public void deployComment(List<Comment> root,int index,JspWriter out) throws Exception {
+	if(root!=null&&root.size()>0){
+		for (int i=0;i<root.size();i++) {
+			//回复标签开始
+			if(index==0) {
+				out.print("<li id='comment-"+root.get(i).getCommentId()+"' class='comment even thread-even depth-1 parent'>");
+			} else {
+				out.print("<ol class='children'><li id='comment-3' class='comment even thread-even depth-1 parent'>");
+			}
+			
+			out.print("<article id='div-comment-"+root.get(i).getCommentId()+"' class='comment-body'>");
+			out.print("<footer class='comment-meta'>");
+			out.print("<div class='comment-author vcard'>");
+			out.print("<img src='images/avatar.png' class='avatar avatar-70 photo' height='60' width='60'>");
+			out.print("<b class='fn'>");
+			out.print("<a href='' rel='external nofollow' class='floor'>"+root.get(i).getCommentName()+"</a></b>&nbsp;&nbsp;&nbsp;&nbsp;");
+			out.print("<a style='color:rgba(0, 39, 59, 0.35);' >");
+			out.print("<time datetime=''>"+new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(root.get(i).getCommentDate())+"</time>");
+			out.print("</a>");
+			out.print("</div>");
+			if(index==0) {
+				out.print("<div class='comment-metadata' style='color:#D2322D'>#"+(i+1)+"</div>");
+			}
+			out.print("</footer>");
+			out.print("<div class='comment-content'>");
+			out.print("<p>"+root.get(i).getCommentContent()+"</p>");
+			out.print("</div>");
+			out.print("<div class='reply'>");
+			out.print("<a style='cursor:pointer;' class='comment-reply-link' onclick='reply(\""+root.get(i).getCommentId()+"\",\""+root.get(i).getCommentName()+"\")' >回复</a>");
+			out.print("</div>");
+			out.print("</article>");
+			
+			deployComment(root.get(i).getComments(), 1, out);
+			//结束回复标签
+			if(index==0) {
+				out.print("</li>");
+			} else {
+				out.print("</ol>");
+			}
+		}
+	}
+	}
+ %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -46,12 +95,6 @@
 		s.parentNode.insertBefore(bp, s);
 	})();
 </script>
-
-<!--[if lt IE 9]>
-          <script src="/Content/js/ie/modernizr-2.6.2.js></script>
-          <script src="/Content/js/ie/respond.min.js></script>
-          <script src="/Content/js/ie/html5shiv.js></script>
-    <![endif]-->
 
 </head>
 
@@ -178,414 +221,9 @@
 
 
 								<ol class="commentlist">
-									<li id="comment-8"
-										class="comment even thread-even depth-1 parent"><article
-											id="div-comment-8" class="comment-body">
-										<footer class="comment-meta">
-										<div class="comment-author vcard">
-											<img
-												src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404138966823636676.jpg"
-												class="avatar avatar-70 photo" height="60" width="60"><b
-												class="fn"><a href="" rel="external nofollow"
-												class="floor">测试帐号 </a></b><span class="says">say :</span>
-										</div>
-										<div class="comment-metadata">
-											<a href=""><time datetime="2016/6/23 12:30:04">2016/6/23
-												12:30:04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#D2322D">1楼</font></time></a>
-										</div>
-										</footer>
-										<div class="comment-content">
-											<p>发布后首次测试评论，（1级评论会以邮件方式通知博主/2级回复会以邮件方式通知父评论）收件人点邮件中的链接即可直达此处。（如果您未收到邮件通知，那么很有可能是您邮箱地址填错了，要么就是静静地躺在你邮箱的垃圾箱中）</p>
-										</div>
-										<div class="reply">
-											<a class="comment-reply-link" href="ajax地址"
-												onclick="return addComment.moveForm(&quot;div-comment-8&quot;,8, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-										</div>
-										</article>
-										<ol class="children">
-											<li id="comment-106"
-												class="comment even thread-even depth-1 parent"><article
-													id="div-comment-106" class="comment-body">
-												<footer class="comment-meta">
-												<div class="comment-author vcard">
-													<img
-														src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404699933676188961.png"
-														class="avatar avatar-70 photo" height="60" width="60"><b
-														class="fn"><a href="" rel="external nofollow"
-														class="floor">199510</a></b><span class="says">say :</span>
-												</div>
-												<div class="comment-metadata">
-													<a href=""><time datetime="2016/7/28 15:01:58">2016/7/28
-														15:01:58</time></a>
-												</div>
-												</footer>
-												<div class="comment-content">
-													<p>123</p>
-												</div>
-												<div class="reply">
-													<a class="comment-reply-link" href="ajax地址"
-														onclick="return addComment.moveForm(&quot;div-comment-106&quot;,106, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-												</div>
-												</article></li>
-										</ol></li>
-									<li id="comment-9"
-										class="comment even thread-even depth-1 parent"><article
-											id="div-comment-9" class="comment-body">
-										<footer class="comment-meta">
-										<div class="comment-author vcard">
-											<img
-												src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404901506728073862.jpg"
-												class="avatar avatar-70 photo" height="60" width="60"><b
-												class="fn"><a href="" rel="external nofollow"
-												class="floor">西西</a></b><span class="says">say :</span>
-										</div>
-										<div class="comment-metadata">
-											<a href=""><time datetime="2016/6/24 9:47:32">2016/6/24
-												9:47:32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#D2322D">2楼</font></time></a>
-										</div>
-										</footer>
-										<div class="comment-content">
-											<p>这博客，是你自己做的？自己租的服务器？</p>
-										</div>
-										<div class="reply">
-											<a class="comment-reply-link" href="ajax地址"
-												onclick="return addComment.moveForm(&quot;div-comment-9&quot;,9, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-										</div>
-										</article>
-										<ol class="children">
-											<li id="comment-11"
-												class="comment even thread-even depth-1 parent"><article
-													id="div-comment-11" class="comment-body">
-												<footer class="comment-meta">
-												<div class="comment-author vcard">
-													<img
-														src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193405201522381557345.jpg"
-														class="avatar avatar-70 photo" height="60" width="60"><b
-														class="fn"><a href="" rel="external nofollow"
-														class="floor">夜无痕</a></b><span class="says">say :</span>
-												</div>
-												<div class="comment-metadata">
-													<a href=""><time datetime="2016/6/24 10:10:00">2016/6/24
-														10:10:00</time></a>
-												</div>
-												</footer>
-												<div class="comment-content">
-													<p>腾讯云主机.</p>
-												</div>
-												<div class="reply">
-													<a class="comment-reply-link" href="ajax地址"
-														onclick="return addComment.moveForm(&quot;div-comment-11&quot;,11, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-												</div>
-												</article></li>
-										</ol></li>
-									<li id="comment-10"
-										class="comment even thread-even depth-1 parent"><article
-											id="div-comment-10" class="comment-body">
-										<footer class="comment-meta">
-										<div class="comment-author vcard">
-											<img
-												src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160623/20160623083458522.jpg"
-												class="avatar avatar-70 photo" height="60" width="60"><b
-												class="fn"><a href="" rel="external nofollow"
-												class="floor">路过</a></b><span class="says">say :</span>
-										</div>
-										<div class="comment-metadata">
-											<a href=""><time datetime="2016/6/24 10:04:49">2016/6/24
-												10:04:49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#D2322D">3楼</font></time></a>
-										</div>
-										</footer>
-										<div class="comment-content">
-											<p>加油，希望有更多精彩内容</p>
-										</div>
-										<div class="reply">
-											<a class="comment-reply-link" href="ajax地址"
-												onclick="return addComment.moveForm(&quot;div-comment-10&quot;,10, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-										</div>
-										</article></li>
-									<li id="comment-17"
-										class="comment even thread-even depth-1 parent"><article
-											id="div-comment-17" class="comment-body">
-										<footer class="comment-meta">
-										<div class="comment-author vcard">
-											<img
-												src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404226471614736025.jpg"
-												class="avatar avatar-70 photo" height="60" width="60"><b
-												class="fn"><a href="" rel="external nofollow"
-												class="floor">服务器</a></b><span class="says">say :</span>
-										</div>
-										<div class="comment-metadata">
-											<a href=""><time datetime="2016/6/24 22:40:24">2016/6/24
-												22:40:24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#D2322D">4楼</font></time></a>
-										</div>
-										</footer>
-										<div class="comment-content">
-											<p>给个服务器的详细配置清单呗，我这几天在考虑换个服务商</p>
-										</div>
-										<div class="reply">
-											<a class="comment-reply-link" href="ajax地址"
-												onclick="return addComment.moveForm(&quot;div-comment-17&quot;,17, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-										</div>
-										</article>
-										<ol class="children">
-											<li id="comment-19"
-												class="comment even thread-even depth-1 parent"><article
-													id="div-comment-19" class="comment-body">
-												<footer class="comment-meta">
-												<div class="comment-author vcard">
-													<img
-														src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193405201522381557345.jpg"
-														class="avatar avatar-70 photo" height="60" width="60"><b
-														class="fn"><a href="" rel="external nofollow"
-														class="floor">博主</a></b><span class="says">say :</span>
-												</div>
-												<div class="comment-metadata">
-													<a href=""><time datetime="2016/6/24 22:45:21">2016/6/24
-														22:45:21</time></a>
-												</div>
-												</footer>
-												<div class="comment-content">
-													<p>服务器使用的是腾讯云主机的最低配置。具体配置是这样的： 操作系统： Windows Server
-														2012 R2 标准版 64位中文版 ； CPU： 1核 ； 内存 ：1GB ； 公网带宽 1Mbps ； 系统盘
-														50GB(本地磁盘) ；本站的文件都存储在七牛云盘中,而且以后换服务器的话也不用折腾各种静态文件了。</p>
-												</div>
-												<div class="reply">
-													<a class="comment-reply-link" href="ajax地址"
-														onclick="return addComment.moveForm(&quot;div-comment-19&quot;,19, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-												</div>
-												</article></li>
-										</ol></li>
-									<li id="comment-21"
-										class="comment even thread-even depth-1 parent"><article
-											id="div-comment-21" class="comment-body">
-										<footer class="comment-meta">
-										<div class="comment-author vcard">
-											<img
-												src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/20160619153003348.jpg"
-												class="avatar avatar-70 photo" height="60" width="60"><b
-												class="fn"><a href="" rel="external nofollow"
-												class="floor">影子明</a></b><span class="says">say :</span>
-										</div>
-										<div class="comment-metadata">
-											<a href=""><time datetime="2016/6/25 11:47:47">2016/6/25
-												11:47:47&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#D2322D">5楼</font></time></a>
-										</div>
-										</footer>
-										<div class="comment-content">
-											<p>发表评论最好弄一个第三方登录才能评论</p>
-										</div>
-										<div class="reply">
-											<a class="comment-reply-link" href="ajax地址"
-												onclick="return addComment.moveForm(&quot;div-comment-21&quot;,21, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-										</div>
-										</article>
-										<ol class="children">
-											<li id="comment-22"
-												class="comment even thread-even depth-1 parent"><article
-													id="div-comment-22" class="comment-body">
-												<footer class="comment-meta">
-												<div class="comment-author vcard">
-													<img
-														src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193405201522381557345.jpg"
-														class="avatar avatar-70 photo" height="60" width="60"><b
-														class="fn"><a href="" rel="external nofollow"
-														class="floor">博主</a></b><span class="says">say :</span>
-												</div>
-												<div class="comment-metadata">
-													<a href=""><time datetime="2016/6/25 11:53:43">2016/6/25
-														11:53:43</time></a>
-												</div>
-												</footer>
-												<div class="comment-content">
-													<p>刚开始是想采用社会化登录的，后来考虑访客可能会嫌麻烦，所以也就没采用第三方登录。给访客最大的自由度，起个喜欢的昵称、输入正确的邮箱就行了，无需注册，保护隐私。你觉得呢？</p>
-												</div>
-												<div class="reply">
-													<a class="comment-reply-link" href="ajax地址"
-														onclick="return addComment.moveForm(&quot;div-comment-22&quot;,22, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-												</div>
-												</article>
-												<ol class="children">
-													<li id="comment-28"
-														class="comment even thread-even depth-1 parent"><article
-															id="div-comment-28" class="comment-body">
-														<footer class="comment-meta">
-														<div class="comment-author vcard">
-															<img
-																src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/20160619153003348.jpg"
-																class="avatar avatar-70 photo" height="60" width="60"><b
-																class="fn"><a href="" rel="external nofollow"
-																class="floor">影子明</a></b><span class="says">say :</span>
-														</div>
-														<div class="comment-metadata">
-															<a href=""><time datetime="2016/6/25 20:03:39">2016/6/25
-																20:03:39</time></a>
-														</div>
-														</footer>
-														<div class="comment-content">
-															<p>好 ！ 想法好</p>
-														</div>
-														<div class="reply">
-															<a class="comment-reply-link" href="ajax地址"
-																onclick="return addComment.moveForm(&quot;div-comment-28&quot;,28, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-														</div>
-														</article>
-														<ol class="children">
-															<li id="comment-104"
-																class="comment even thread-even depth-1 parent"><article
-																	id="div-comment-104" class="comment-body">
-																<footer class="comment-meta">
-																<div class="comment-author vcard">
-																	<img
-																		src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193405220273277799149.jpg"
-																		class="avatar avatar-70 photo" height="60" width="60"><b
-																		class="fn"><a href="" rel="external nofollow"
-																		class="floor">jngjgjf</a></b><span class="says">say
-																		:</span>
-																</div>
-																<div class="comment-metadata">
-																	<a href=""><time datetime="2016/7/24 19:05:25">2016/7/24
-																		19:05:25</time></a>
-																</div>
-																</footer>
-																<div class="comment-content">
-																	<p>回复一下</p>
-																</div>
-																<div class="reply">
-																	<a class="comment-reply-link" href="ajax地址"
-																		onclick="return addComment.moveForm(&quot;div-comment-104&quot;,104, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-																</div>
-																</article>
-																<ol class="children">
-																	<li id="comment-107"
-																		class="comment even thread-even depth-1 parent"><article
-																			id="div-comment-107" class="comment-body">
-																		<footer class="comment-meta">
-																		<div class="comment-author vcard">
-																			<img
-																				src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404699933676188961.png"
-																				class="avatar avatar-70 photo" height="60"
-																				width="60"><b class="fn"><a href=""
-																				rel="external nofollow" class="floor">199510</a></b><span
-																				class="says">say :</span>
-																		</div>
-																		<div class="comment-metadata">
-																			<a href=""><time datetime="2016/7/29 13:30:08">2016/7/29
-																				13:30:08</time></a>
-																		</div>
-																		</footer>
-																		<div class="comment-content">
-																			<p>1123313</p>
-																		</div>
-																		<div class="reply">
-																			<a class="comment-reply-link" href="ajax地址"
-																				onclick="return addComment.moveForm(&quot;div-comment-107&quot;,107, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-																		</div>
-																		</article>
-																		<ol class="children">
-																			<li id="comment-182"
-																				class="comment even thread-even depth-1 parent"><article
-																					id="div-comment-182" class="comment-body">
-																				<footer class="comment-meta">
-																				<div class="comment-author vcard">
-																					<img
-																						src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403714496708395825.jpg"
-																						class="avatar avatar-70 photo" height="60"
-																						width="60"><b class="fn"><a href=""
-																						rel="external nofollow" class="floor">tetete</a></b><span
-																						class="says">say :</span>
-																				</div>
-																				<div class="comment-metadata">
-																					<a href=""><time datetime="2016/12/29 17:17:53">2016/12/29
-																						17:17:53</time></a>
-																				</div>
-																				</footer>
-																				<div class="comment-content">
-																					<p>111</p>
-																				</div>
-																				<div class="reply">
-																					<a class="comment-reply-link" href="ajax地址"
-																						onclick="return addComment.moveForm(&quot;div-comment-182&quot;,182, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-																				</div>
-																				</article></li>
-																		</ol></li>
-																</ol></li>
-															<li id="comment-183"
-																class="comment even thread-even depth-1 parent"><article
-																	id="div-comment-183" class="comment-body">
-																<footer class="comment-meta">
-																<div class="comment-author vcard">
-																	<img
-																		src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403714496708395825.jpg"
-																		class="avatar avatar-70 photo" height="60" width="60"><b
-																		class="fn"><a href="" rel="external nofollow"
-																		class="floor">tetete</a></b><span class="says">say
-																		:</span>
-																</div>
-																<div class="comment-metadata">
-																	<a href=""><time datetime="2016/12/29 17:18:09">2016/12/29
-																		17:18:09</time></a>
-																</div>
-																</footer>
-																<div class="comment-content">
-																	<p>safsf</p>
-																</div>
-																<div class="reply">
-																	<a class="comment-reply-link" href="ajax地址"
-																		onclick="return addComment.moveForm(&quot;div-comment-183&quot;,183, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-																</div>
-																</article></li>
-														</ol></li>
-													<li id="comment-225"
-														class="comment even thread-even depth-1 parent"><article
-															id="div-comment-225" class="comment-body">
-														<footer class="comment-meta">
-														<div class="comment-author vcard">
-															<img
-																src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193405271838443942308.jpg"
-																class="avatar avatar-70 photo" height="60" width="60"><b
-																class="fn"><a href="" rel="external nofollow"
-																class="floor">xgeek</a></b><span class="says">say :</span>
-														</div>
-														<div class="comment-metadata">
-															<a href=""><time datetime="2017/2/13 10:07:05">2017/2/13
-																10:07:05</time></a>
-														</div>
-														</footer>
-														<div class="comment-content">
-															<p>说的不错，就是这个理儿。</p>
-														</div>
-														<div class="reply">
-															<a class="comment-reply-link" href="ajax地址"
-																onclick="return addComment.moveForm(&quot;div-comment-225&quot;,225, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-														</div>
-														</article>
-														<ol class="children">
-															<li id="comment-239"
-																class="comment even thread-even depth-1 parent"><article
-																	id="div-comment-239" class="comment-body">
-																<footer class="comment-meta">
-																<div class="comment-author vcard">
-																	<img
-																		src="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404473359543548931.jpg"
-																		class="avatar avatar-70 photo" height="60" width="60"><b
-																		class="fn"><a href="" rel="external nofollow"
-																		class="floor">qq</a></b><span class="says">say :</span>
-																</div>
-																<div class="comment-metadata">
-																	<a href=""><time datetime="2017/3/15 18:49:44">2017/3/15
-																		18:49:44</time></a>
-																</div>
-																</footer>
-																<div class="comment-content">
-																	<p>发发发</p>
-																</div>
-																<div class="reply">
-																	<a class="comment-reply-link" href="ajax地址"
-																		onclick="return addComment.moveForm(&quot;div-comment-239&quot;,239, &quot;respond&quot;, &quot;1&quot;)">回复</a>
-																</div>
-																</article></li>
-														</ol></li>
-												</ol></li>
-										</ol></li>
+									<%
+										deployComment(root,0,out);
+									 %>
 								</ol>
 								<div class="pagination" style="text-align: right;">
 									<ul>
@@ -625,7 +263,7 @@
 								</h3>
 
 
-								<form novalidate="novalidate" action="" method="post"
+								<form novalidate="novalidate" action="addComment.action" method="post"
 									id="commentform" class="comment-form">
 
 
@@ -640,7 +278,7 @@
 														<span class="glyphicon glyphicon-user"></span>
 													</div>
 
-													<input type="text" size="20" id="vname" name="VName"
+													<input type="text" size="20" id="commentName" name="commentName"
 														class="form-control" placeholder="起个昵称吧" required="">
 												</div>
 											</div>
@@ -653,7 +291,7 @@
 														<span class="glyphicon glyphicon-envelope"></span>
 													</div>
 
-													<input type="text" size="20" id="vemail" name="VEmail"
+													<input type="text" size="20" id="commentEmail" name="commentEmail"
 														class="form-control" placeholder="请输入您的邮箱"
 														required="">
 												</div>
@@ -661,8 +299,8 @@
 										</div>
 									</div>
 
-									<textarea id="comment" class="form-control"
-										placeholder="赶快发表你的见解吧！" name="CmtText" cols="30" rows="3"
+									<textarea id="commentContent" class="form-control"
+										placeholder="赶快发表你的见解吧！" name="commentContent" cols="30" rows="3"
 										required=""></textarea>
 									<div id="loading" style="display: none;">
 										<img src="images/ico_loading2.gif"
@@ -671,13 +309,9 @@
 									<div id="error" style="display: none;">#</div>
 
 									<p class="form-submit">
-										<input name="submit" class="hiddeninput" id="submit"
-											value="发表评论" type="submit"> <input name="CmtArtId"
-											class="hiddeninput" value="1" id="comment_post_ID"
-											type="hidden"> <input name="ParentId"
-											class="hiddeninput" value="0" id="comment_parent"
-											type="hidden"> <input name="PageSize" id="PageSize"
-											type="hidden" class="hiddeninput" value="5">
+										<input name="submit" class="hiddeninput" id="submit" value="发表评论" type="submit">
+										<input name="article.articleId" class="hiddeninput" value="${article.articleId}" id="article.articleId"	type="hidden">
+										<input name="fatherCommentId" class="hiddeninput" id="fatherCommentId" type="hidden">
 									</p>
 								</form>
 
@@ -932,5 +566,14 @@
 	</div>
 	
 	<%@include file="../../common/foot.jsp"%>
+	<script type="text/javascript">
+        function reply(fatherId,fatherName) {
+        	//滚动到最底部
+			var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+	  			window.scrollTo(h,h);
+	  			document.getElementById("commentContent").innerHTML="回复:"+fatherName+" ";
+	  			document.getElementById("fatherCommentId").value=fatherId;
+        	}
+    </script>
 </body>
 </html>

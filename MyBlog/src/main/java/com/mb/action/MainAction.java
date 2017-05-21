@@ -13,9 +13,11 @@ import com.mb.common.CommonUtils;
 import com.mb.common.Page;
 import com.mb.entity.Article;
 import com.mb.entity.Classify;
+import com.mb.entity.Comment;
 import com.mb.entity.LeaveMsg;
 import com.mb.service.ArticleService;
 import com.mb.service.ClassifyService;
+import com.mb.service.CommentService;
 import com.mb.service.LeaveMsgService;
 
 @Controller
@@ -27,6 +29,8 @@ public class MainAction {
 	private ArticleService articleService;
 	@Resource
 	private ClassifyService ClassifyService;
+	@Resource
+	private CommentService commentService;
 
 	@RequestMapping("/about")
 	public String about() {
@@ -72,13 +76,29 @@ public class MainAction {
 	public String blogDetail(Model model,String articleId) {
 		//先将浏览数加一
 		try {
+			List<Comment> treeComment = commentService.getAllCommentByTree(articleId);
 			Article article = articleService.getById(articleId);
 			articleService.addView(article);
 			model.addAttribute("article", article);
+			model.addAttribute("commentList", treeComment);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
 		return "blogDetail";
+	}
+	
+	//添加新评论
+	@RequestMapping("/addComment")
+	public String addComment(Comment comment) {
+		String articleId = comment.getArticle().getArticleId();
+		try {
+			commentService.insert(comment);
+			return "redirect:blogDetail.action?articleId="+articleId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 }

@@ -3720,7 +3720,7 @@ if (function(n, t) {
 				n.extend(n.validator.defaults, t)
 			},
 			messages : {
-				required : "This field is required.",
+				required : "此项不能为空",
 				remote : "Please fix this field.",
 				email : "Please enter a valid email address.",
 				url : "Please enter a valid URL.",
@@ -3753,7 +3753,7 @@ if (function(n, t) {
 					this.submitted = {};
 					this.valueCache = {};
 					this.pendingRequest = 0;
-					this.pending = {};
+					this.pending = {};c
 					this.invalid = {};this.reset();
 					r = this.groups = {};n.each(this.settings.groups, function(t, i) {
 						n.each(i.split(/\s/), function(n, i) {
@@ -5425,4 +5425,40 @@ var zyn = {
 		success:function(){
 			jQuery("#commentform").submit();
 		}
+}
+
+
+radius = 100,
+dtr = Math.PI / 180,
+d = 200,
+mcList = [],
+active = !1,
+lasta = 1,
+lastb = 1,
+distr = !0,
+tspeed = 2,
+size = 250,
+mouseX = 0,
+mouseY = 0,
+howElliptical = 1,
+aA = null,
+oDiv = null;
+window.onload = function() {
+	var n = 0,
+		t = null;
+	for (oDiv = document.getElementById("tagbox"), aA = oDiv.getElementsByTagName("a"), n = 0; n < aA.length; n++) t = {}, t.offsetWidth = aA[n].offsetWidth, t.offsetHeight = aA[n].offsetHeight, mcList.push(t);
+	sineCosine(0, 0, 0);positionAll();
+	oDiv.onmouseover = function() {
+		active = !0
+	};
+	oDiv.onmouseout = function() {
+		active = !1
+	};
+	oDiv.onmousemove = function(n) {
+		var t = window.event || n;
+		mouseX = t.clientX - (oDiv.offsetLeft + oDiv.offsetWidth / 2);
+		mouseY = t.clientY - (oDiv.offsetTop + oDiv.offsetHeight / 2);
+		mouseX /= 5;
+		mouseY /= 5
+	};setInterval(update, 30)
 }

@@ -1,30 +1,12 @@
 package com.mb.dao;
 
-import com.mb.entity.Comment;
-import com.mb.entity.CommentExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface CommentMapper {
-    int countByExample(CommentExample example);
+import com.mb.entity.Comment;
 
-    int deleteByExample(CommentExample example);
-
-    int deleteByPrimaryKey(String commentId);
-
-    int insert(Comment record);
-
-    int insertSelective(Comment record);
-
-    List<Comment> selectByExample(CommentExample example);
-
-    Comment selectByPrimaryKey(String commentId);
-
-    int updateByExampleSelective(@Param("record") Comment record, @Param("example") CommentExample example);
-
-    int updateByExample(@Param("record") Comment record, @Param("example") CommentExample example);
-
-    int updateByPrimaryKeySelective(Comment record);
-
-    int updateByPrimaryKey(Comment record);
+public interface CommentMapper extends BaseMapper<Comment>{
+	//获取此博文下所有根评论
+	public List<Comment> getRootComment(String articleId);
+	//获取该评论的子回复
+	public List<Comment> getChild(Comment comment);
 }
