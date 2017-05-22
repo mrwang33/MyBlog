@@ -1,5 +1,7 @@
 package com.mb.service;
 
+import java.util.List;
+
 import com.mb.common.Page;
 import com.mb.entity.Article;
 
@@ -15,4 +17,10 @@ public interface ArticleService extends BaseService<Article> {
 	public int getCount(String keyWords,String classifyId);
 	//增加浏览次数
 	public void addView(Article article) throws Exception;
+	
+	/**
+	 * 获取热门微博
+	 * @return
+	 */
+	public List<Article> getHotArticles();
 }

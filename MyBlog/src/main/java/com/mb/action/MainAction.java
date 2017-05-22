@@ -3,6 +3,7 @@ package com.mb.action;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,12 @@ public class MainAction {
 	private ClassifyService ClassifyService;
 	@Resource
 	private CommentService commentService;
+	
+	
+	public void addAttribute(Model model){
+		List<Classify> classify = ClassifyService.getAll();
+		model.addAttribute("classify", classify);
+	}
 
 	@RequestMapping("/about")
 	public String about() {
@@ -65,9 +72,8 @@ public class MainAction {
 		Page<Article> page = new Page<Article>(3, count, null, null, 1);
 		page = CommonUtils.createPage(page, pageIndex, keyWords, classifyId);
 		page = articleService.getPage(page);
-		List<Classify> classify = ClassifyService.getAll();
 		model.addAttribute("page", page);
-		model.addAttribute("classify", classify);
+		this.addAttribute(model);
 		return "blog";
 	}
 	
@@ -81,6 +87,10 @@ public class MainAction {
 			articleService.addView(article);
 			model.addAttribute("article", article);
 			model.addAttribute("commentList", treeComment);
+			//此博文下共多少评论
+			model.addAttribute("commentSize",commentService.getCount(treeComment, 0));
+			commentService.makeIndexZero();
+			this.addAttribute(model);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

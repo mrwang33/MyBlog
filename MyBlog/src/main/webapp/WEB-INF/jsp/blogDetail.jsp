@@ -122,7 +122,7 @@
 						<!-- 面包屑 -->
 						<span class="glyphicon glyphicon-home"></span> <a
 							title="Go to Zynblog" href="#" class=" home">Zynblog</a> / <a
-							title="ASP.NET MVC " href="/Home/Index/1"> ${article.classify.classifyName} </a> /
+							title="${article.classify.classifyName}" href="blog.action?classifyId=${article.classify.classifyId}"> ${article.classify.classifyName} </a> /
 					</div>
 
 					<header class="article-header">
@@ -163,40 +163,7 @@
 					</div>
 
 
-					<script>
-						window._bd_share_config = {
-							common : {
-								bdText : ' 开篇。本博客站基于ASP.NET MVC + EF6.0，采用Bootstrap响应式布局搭建，因此使用IE8以下的浏览器访问时可能会...',
-								bdDesc : '',
-								bdUrl : 'http://www.zynblog.com/Archives/Index/1',
-								bdSign : 'on', //是否进行回流统计。
-								bdMini : '2', //下拉浮层中分享按钮的列数
-								bdMiniList : false //自定义下拉浮层中的分享按钮类型和排列顺序
-							},
-							share : [ {
-								//此处放置分享按钮设置
-								"bdSize" : 20
-							} ],
-							slide : [ {
-								bdImg : 0,
-								bdPos : "right",
-								bdTop : 100
-							} ],
-							image : [ {
-								//此处放置图片分享设置
-								viewType : 'list',
-								viewPos : 'top',
-								viewColor : 'black',
-								viewSize : '16',
-								viewList : [ 'qzone', 'tsina', 'weixin', 'tqq', 'douban' ]
-							} ],
-							selectShare : [ {
-								//此处放置划词分享设置
-								"bdselectMiniList" : [ 'qzone', 'tqq', 'weixin', 'bdxc', 'tqf', 'tsina', 'douban' ]
-							} ]
-						}
-						with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
-					</script> <!-- 文章分享结束 --> <!-- Baidu Button END --> </article>
+				 </article>
 					<!--打赏-->
 					<div style="margin-bottom:20px;">
 						<a title="打赏，支持一下" class="dashang" onclick="dashangToggle()"
@@ -207,46 +174,18 @@
 						<div class="comments-wrap">
 							<div id="comments" data-url="/Comment/PostCmt">
 
-								<h3 id="comments-title" class="comments-header alert alert-info">
-									63条评论</h3>
+								<h3 id="comments-title" class="comments-header alert alert-info">共${commentSize}条评论</h3>
 
 								<div id="loading-comments" style="display: none;">
 									<img src="/Content/images/ico_loading2.gif"
 										data-bd-imgshare-binded="1">
 								</div>
 
-
-
-
-
-
 								<ol class="commentlist">
 									<%
 										deployComment(root,0,out);
 									 %>
 								</ol>
-								<div class="pagination" style="text-align: right;">
-									<ul>
-										<li id="start-page"><a
-											href="/Comment/WrapComment/1?pageIndex=1&amp;pageSize=5">首页</a></li>
-										<li class="active show-page"><span>1</span></li>
-										<li class="show-page"><a
-											href="/Comment/WrapComment/1?pageIndex=2&amp;pageSize=5">2</a></li>
-										<li class="show-page"><a
-											href="/Comment/WrapComment/1?pageIndex=3&amp;pageSize=5">3</a></li>
-										<li class="show-page"><a
-											href="/Comment/WrapComment/1?pageIndex=4&amp;pageSize=5">4</a></li>
-										<li class="show-page"><a
-											href="/Comment/WrapComment/1?pageIndex=5&amp;pageSize=5">5</a></li>
-										<li class="show-page"><a
-											href="/Comment/WrapComment/1?pageIndex=6&amp;pageSize=5">6</a></li>
-										<li class="next-page"><a
-											href="/Comment/WrapComment/1?pageIndex=2&amp;pageSize=5">下一页</a></li>
-										<li id="end-page"><a
-											href="/Comment/WrapComment/1?pageIndex=13&amp;pageSize=5">末页</a></li>
-										<li id="total-page"><span>共-13-页</span></li>
-									</ul>
-								</div>
 							</div>
 
 
@@ -376,19 +315,9 @@
 						<span class="glyphicon glyphicon-tags newicon"></span> 文以类聚
 					</div>
 					<div class="d_tags">
-						<a href="http://www.zynblog.com/Home/Index/1"> ASP.NET MVC (8)
-						</a> <a href="http://www.zynblog.com/Home/Index/3"> 开源工具 (5) </a> <a
-							href="http://www.zynblog.com/Home/Index/4"> 前端 (11) </a> <a
-							href="http://www.zynblog.com/Home/Index/5"> 网络舆情 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/6"> 复杂网络 (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/7"> 推荐系统 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/8"> 机器学习 (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/9"> Python (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/10"> Matlab (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/11"> 软件工程 (1) </a> <a
-							href="http://www.zynblog.com/Home/Index/12"> Java (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/13"> C/C++ (0) </a> <a
-							href="http://www.zynblog.com/Home/Index/14"> 算法 (0) </a>
+						<c:forEach items="${classify}" var="clas">
+							<a href="blog.action?classifyId=${clas.classifyId}">${clas.classifyName}</a> 
+						</c:forEach>
 					</div>
 				</div>
 				</aside> <aside id="hot_article">

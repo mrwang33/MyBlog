@@ -102,8 +102,6 @@
 							<p class="meta">
 								<span class="posttime">${article.articleDate}</span><span class="viewnum">浏览(<a
 									href="#">${article.articleViews}</a>)
-								</span><span class="commentnum">评论(<a
-									href="http://www.zynblog.com/Archives/Index/1#comments-title">58</a>)
 								</span><span class="praisebtn"> <img class="praisenum"
 									src="images/ico_praise.png" height="15" width="15">(<a
 									data-id="1" praise-flag="0" href="http://www.zynblog.com/">${article.articleStars}</a>)

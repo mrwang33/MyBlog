@@ -53,4 +53,7 @@
   <select id="getChild" parameterType="com.mb.entity.Comment" resultMap="CommentMap">
   	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE father_comment_id=#{commentId} ORDER BY comment_date DESC;
   </select>
+  <select id="getCountInThisArticle" resultType="java.lang.Integer">
+  	SELECT COUNT(comment_id) FROM `comment` WHERE com_art_id=#{articleId,jdbcType=VARCHAR};
+  </select>
 </mapper>

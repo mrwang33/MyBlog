@@ -78,6 +78,11 @@ public class ArticleServiceImpl implements ArticleService {
 		articleMapper.update(article);
 	}
 
+	@Override
+	public List<Article> getHotArticles() {
+		return null;
+	}
+
 
 	
 }

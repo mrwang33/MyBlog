@@ -11,12 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.mb.common.CommonUtils;
 import com.mb.dao.CommentMapper;
+import com.mb.entity.Article;
 import com.mb.entity.Comment;
 import com.mb.service.CommentService;
+import com.mb.service.SendEmailService;
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
 	@Resource
 	private CommentMapper commentMapper;
+	@Resource
+	private SendEmailService sendEmailService;
+	
+	public static int index;
 	
 	@Override
 	public List<Comment> getAll() {
@@ -32,6 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int insert(Comment comment) throws Exception {
+		sendEmailService.sendEmailToComment(comment);
 		//根元素的判断就是有articleid 而没有 fatherid 所以这里如果有fatherid 就将article设为null
 		if (comment.getFatherCommentId()!=null&&!"".equals(comment.getFatherCommentId())) {
 			comment.setArticle(null);
@@ -84,9 +91,19 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getCount(List<Comment> commentsList,int count) {
+		index += commentsList.size();
+		for (Comment comment : commentsList) {
+			List<Comment> child = comment.getComments();
+			getCount(child,index);
+		}
+		return index;
 	}
 
+	@Override
+	public void makeIndexZero() {
+		this.index=0;
+	}
+
+	
 }

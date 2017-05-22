@@ -7,17 +7,22 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.mb.common.CommonUtils;
 import com.mb.dao.LeaveMsgMapper;
 import com.mb.entity.LeaveMsg;
 import com.mb.service.LeaveMsgService;
+import com.mb.service.SendEmailService;
 
 @Service("leaveMsgService")
 public class LeaveMsgServiceImpl implements LeaveMsgService {
 	@Resource
 	private LeaveMsgMapper leaveMsgMapper;
+	@Resource
+	private SendEmailService sendEmailService;
 
 	@Override
 	public List<LeaveMsg> getAll() {
@@ -32,6 +37,7 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public int insert(LeaveMsg leaveMsg) throws Exception {
+		sendEmailService.sendEmailToLeaveMsg(leaveMsg);
 		leaveMsg.setLmId(CommonUtils.getUUID());
 		leaveMsg.setLmDate(new Timestamp(new Date().getTime()));
 		return leaveMsgMapper.insert(leaveMsg);
@@ -61,7 +67,6 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public List<LeaveMsg> getAllChild(List<LeaveMsg> root) {
-		// TODO Auto-generated method stub
 		for (LeaveMsg leaveMsg : root) {
 			List<LeaveMsg> child = leaveMsgMapper.getChild(leaveMsg);
 			leaveMsg.setChildLm(child);
