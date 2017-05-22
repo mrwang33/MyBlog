@@ -71,7 +71,7 @@
 	FROM article a, classify c
 	WHERE a.art_clas = c.classify_id
 		<if test="keyWords!=null">
-			AND a.article_title LIKE "%"#{keyWords}"%"
+			AND a.article_title LIKE CONCAT(CONCAT('%', #{keyWords}), '%')
 		</if>
 		<if test="classifyId!=null">
 			AND c.classify_id = #{classifyId}

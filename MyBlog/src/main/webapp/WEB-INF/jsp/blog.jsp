@@ -72,14 +72,19 @@
 					</div>
 					<!-- 内容主体 包含三部分内容：1.每日提示、2.文章列表、3. 分页条-->
 
-
-
-
 					<div class="well fade in daytips"
 						style="padding:15px;background-color: #f9f9f9;">
 						<button type="button" class="close" data-dismiss="alert">×</button>
 						<div id="tweather" style="line-height:20px">
-							If you don't bird me, I don't bird you, too.
+							<c:if test="${searchClas!=null}">
+								正在查看 ${searchClas.classifyName} 分类下的博文
+							</c:if>
+							<c:if test="${page.keyWords!=null}">
+								正在搜索 ${searchClas.classifyName} 下的博文
+							</c:if>
+							<c:if test="${page.keyWords==null&&searchClas==null}">
+								好好学习 天天向上
+							</c:if>
 							<div id="wicon" class="pull-right" style="margin-right:5px">
 								<img src="images/duoyun.gif" height="20" width="20">&nbsp;合肥&nbsp;
 								15&nbsp;~&nbsp;23℃
@@ -134,11 +139,6 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-<!-- 							<li class="active show-page"><span>1</span></li> -->
-<!-- 							<li class="show-page"><a href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=2&amp;pageSize=7">2</a></li> -->
-<!-- 							<li class="show-page"><a href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=3&amp;pageSize=7">3</a></li> -->
-<!-- 							<li class="show-page"><a -->
-<!-- 								href="http://www.zynblog.com/Home/WrapArtList/0?pageIndex=4&amp;pageSize=7">4</a></li> -->
 							<c:if test="${page.pageCount!=page.pageIndex}">
 								<li class="next-page"><a href="blog.action?pageIndex=${page.pageIndex+1}">下一页</a></li>
 								<li id="end-page"><a href="blog.action?pageIndex=${page.pageCount}">末页</a></li>
@@ -146,14 +146,6 @@
 							<li id="total-page"><span>共${page.pageCount}页</span></li>
 						</ul>
 					</div>
-
-
-
-
-
-
-
-
 
 				</div>
 

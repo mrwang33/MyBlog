@@ -47,11 +47,11 @@
 
 			<script type="text/javascript">
 				$(function() {
-					$('#searchWords').on('keydown', function(e) {
+					$('#keyWords').on('keydown', function(e) {
 						var key = e.which;
 						if (key == 13) {
 							e.preventDefault();
-							var words = $('#searchWords').val();
+							var words = $('#keyWords').val();
 							words = $.trim(words);
 							if (words == ' ' || words == null || words == undefined) {
 								alert('请输入搜索词');
@@ -64,10 +64,10 @@
 				});
 			</script>
 			<form id="searchform" class="navbar-form navbar-right" role="search"
-				target="_blank" method="get"
-				action="http://www.zynblog.com/Search/Index">
+				target="_blank" method="post"
+				action="blog.action">
 				<div class="form-group">
-					<input type="text" id="searchWords" name="searchWords"
+					<input type="text" id="keyWords" name="keyWords"
 						class="form-control" data-provide="typeahead" autocomplete="off"
 						placeholder="请输入要搜索关键词">
 				</div>

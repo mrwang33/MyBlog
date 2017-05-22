@@ -75,6 +75,9 @@ public class MainAction {
 		page = articleService.getPage(page);
 		model.addAttribute("page", page);
 		this.addAttribute(model);
+		if (classifyId!=null&&!"".equals(classifyId)) {
+			model.addAttribute("searchClas", ClassifyService.getById(Integer.parseInt(classifyId)));
+		}
 		return "blog";
 	}
 	
@@ -91,6 +94,7 @@ public class MainAction {
 			//此博文下共多少评论
 			model.addAttribute("commentSize",commentService.getCount(treeComment, 0));
 			commentService.makeIndexZero();
+			
 			this.addAttribute(model);
 		} catch (Exception e) {
 			e.printStackTrace();
