@@ -107,7 +107,7 @@
 									data-id="1" praise-flag="0" href="http://www.zynblog.com/">${article.articleStars}</a>)
 								</span>
 							</p>
-							<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${article.articleContent}</p>
+							<p class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${article.articleContent}.....</p>
 							<footer class="entry-footer"> 
 								<span itemprop="keywords" class="tags-links">
 								<c:forEach var="keyWord" items="${article.keyWordList}">
@@ -176,7 +176,7 @@
 								<p>
 									这是一个程序员的独立博客站，主要用于分享与编程技术相关的内容， 同时这里也是博主记录工作学习中遇到的问题及其解决方案的地方。
 									PS:夜无痕:非著名程序员，IT界的一名小学生。目前在研究网络舆情、复杂网络、机器学习等... 更多信息请点击：<a
-										target="_blank" href="http://www.zynblog.com/About"
+										target="_blank" href="about.action"
 										style="color:#1abc9c">关于本站.</a>
 								</p>
 							</div>
@@ -208,124 +208,29 @@
 						</c:forEach>
 					</div>
 				</div>
-				</aside> <aside id="hot_article">
-				<div class="panel panel-zyn hidden-xs">
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-leaf newicon"></span> 炙手可热 <span
-							class="panel-remove glyphicon glyphicon-remove-circle"></span> <span
-							class="panel-toggle glyphicon glyphicon-upload"></span>
+				</aside>
+				<aside id="hot_article">
+					<div class="panel panel-zyn hidden-xs">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-leaf newicon"></span> 炙手可热 <span
+								class="panel-remove glyphicon glyphicon-remove-circle"></span> <span
+								class="panel-toggle glyphicon glyphicon-upload"></span>
+						</div>
+	
+						<ul class="list-group list-group-flush">
+							<c:forEach var="hot" items="${hotArticles}">
+								<li class="list-group-item">
+									<span class="post-title">
+										<a href="blogDetail.action?articleId=${hot.articleId}" title="${hot.articleTitle}">${hot.articleTitle}</a>
+									</span> 
+									<span class="badge">${hot.articleViews}</span>
+								</li>
+							</c:forEach>
+						</ul>
 					</div>
-
-					<ul class="list-group list-group-flush">
-
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/1" title="开篇">
-									开篇 </a>
-						</span> <span class="badge">1923</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/2"
-								title="如何使用Bootstrap typeahead插件实现搜索框自动补全"> 如何使用Bootstrap
-									typeahead插件实现搜索框自动补全 </a>
-						</span> <span class="badge">779</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/3"
-								title="使用Lucene对分词结果进行倒排索引 "> 使用Lucene对分词结果进行倒排索引 </a>
-						</span> <span class="badge">315</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/31"
-								title="怎么让百度蜘蛛快速收录自己的网站"> 怎么让百度蜘蛛快速收录自己的网站 </a>
-						</span> <span class="badge">307</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/29"
-								title="使用腾讯云主机windows server 2012 IIS8部署ASP.NET MVC后访问出错:未能加载文件或程序集System.Web.Http.WebHost ">
-									使用腾讯云主机windows server 2012 IIS8部署ASP.NET
-									MVC后访问出错:未能加载文件或程序集System.Web.Http.WebHost </a>
-						</span> <span class="badge">200</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/32"
-								title="总结软件架构特征"> 总结软件架构特征 </a>
-						</span> <span class="badge">195</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/30"
-								title="在IIS8上部署网站时如何设置使用域名和IP均可访问：">
-									在IIS8上部署网站时如何设置使用域名和IP均可访问： </a>
-						</span> <span class="badge">165</span></li>
-						<li class="list-group-item"><span class="post-title">
-								<a href="http://www.zynblog.com/Archives/Index/27"
-								title="从算法到案例：推荐系统必读的10篇精选技术文章"> 从算法到案例：推荐系统必读的10篇精选技术文章 </a>
-						</span> <span class="badge">131</span></li>
-					</ul>
-				</div>
-				</aside> <aside id="zyn_latest_comments-2">
-				<div class="panel panel-zyn hidden-xs">
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-tree-deciduous newicon"></span>
-						雁过留声 <span class="panel-remove glyphicon glyphicon-remove-circle"></span>
-						<span class="panel-toggle glyphicon glyphicon-upload"></span>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404746811076346212.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193404746811076346212.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									扎心了，老铁，你居然直接移除有害标签 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404074901084765038.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193404074901084765038.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									11 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403959818648681314.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193403959818648681314.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									很不错。模仿前端写了个界面 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403609800414283917.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193403609800414283917.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/30#comments-title">
-									fsdfsdfd </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404226471614736025.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193404226471614736025.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									楼主加油 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img data-url="images/6360193404823377597946328.jpg"
-								class="avatar avatar-40 photo"
-								src="images/6360193404823377597946328.jpg" height="40"
-								width="40">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									123aa </a>
-						</span></li>
-					</ul>
-				</div>
-				</aside> <aside id="tag_cloud">
+				</aside> 
+				
+			<aside id="tag_cloud">
 				<div class="panel panel-zyn hidden-xs">
 					<div class="panel-heading">
 						<span class="glyphicon glyphicon-cloud newicon"></span> 上上签儿

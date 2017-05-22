@@ -37,6 +37,7 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public int insert(LeaveMsg leaveMsg) throws Exception {
+		leaveMsg.setLmContent(leaveMsg.getLmContent().replaceAll("</?[^>]+>", ""));
 		sendEmailService.sendEmailToLeaveMsg(leaveMsg);
 		leaveMsg.setLmId(CommonUtils.getUUID());
 		leaveMsg.setLmDate(new Timestamp(new Date().getTime()));

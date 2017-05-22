@@ -37,6 +37,7 @@ public class MainAction {
 	public void addAttribute(Model model){
 		List<Classify> classify = ClassifyService.getAll();
 		model.addAttribute("classify", classify);
+		model.addAttribute("hotArticles", articleService.getHotArticles());
 	}
 
 	@RequestMapping("/about")

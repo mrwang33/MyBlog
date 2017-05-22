@@ -63,6 +63,15 @@ public class ArticleServiceImpl implements ArticleService {
 			List<String> keyWordList = CommonUtils.dealKeyWords(article);
 			article.setKeyWordList(keyWordList);
 		}
+		//截取内容
+		for (Article article : list) {
+			String content = article.getArticleContent();
+			String replaceAll = content.replaceAll("</?[^>]+>", "");
+			if (replaceAll!=null&&!"".equals(replaceAll)) {
+				replaceAll = replaceAll.substring(0, replaceAll.length()-1>150 ? 150 : replaceAll.length()-1);
+			}
+			article.setArticleContent(replaceAll);
+		}
 		page.setPageList(list);
 		return page;
 	}
@@ -80,7 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<Article> getHotArticles() {
-		return null;
+		return articleMapper.getHotArticles();
 	}
 
 

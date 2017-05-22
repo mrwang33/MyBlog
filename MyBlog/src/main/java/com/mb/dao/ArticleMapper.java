@@ -12,4 +12,6 @@ public interface ArticleMapper extends BaseMapper<Article>{
 	public List<Article> getPage(Page<Article> page);
 	//查找出总记录数
 	public int getCount(@Param("keyWords")String keyWords,@Param("classifyId")String classifyId);
+	//获取热门博客
+	public List<Article> getHotArticles();
 }

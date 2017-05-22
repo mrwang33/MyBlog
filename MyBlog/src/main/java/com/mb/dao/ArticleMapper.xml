@@ -90,4 +90,8 @@
 			</if>
   		</where>;
   </select>
+  <!-- 获取5个热门博客 -->
+  <select id="getHotArticles" resultMap="ArticleMap">
+  	SELECT article_id,article_title,article_views FROM article ORDER BY article_views DESC LIMIT 0,5;
+  </select>
 </mapper>
