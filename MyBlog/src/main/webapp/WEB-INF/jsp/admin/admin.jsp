@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 文章内容管理</a>
 			<ul>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('博文管理', 'admin/article.action');">博文管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('博文分类', '/manage/map/index');">博文分类</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('博文分类', 'admin/classify.action');">博文分类</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('评论管理', 'admin/comment.action');">评论管理</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('留言管理', 'admin/leaveMsg.action');">留言管理</a></li>
 			</ul>

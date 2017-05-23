@@ -34,4 +34,11 @@
     set classify_name = #{classifyName,jdbcType=VARCHAR}
     where classify_id = #{classifyId,jdbcType=INTEGER}
   </update>
+  <!-- 批量删除 -->
+  <delete id="deleteList">
+  	DELETE FROM classify WHERE classify_id in
+  	<foreach collection="array" open="(" close=")" separator="," item="pk">
+  		#{pk}
+  	</foreach>
+  </delete>
 </mapper>
