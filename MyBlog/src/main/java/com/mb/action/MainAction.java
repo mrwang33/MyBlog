@@ -100,18 +100,5 @@ public class MainAction {
 		}
 		return "blogDetail";
 	}
-	
-	//添加新评论
-	@RequestMapping("/addComment")
-	public String addComment(Comment comment) {
-		String articleId = comment.getArticle().getArticleId();
-		try {
-			commentService.insert(comment);
-			return "redirect:blogDetail.action?articleId="+articleId;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		
-	}
+
 }

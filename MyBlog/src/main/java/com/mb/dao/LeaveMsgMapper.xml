@@ -75,6 +75,7 @@
   <select id="getCount" resultType="java.lang.Integer">
   	SELECT COUNT(lm_id) FROM leavemsg;
   </select>
+  <!-- 批量删除 -->
   <delete id="deleteList">
   	  	DELETE FROM leavemsg WHERE lm_id IN
 	<foreach collection="array" open="(" close=")" separator="," item="pk">

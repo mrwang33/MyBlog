@@ -61,4 +61,11 @@
   <select id="getAll" resultMap="CommentMap">
   	SELECT c.comment_id,c.comment_name,c.comment_content,c.comment_date,c.comment_email,a.article_title FROM `comment` c, article a WHERE article_id = com_art_id;
   </select>
+  <!-- 批量删除 -->
+  <delete id="deleteList">
+ 	DELETE FROM `comment` WHERE comment_id IN
+	<foreach collection="array" open="(" close=")" separator="," item="pk">
+		#{pk}
+	</foreach>
+  </delete>
 </mapper>

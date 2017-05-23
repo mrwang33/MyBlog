@@ -65,8 +65,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int deleteList(Serializable[] ids) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return commentMapper.deleteList(ids);
 	}
 
 	@Override
@@ -94,6 +93,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public int getCountInThisArticle(String articleId) {
 		return commentMapper.getCountInThisArticle(articleId);
+	}
+
+	@Override
+	public int getChildCount(Comment comment) {
+		return commentMapper.getChild(comment).size();
 	}
 
 

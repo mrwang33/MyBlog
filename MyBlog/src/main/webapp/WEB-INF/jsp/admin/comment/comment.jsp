@@ -192,7 +192,7 @@
 								  type:"POST",
 								  //设置为传统方式传送参数
 								  traditional:true,
-								  data:{lmId:row.lmId},
+								  data:{commentId:row.commentId},
 								  success: function(data){
 									  if(data>0){
 									  	$.confirm({
@@ -213,7 +213,7 @@
 															url: "comment/deleteComment.action",
 															type:"post",
 															traditional:true,
-								  							data:{pks:row.lmId},
+								  							data:{pks:row.commentId},
 								  							success: function(data) {
 								  								if(data>0) {
 								  									$.confirm({
@@ -257,7 +257,7 @@
 										  type:"POST",
 										  //设置为传统方式传送参数
 										  traditional:true,
-										  data:{pks:row.lmId},
+										  data:{pks:row.commentId},
 										  success: function(data){
 											  if(data>0){
 												$.confirm({
@@ -314,9 +314,9 @@
 		// 删除
 		function deleteAction() {
 			var rows = $table.bootstrapTable('getSelections');
-			var lmIds = new Array();
+			var commentIds = new Array();
 			for (var i = 0; i < rows.length; i++) {
-				lmIds[i] = rows[i].lmId;
+				commentIds[i] = rows[i].commentId;
 			}
 			if (rows.length == 0) {
 				$.confirm({
@@ -348,7 +348,7 @@
 								  type:"POST",
 								  //设置为传统方式传送参数
 								  traditional:true,
-								  data:{pks:lmIds},
+								  data:{pks:commentIds},
 								  success: function(data){
 									  if(data>0){
 									  	$.confirm({
@@ -369,7 +369,7 @@
 															url: "comment/deleteComment.action",
 															type:"post",
 															traditional:true,
-								  							data:{pks:lmIds},
+								  							data:{pks:commentIds},
 								  							success: function(data) {
 								  								if(data>0) {
 								  									$.confirm({
@@ -413,7 +413,7 @@
 										  type:"POST",
 										  //设置为传统方式传送参数
 										  traditional:true,
-										  data:{pks:lmIds},
+										  data:{pks:commentIds},
 										  success: function(data){
 											  if(data>0){
 												$.confirm({

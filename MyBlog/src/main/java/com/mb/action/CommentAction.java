@@ -38,24 +38,21 @@ public class CommentAction {
 	@RequestMapping("/getCommentChild")
 	@ResponseBody //json格式
 	public Object getCommentChild(Comment comment) {
-//		List<Comment> commentChild = commentService.getCommentChild(comment);
-//		if (commentChild!=null&&commentChild.size()>0) {
-//			return 1;
-//		}
-		return 0;
+		return commentService.getChildCount(comment);
 	}
-	//多选删除
+	
+	//多选删除 判断所选评论下是否有子回复
 	@RequestMapping("/getCommentChildByPks")
 	@ResponseBody //json格式
 	public Object getCommentChildByPks(String[] pks) {
-//		for (String pk : pks) {
-//			Comment comment = new Comment();
-//			comment.setLmId(pk);
-//			List<Comment> commentChild = commentService.getCommentChild(comment);
-//			if (commentChild!=null&&commentChild.size()>0) {
-//				return 1;
-//			}
-//		}
+		for (String pk : pks) {
+			Comment comment = new Comment();
+			comment.setCommentId(pk);
+			int childCount = commentService.getChildCount(comment);
+			if (childCount>0) {
+				return childCount;
+			}
+		}
 		return 0;
 	}
 	
@@ -69,5 +66,20 @@ public class CommentAction {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	
+	//添加新评论
+	@RequestMapping("/addComment")
+	public String addComment(Comment comment) {
+		String articleId = comment.getArticle().getArticleId();
+		try {
+			commentService.insert(comment);
+			return "redirect:../blogDetail.action?articleId="+articleId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 	}
 }

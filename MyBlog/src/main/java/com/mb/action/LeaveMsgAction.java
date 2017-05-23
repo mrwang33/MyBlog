@@ -60,7 +60,8 @@ public class LeaveMsgAction {
 		}
 		return 0;
 	}
-	//多选删除
+	
+	//多选删除 判断所选留言下是否有子回复
 	@RequestMapping("/getLeaveMsgChildByPks")
 	@ResponseBody //json格式
 	public Object getLeaveMsgChildByPks(String[] pks) {

@@ -14,6 +14,8 @@ public interface CommentService extends BaseService<Comment> {
 	public List<Comment> getRootComment(String articleId);
 	//根据根回复 查找根回复的所有子回复
 	public List<Comment> getAllChild(List<Comment> root);
-	//获取总留言数
+	//获取总评论数
 	public int getCountInThisArticle(String articleId);
+	//获取该评论下的子回复个数
+	public int getChildCount(Comment comment);
 }

@@ -191,7 +191,7 @@
 								</h3>
 
 
-								<form novalidate="novalidate" action="addComment.action" method="post"
+								<form novalidate="novalidate" action="comment/addComment.action" method="post"
 									id="commentform" class="comment-form">
 
 
