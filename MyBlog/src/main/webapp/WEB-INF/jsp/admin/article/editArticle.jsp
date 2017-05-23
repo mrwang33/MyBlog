@@ -85,6 +85,15 @@
 												</select>
 											</div>
 										</div>
+										<div class="control-group">
+			                                <label class="control-label" for="optionsCheckbox">是否置顶</label>
+			                                <div class="controls">
+			                                  <label class="uniform">
+			                                    <input class="uniform_on" name="isStick" type="checkbox" id="isStick">
+			                                    			置顶
+			                                  </label>
+			                                </div>
+			                             </div>
 										<input type="hidden" name="articleId" value="${article.articleId}" />
 										<input type="hidden" name="articleDate" value="${article.articleDate}" />
 										<input type="hidden" name="articleViews" value="${article.articleViews}" />
@@ -141,6 +150,13 @@
 	   FormValidation.init();
 	   var clas = "${article.classify.classifyId}";
 	   $("#art_"+clas).attr("selected",true);  
+	   
+	   //解决checkbox选中问题
+		var isStick = '${article.isStick}';
+		if(isStick=="true") {
+		
+			$("#isStick").attr("checked",true);
+		}
 	});
 	
 

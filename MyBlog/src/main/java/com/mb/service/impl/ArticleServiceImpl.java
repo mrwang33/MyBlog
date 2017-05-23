@@ -34,6 +34,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public int insert(Article article) throws Exception {
+		//如果新增的article是置顶的 则要先移除已经置顶的博文了
+		if (article.getIsStick()) {
+			articleMapper.emptyOtherStick();
+		}
 		article.setArticleId(CommonUtils.getUUID());
 		article.setArticleDate(new Timestamp(new Date().getTime()));
 		article.setArticleViews(0);
@@ -43,6 +47,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public int update(Article t) throws Exception {
+		//如果新增的article是置顶的 则要先移除已经置顶的博文了
+		if (t.getIsStick()) {
+			articleMapper.emptyOtherStick();
+		}
 		return articleMapper.update(t);
 	}
 

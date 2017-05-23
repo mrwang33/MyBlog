@@ -10,20 +10,21 @@
     <result column="article_views" property="articleViews" jdbcType="INTEGER" />
     <result column="article_stars" property="articleStars" jdbcType="INTEGER" />
     <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR" />
+    <result column="isStick" property="isStick" jdbcType="BIT" />
     <association property="classify" resultMap="com.mb.dao.ClassifyMapper.ClassifyMap"></association>
   </resultMap>
   <sql id="Base_Column_List" >
     article_id, article_title, article_date, article_keywords, article_views, article_stars, 
-    art_clas, article_content
+    art_clas, article_content,isStick
   </sql>
   
   <insert id="insert" parameterType="com.mb.entity.Article" >
     insert into article (article_id, article_title, article_date, 
       article_keywords, article_views, article_stars, 
-      article_content,art_clas)
+      article_content,art_clas,isStick)
     values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleDate,jdbcType=TIMESTAMP}, 
       #{articleKeywords,jdbcType=VARCHAR}, #{articleViews,jdbcType=INTEGER}, #{articleStars,jdbcType=INTEGER}, 
-      #{articleContent,jdbcType=LONGVARCHAR},#{classify.classifyId,jdbcType=VARCHAR})
+      #{articleContent,jdbcType=LONGVARCHAR},#{classify.classifyId,jdbcType=VARCHAR},#{isStick,jdbcType=BIT})
   </insert>
   <update id="update" parameterType="com.mb.entity.Article" >
     update article
@@ -33,13 +34,14 @@
       article_views = #{articleViews,jdbcType=INTEGER},
       article_stars = #{articleStars,jdbcType=INTEGER},
       article_content = #{articleContent,jdbcType=LONGVARCHAR},
-      art_clas = #{classify.classifyId,jdbcType=VARCHAR}
+      art_clas = #{classify.classifyId,jdbcType=VARCHAR},
+      isStick = #{isStick,jdbcType=BIT}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
    <!-- 获取全部 -->
   <select id="getAll" resultMap="ArticleMap">
   	SELECT a.article_id, a.article_title, a.article_date, a.article_keywords, a.article_views
-	, a.article_stars, a.article_content, c.classify_id, c.classify_name
+	, a.article_stars, a.article_content, a.isStick, c.classify_id, c.classify_name
 		FROM article a
 			LEFT JOIN classify c ON a.art_clas = c.classify_id;
   </select>
@@ -51,7 +53,7 @@
   <!-- 根据主键获取 -->
   <select id="getById" parameterType="java.lang.String" resultMap="ArticleMap" >
   	SELECT aa.article_id, aa.article_title, aa.article_date, aa.article_keywords, aa.article_views, aa.article_stars
-	, aa.article_content, c.classify_id, c.classify_name
+	, aa.article_content, aa.isStick, c.classify_id, c.classify_name
 	FROM classify c
 		RIGHT JOIN (SELECT *
 			FROM article a
@@ -94,4 +96,8 @@
   <select id="getHotArticles" resultMap="ArticleMap">
   	SELECT article_id,article_title,article_views FROM article ORDER BY article_views DESC LIMIT 0,5;
   </select>
+  <!-- 清空其他置顶博文 -->
+  <update id="emptyOtherStick">
+  	UPDATE article SET isStick=0 WHERE article_id IN(SELECT id FROM (SELECT article_id AS id FROM article WHERE isStick=1) a);
+  </update>
 </mapper>

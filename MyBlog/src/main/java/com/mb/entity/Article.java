@@ -29,6 +29,8 @@ public class Article implements Serializable{
     private String articleContent;
     //博文种类
     private Classify classify;
+    //是否置顶
+    private boolean isStick;
     //关键词list方便前端显示(偷懒 不想改了)
     private List<String> keyWordList;
     
@@ -36,15 +38,19 @@ public class Article implements Serializable{
 	}
 
 	public Article(String articleId, String articleTitle, Timestamp articleDate, String articleKeywords,
-			Integer articleViews, Integer articleStars, Classify classify, String articleContent) {
+			Integer articleViews, Integer articleStars, String articleContent, Classify classify, boolean isStick,
+			List<String> keyWordList) {
+		super();
 		this.articleId = articleId;
 		this.articleTitle = articleTitle;
 		this.articleDate = articleDate;
 		this.articleKeywords = articleKeywords;
 		this.articleViews = articleViews;
 		this.articleStars = articleStars;
-		this.classify = classify;
 		this.articleContent = articleContent;
+		this.classify = classify;
+		this.isStick = isStick;
+		this.keyWordList = keyWordList;
 	}
 
 	public String getArticleId() {
@@ -117,6 +123,14 @@ public class Article implements Serializable{
 
 	public void setKeyWordList(List<String> keyWordList) {
 		this.keyWordList = keyWordList;
+	}
+
+	public boolean getIsStick() {
+		return isStick;
+	}
+
+	public void setIsStick(boolean isStick) {
+		this.isStick = isStick;
 	}
 
     

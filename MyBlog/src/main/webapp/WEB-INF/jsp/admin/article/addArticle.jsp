@@ -79,13 +79,21 @@
 											<label class="control-label" for="multiSelect">博文分类</label>
 											<div class="controls">
 												<select class="span6 m-wrap" name="classify.classifyId" id="optionsCheckbox">
-													<option value="">请选择博文分类</option>
 													<c:forEach var="classify" items="${classifys}">
 														<option value='${classify.classifyId}'>${classify.classifyName}</option>
 													</c:forEach>
 												</select>
 											</div>
 										</div>
+										<div class="control-group">
+			                                <label class="control-label" for="optionsCheckbox">是否置顶</label>
+			                                <div class="controls">
+			                                  <label class="uniform">
+			                                    <input class="uniform_on" name="isStick" type="checkbox" id="optionsCheckbox">
+			                                    			置顶
+			                                  </label>
+			                                </div>
+			                             </div>
 										<div class="form-actions">
 											<button type="submit" class="btn btn-primary">添加</button>
 											<button type="button" onclick="history.go(-1)" class="btn">取消</button>

@@ -150,11 +150,17 @@
 						halign : 'center'
 					},
 					{
-						field : 'articleStars',
-						title : '点赞数',
+						field : 'isStick',
+						title : '是否置顶',
 						sortable : true,
 						align : 'center',
 						halign : 'center',
+						formatter : function(value) {
+							if(value==true) {
+								return '是';
+							}
+							return '否';
+						}
 					},
 					{
 						field : 'classify.classifyName',
