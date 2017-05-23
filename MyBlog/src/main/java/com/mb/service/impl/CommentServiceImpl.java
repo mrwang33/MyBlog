@@ -26,8 +26,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public List<Comment> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return commentMapper.getAll();
 	}
 
 	@Override
@@ -38,14 +37,16 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int insert(Comment comment) throws Exception {
-		sendEmailService.sendEmailToComment(comment);
-		//根元素的判断就是有articleid 而没有 fatherid 所以这里如果有fatherid 就将article设为null
-		if (comment.getFatherCommentId()!=null&&!"".equals(comment.getFatherCommentId())) {
-			comment.setArticle(null);
-		} else {
+		if (comment.getFatherCommentId()==null||"".equals(comment.getFatherCommentId())) {
 			comment.setFatherCommentId(null);
 		}
+		//替换评论中的html标签 防止xss注入攻击
+		comment.setCommentContent(comment.getCommentContent().replaceAll("</?[^>]+>", ""));
+		//发送邮件
+		sendEmailService.sendEmailToComment(comment);
+		//设置主键
 		comment.setCommentId(CommonUtils.getUUID());
+		//设置时间
 		comment.setCommentDate(new Timestamp(new Date().getTime()));
 		return commentMapper.insert(comment);
 	}
@@ -91,19 +92,10 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public int getCount(List<Comment> commentsList,int count) {
-		index += commentsList.size();
-		for (Comment comment : commentsList) {
-			List<Comment> child = comment.getComments();
-			getCount(child,index);
-		}
-		return index;
+	public int getCountInThisArticle(String articleId) {
+		return commentMapper.getCountInThisArticle(articleId);
 	}
 
-	@Override
-	public void makeIndexZero() {
-		this.index=0;
-	}
 
 	
 }

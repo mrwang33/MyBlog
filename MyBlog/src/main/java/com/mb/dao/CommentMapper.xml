@@ -47,13 +47,18 @@
   </update>
   <!-- 获取此博文下的所有根评论 -->
   <select id="getRootComment" parameterType="java.lang.String" resultMap="CommentMap">
-  	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE com_art_id=#{articleId} ORDER BY comment_date DESC;
+  	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE com_art_id=#{articleId} AND father_comment_id IS NULL ORDER BY comment_date DESC;
   </select>
   <!-- 获取该评论的所有子回复 -->
   <select id="getChild" parameterType="com.mb.entity.Comment" resultMap="CommentMap">
   	SELECT <include refid="Base_Column_List" /> FROM `comment` WHERE father_comment_id=#{commentId} ORDER BY comment_date DESC;
   </select>
+  <!-- 获取该博文下所有评论数 -->
   <select id="getCountInThisArticle" resultType="java.lang.Integer">
   	SELECT COUNT(comment_id) FROM `comment` WHERE com_art_id=#{articleId,jdbcType=VARCHAR};
+  </select>
+  <!-- 获取所有 -->
+  <select id="getAll" resultMap="CommentMap">
+  	SELECT c.comment_id,c.comment_name,c.comment_content,c.comment_date,c.comment_email,a.article_title FROM `comment` c, article a WHERE article_id = com_art_id;
   </select>
 </mapper>

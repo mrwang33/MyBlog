@@ -47,11 +47,11 @@
 
 			<script type="text/javascript">
 				$(function() {
-					$('#keyWords').on('keydown', function(e) {
+					$('#searchWords').on('keydown', function(e) {
 						var key = e.which;
 						if (key == 13) {
 							e.preventDefault();
-							var words = $('#keyWords').val();
+							var words = $('#searchWords').val();
 							words = $.trim(words);
 							if (words == ' ' || words == null || words == undefined) {
 								alert('请输入搜索词');
@@ -67,7 +67,7 @@
 				target="_blank" method="post"
 				action="blog.action">
 				<div class="form-group">
-					<input type="text" id="keyWords" name="keyWords"
+					<input type="text" id="searchWords" name="keyWords"
 						class="form-control" data-provide="typeahead" autocomplete="off"
 						placeholder="请输入要搜索关键词">
 				</div>

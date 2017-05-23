@@ -37,6 +37,7 @@ public class LeaveMsgServiceImpl implements LeaveMsgService {
 
 	@Override
 	public int insert(LeaveMsg leaveMsg) throws Exception {
+		//替换留言中的html标签 防止xss注入攻击
 		leaveMsg.setLmContent(leaveMsg.getLmContent().replaceAll("</?[^>]+>", ""));
 		sendEmailService.sendEmailToLeaveMsg(leaveMsg);
 		leaveMsg.setLmId(CommonUtils.getUUID());

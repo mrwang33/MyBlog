@@ -197,10 +197,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="sub-menu system_menus system_1 7">
 			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 文章内容管理</a>
 			<ul>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('公共码表', 'admin/article.action');">博文管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('会话管理', '/manage/session/index');">评论管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', 'admin/leaveMsg.action');">留言管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('键值设置', '/manage/map/index');">键值设置</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('博文管理', 'admin/article.action');">博文管理</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('博文分类', '/manage/map/index');">博文分类</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('评论管理', 'admin/comment.action');">评论管理</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('留言管理', 'admin/leaveMsg.action');">留言管理</a></li>
 			</ul>
 			</li>
 			<li class="sub-menu system_menus system_2 12" style="display:none;">

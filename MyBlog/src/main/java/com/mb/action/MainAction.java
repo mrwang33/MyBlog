@@ -92,9 +92,7 @@ public class MainAction {
 			model.addAttribute("article", article);
 			model.addAttribute("commentList", treeComment);
 			//此博文下共多少评论
-			model.addAttribute("commentSize",commentService.getCount(treeComment, 0));
-			commentService.makeIndexZero();
-			
+			model.addAttribute("commentSize",commentService.getCountInThisArticle(articleId));
 			this.addAttribute(model);
 		} catch (Exception e) {
 			e.printStackTrace();
