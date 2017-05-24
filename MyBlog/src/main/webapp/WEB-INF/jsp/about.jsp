@@ -11,12 +11,12 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>摸鱼博客-关于本站</title>
+<title>GG博客-关于本站</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="技术博客,摸鱼">
+<meta http-equiv="keywords" content="技术博客,GG">
 <meta http-equiv="description" content="个人博客">
 <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -56,7 +56,7 @@
 						</div>
 						<div class="panel-body bg-white">
 							<div style="float:left; margin-right:20px; margin-top:20px">
-								<img src="images/weixin_aboutme.jpg" width="140"
+								<img src="images/weixin.png" width="140"
 									height="125" alt="微信扫一扫">
 							</div>
 							<div>

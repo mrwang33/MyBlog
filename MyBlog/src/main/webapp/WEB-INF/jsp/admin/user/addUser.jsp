@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   							<div class="control-group">
   								<label class="control-label">密码<span class="required">*</span></label>
   								<div class="controls">
-  									<input name="password" type="text" class="span6 m-wrap"/>
+  									<input name="password" type="password" class="span6 m-wrap"/>
   								</div>
   							</div>
   							<!-- 多选select -->

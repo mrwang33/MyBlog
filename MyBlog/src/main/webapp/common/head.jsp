@@ -26,7 +26,7 @@
 		<!--导航条 3.这部分也是移动端折叠的部分, 也是为了能够更好的展现页面在移动端. -->
 		<div class="collapse navbar-collapse" id="bs-navbar-collapse">
 			<ul class="nav navbar-nav top-navbar-nav">
-				<li id="home"><a class="toplevel" title="zynblog首页"
+				<li id="home"><a class="toplevel" title="GGblog首页"
 					href=""> <span
 						class="glyphicon glyphicon-home"></span> 主页
 				</a></li>

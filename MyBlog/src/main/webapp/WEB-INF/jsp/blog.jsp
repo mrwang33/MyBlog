@@ -12,11 +12,11 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>摸鱼博客</title>
+<title>GG博客</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="技术博客,摸鱼">
+<meta http-equiv="keywords" content="技术博客,GG">
 <meta http-equiv="description" content="个人博客">
 <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">

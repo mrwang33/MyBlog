@@ -60,7 +60,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>摸鱼博客-留言板</title>
+<title>GG博客-留言板</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -89,7 +89,7 @@
 					<div id="ie-warning" class="alert alert-danger fade in">
 						<button type="button" class="close" data-dismiss="alert">×</button>
 						<span class="glyphicon glyphicon-exclamation-sign"></span>
-						请注意，ZynBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用FireFox浏览器。
+						请注意，GGBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用FireFox浏览器。
 					</div>
 					<!-- 内容主体 包含三部分内容：1.每日提示、2.文章列表、3. 分页条-->
 
@@ -119,7 +119,7 @@
 						<div class="comments-wrap">
 							<div id="comments" data-url="leaveMsg.action">
 								<h3 id="comments-title" class="comments-header alert alert-info">
-									${length} 条留言&nbsp; &nbsp; <a style="color:red" href="#submit">快速留言&gt;&gt;&gt;</a>
+									${length} 条留言&nbsp; &nbsp; <a style="color:red" onclick="quickReply()">快速留言&gt;&gt;&gt;</a>
 								</h3>
 
 								<ol class="commentlist">
@@ -211,6 +211,10 @@
   			window.scrollTo(h,h);
   			document.getElementById("comment").innerHTML="回复:"+fatherName+" ";
   			document.getElementById("lmFatherid").value=fatherId;
+        }
+        function quickReply() {
+        	var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+  			window.scrollTo(h,h);
         }
     </script>
 </body>

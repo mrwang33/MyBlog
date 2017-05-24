@@ -61,11 +61,11 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>摸鱼博客</title>
+<title>GG博客</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="技术博客,摸鱼">
+<meta http-equiv="keywords" content="技术博客,GG">
 <meta http-equiv="description" content="个人博客">
 <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -111,7 +111,7 @@
 					<div id="ie-warning" class="alert alert-danger fade in">
 						<button type="button" class="close" data-dismiss="alert">×</button>
 						<span class="glyphicon glyphicon-exclamation-sign"></span>
-						请注意，ZynBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用FireFox浏览器。
+						请注意，GGBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用FireFox浏览器。
 					</div>
 					<!-- 内容主体 包含三部分内容：1.每日提示、2.文章列表、3. 分页条-->
 
@@ -121,7 +121,7 @@
 					<div class="breadcrumb breadset">
 						<!-- 面包屑 -->
 						<span class="glyphicon glyphicon-home"></span> <a
-							title="Go to Zynblog" href="#" class=" home">Zynblog</a> / <a
+							title="Go to GGblog" href="#" class=" home">GGblog</a> / <a
 							title="${article.classify.classifyName}" href="blog.action?classifyId=${article.classify.classifyId}"> ${article.classify.classifyName} </a> /
 					</div>
 

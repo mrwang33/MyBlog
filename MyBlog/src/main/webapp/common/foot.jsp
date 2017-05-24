@@ -2,9 +2,9 @@
 <!--页脚版权声明-->
 <footer id="zyn-footer">
 	<div class="container">
-		Copyright © 2016 <a href="#">zynblog</a>&nbsp; | &nbsp;联系我 : <a
-			href="mailto:zynblog@126.com">zynblog@126.com</a>&nbsp; | &nbsp;All
-		Rights Reserved.&nbsp; | &nbsp;豫ICP备16019396号-1
+		Copyright © 2016 <a href="#">GGblog</a>&nbsp; | &nbsp;联系我 : <a
+			href="wang1386528@gmail.com">GGblog@126.com</a>&nbsp; | &nbsp;All
+		Rights Reserved.&nbsp; | &nbsp;
 	</div>
 </footer>
 
