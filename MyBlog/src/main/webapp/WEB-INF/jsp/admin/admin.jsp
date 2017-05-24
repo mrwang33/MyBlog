@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="index.html">
 				<img src="images/logo1.png"/>
 			</a>
-			<span id="system_title">权限管理系统</span>
+			<span id="system_title">后台管理系统</span>
 		</li>
 		<li class="pull-right">
 			<ul class="hi-menu">
@@ -180,7 +180,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<p><b>角色管理</b>：可以新增、修改、删除角色，并且可以给角色分配相应权限(一个角色可以拥有多个权限) 权限可以决定对应角色的功能</p>
 				<p><b>文章内容管理</b>：可以对博文、博文分类、博文评论和留言 进行增删改查操作 ps:评论和留言只能删除 无法在这里进行修改和新增</p>
 				<p><b>网站简介设置</b>：可以对关于本站和自我介绍进行设置</p>
-				<p><b>用户会话管理</b>：提供分布式用户会话管理</p>
 				<p><h4>关于作者</h4></p>
 				<p><b>姓　　名</b>：王欢</p>
 				<p><b>电子邮箱</b>：wang1386528@gmail.com</p>
