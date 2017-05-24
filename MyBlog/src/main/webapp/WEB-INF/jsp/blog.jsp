@@ -133,8 +133,7 @@
 							</div>
 							<div style="text-indent:2em;">
 								<p>
-									这是我的个人博客站，主要用于分享与编程技术相关的内容， 同时这里也是博主记录工作学习中遇到的问题及其解决方案的地方。
-									PS:王欢:非著名程序员，IT界的一名小学生。初出茅庐还请各位大神多多指教... 更多信息请点击：<a
+									${introduction.introduction}更多信息请点击：<a
 										target="_blank" href="about.action"
 										style="color:#1abc9c">关于本站.</a>
 								</p>

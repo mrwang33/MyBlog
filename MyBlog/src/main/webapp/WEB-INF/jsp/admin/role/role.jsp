@@ -139,13 +139,6 @@
 						halign : 'center'
 					},
 					{
-						field : 'name',
-						title : '角色状态',
-						sortable : true,
-						align : 'center',
-						halign : 'center'
-					},
-					{
 						field : 'action',
 						title : '操作',
 						halign : 'center',

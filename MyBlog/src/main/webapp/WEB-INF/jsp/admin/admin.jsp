@@ -2,6 +2,10 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+   response.setHeader("Pragma","no-cache");   
+   response.setHeader("Cache-Control","no-cache");   
+   response.setDateHeader("Expires", 0);   
+   response.setHeader("Cache-Control", "no-store");  
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -11,11 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <title>个人博客后台管理</title>
     
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">    
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">    
+    <META HTTP-EQUIV="expires" CONTENT="0">   
 	<link href="plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
 	<link href="plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
@@ -67,52 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</li>
 		<li class="pull-right">
 			<ul class="hi-menu">
-				<!-- 搜索 -->
-				<li class="dropdown">
-					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
-						<i class="him-icon zmdi zmdi-search"></i>
-					</a>
-					<ul class="dropdown-menu dm-icon pull-right">
-						<form id="search-form" class="form-inline">
-							<div class="input-group">
-								<input id="keywords" type="text" name="keywords" class="form-control" placeholder="搜索"/>
-								<div class="input-group-btn">
-									<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-								</div>
-							</div>
-						</form>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
-						<i class="him-icon zmdi zmdi-dropbox"></i>
-					</a>
-					<ul class="dropdown-menu dm-icon pull-right">
-						<li class="skin-switch">
-							请选择系统切换
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="1" systemname="zheng-upms-server" systemtitle="权限管理系统"><i class="zmdi zmdi-shield-security"></i> 权限管理系统</a>
-						</li>
-						
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="2" systemname="zheng-cms-admin" systemtitle="内容管理系统"><i class="zmdi zmdi-wikipedia"></i> 内容管理系统</a>
-						</li>
-						
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="3" systemname="zheng-pay-admin" systemtitle="支付管理系统"><i class="zmdi zmdi-paypal-alt"></i> 支付管理系统</a>
-						</li>
-						
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="4" systemname="zheng-ucenter-home" systemtitle="用户管理系统"><i class="zmdi zmdi-account"></i> 用户管理系统</a>
-						</li>
-						
-						<li>
-							<a class="waves-effect switch-systems" href="javascript:;" systemid="5" systemname="zheng-oss-web" systemtitle="存储管理系统"><i class="zmdi zmdi-cloud"></i> 存储管理系统</a>
-						</li>
-					</ul>
-				</li>
 				<li class="dropdown">
 					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
 						<i class="him-icon zmdi zmdi-more-vert"></i>
@@ -122,16 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
 						</li>
 						<li>
-							<a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
-						</li>
-						<li>
-							<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
-						</li>
-						<li>
-							<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-settings"></i> 系统设置</a>
-						</li>
-						<li>
-							<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-run"></i> 退出登录</a>
+							<a class="waves-effect" href="admin/logout.action"><i class="zmdi zmdi-run"></i> 退出登录</a>
 						</li>
 					</ul>
 				</li>
@@ -149,22 +96,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<img src="images/avatar.jpg"/>
 				</div>
 				<div class="sp-info">
-					admin，您好！
+					欢迎您!${sessionScope.username}
 					<i class="zmdi zmdi-caret-down"></i>
 				</div>
 			</a>
 			<ul class="main-menu">
 				<li>
-					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-account"></i> 个人资料</a>
-				</li>
-				<li>
-					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
-				</li>
-				<li>
-					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-settings"></i> 系统设置</a>
-				</li>
-				<li>
-					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-run"></i> 退出登录</a>
+					<a class="waves-effect" href="admin/logout.action"><i class="zmdi zmdi-run"></i> 退出登录</a>
 				</li>
 			</ul>
 		</div>
@@ -181,12 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li><a class="waves-effect" href="javascript:Tab.addTab('用户管理', 'admin/user.action');">用户管理</a></li>
 			</ul>
 			</li>
-			<li class="sub-menu system_menus system_1 6">
-			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-lock-outline"></i> 权限资源管理</a>
-			<ul>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('权限管理', '/manage/permission/index');">权限管理</a></li>
-			</ul>
-			</li>
 			<li class="sub-menu system_menus system_1 7">
 			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-collection-text"></i> 文章内容管理</a>
 			<ul>
@@ -199,8 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="sub-menu system_menus system_1 0">
 			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts-list"></i> 网站简介设置</a>
 			<ul>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('系统管理', 'crud.html');">个人介绍</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('组织管理', 'about/goEdit.action');">关于网站</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('个人介绍', 'introduction/goEdit.action');">个人介绍</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('关于网站', 'about/goEdit.action');">关于网站</a></li>
 			</ul>
 			</li>
 			<li class="sub-menu system_menus system_2 12" style="display:none;">

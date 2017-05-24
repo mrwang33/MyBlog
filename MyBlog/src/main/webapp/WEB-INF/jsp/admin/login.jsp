@@ -3,6 +3,9 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+			response.setHeader("Cache-Control","no-store");
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Pragma","no-cache");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -12,11 +15,9 @@
 
 <title>后台管理-登录</title>
 
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
+ <META HTTP-EQUIV="pragma" CONTENT="no-cache">    
+ <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">    
+ <META HTTP-EQUIV="expires" CONTENT="0">  
 
 
 <link href="plugins/bootstrap-3.3.0/css/bootstrap.min.css"
@@ -31,7 +32,7 @@
 <link href="css/login.css" rel="stylesheet" />
 </head>
 <body>
-	<div id="login-window">
+	<div id="login-window" style="height;height: 300;">
 		<div class="input-group m-b-20">
 			<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 			<div class="fg-line">
@@ -46,11 +47,20 @@
 					name="password" placeholder="密码">
 			</div>
 		</div>
-		<div class="clearfix"></div>
-		<div class="checkbox">
-			<input id="rememberMe" type="checkbox" class="checkbix"
-				data-text="自动登录" name="rememberMe">
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-badge-check"></i></span>
+			<div class="fg-line">
+				<img alt="zaima" src="admin/getCode.action">
+			</div>
 		</div>
+		<div class="input-group m-b-20">
+			<span class="input-group-addon"><i class="zmdi zmdi-badge-check"></i></span>
+			<div class="fg-line">
+				<input id="code" type="text" class="form-control"
+					name="code" placeholder="请输入验证码">
+			</div>
+		</div>
+		<div class="clearfix"></div>
 		<a id="login-bt" href="javascript:;"
 			class="waves-effect waves-button waves-float"><i
 			class="zmdi zmdi-arrow-forward"></i></a>
@@ -63,31 +73,6 @@
 	<script src="js/login.js"></script>
 	<script type="text/javascript">
 		Checkbix.init();
-		
-		function submit() {
-			var username = $('#username').val();
-			var password = $("#password").val();
-		    // 取得要提交页面的URL  
-		    var action = "http://127.0.0.1:8081/admin/login.action";  
-		    // 创建Form  
-		    var form = $('<form></form>');  
-		    // 设置属性  
-		    form.attr('action', action);  
-		    form.attr('method', 'post');  
-		    // 创建Input  
-		    var name = $('<input type="text" name="username" />');  
-		    name.attr('value', username);  
-		    var pw = $('<input type="text" name="password" />');  
-		    pw.attr('value', password);  
-		    // 附加到Form  
-		    form.append(name);  
-		    form.append(pw);  
-		    $(document.body).append(form);
-		    // 提交表单  
-		    form.submit();  
-		    // 注意return false取消链接的默认动作  
-		    return false;  
-		}
 	</script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>关于网站</title>
+<title>个人介绍</title>
 
 <link href="admin/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -31,12 +31,12 @@
 					<!-- block -->
 					<div class="block">
 						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">关于网站</div>
+							<div class="muted pull-left">个人介绍</div>
 						</div>
 						<div class="block-content collapse in">
 							<div class="span12">
 								<!-- BEGIN FORM-->
-								<form action="about/editAbout.action" method="post"
+								<form action="introduction/editIntroduction.action" method="post"
 									id="form_sample_1" class="form-horizontal">
 									<fieldset>
 										<div class="alert alert-error hide">
@@ -48,29 +48,13 @@
 											修改成功!即将跳转回列表!
 										</div>
 										<div class="control-group">
-                                          <label class="control-label" for="textarea2">网站概要
+                                          <label class="control-label" for="textarea2">个人介绍
                                           	 <span	class="required">*</span>
                                           </label>
                                           <div class="controls">
-                                            <textarea class="" id="summary" name="summary" style="width: 810px; height: 200px">${about.summary}</textarea>
+                                            <textarea class="" id="introduction" name="introduction" style="width: 810px; height: 200px">${introduction.introduction}</textarea>
                                           </div>
                                         </div>
-                                        <div class="control-group">
-                                          <label class="control-label" for="textarea2">使用到的技术
-                                           <span class="required">*</span>
-                                          </label>
-                                          <div class="controls">
-                                            <textarea class="" id="skill" name="skill" style="width: 810px; height: 200px">${about.skill}</textarea>
-                                          </div>
-                                        </div>
-                                        <div class="control-group">
-											<label class="control-label">座右铭
-											<span class="required">*</span></label>
-											<div class="controls">
-												<input name="creed" type="text"
-													class="span6 m-wrap" value="${about.creed}" />
-											</div>
-										</div>
 										<input type="hidden" name="id" value="1">
 										<div class="form-actions">
 											<button type="submit" class="btn btn-primary">修改</button>
@@ -83,8 +67,6 @@
 					</div>
 					<!-- /block -->
 				</div>
-				<!-- /validation -->
-
 
 			</div>
 		</div>
@@ -113,7 +95,7 @@
 
 	<script type="text/javascript"
 		src="admin/vendors/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="admin/assets/form-validation-about.js"></script>
+	<script src="admin/assets/form-validation-introduction.js"></script>
 
 	<script src="assets/scripts.js"></script>
 	<script>

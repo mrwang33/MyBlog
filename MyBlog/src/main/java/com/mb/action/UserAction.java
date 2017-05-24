@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.json.Json;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class UserAction {
 	
 	//跳转到修改页面
 	@RequestMapping("/goEdit")
-	public String goEdit(String userId,Model model) {
+	public String goEdit(String userId,Model model,HttpSession session) {
 		List<Role> roles = roleService.getAll();
 		User user = userService.getById(userId);
 		model.addAttribute("user", JSONObject.toJSON(user));

@@ -25,6 +25,7 @@ $(function() {
 function login() {
 	var username = $('#username').val();
 	var password = $("#password").val();
+	var code = $("#code").val();
     // 取得要提交页面的URL  
     var action = "admin/login.action";  
     // 创建Form  
@@ -37,9 +38,12 @@ function login() {
     name.attr('value', username);  
     var pw = $('<input type="text" name="password" />');  
     pw.attr('value', password);  
+    var c = $('<input type="text" name="code" />');  
+    c.attr('value', code);  
     // 附加到Form  
     form.append(name);  
     form.append(pw);  
+    form.append(c); 
     $(document.body).append(form);
     // 提交表单  
     form.submit();  

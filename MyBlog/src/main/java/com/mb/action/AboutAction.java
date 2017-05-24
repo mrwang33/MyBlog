@@ -14,7 +14,7 @@ import com.mb.service.AboutService;
 
 /**
  * @author 王欢
- * 博文管理controller
+ * 关于网站controller
  */
 @Controller
 @RequestMapping("/about")

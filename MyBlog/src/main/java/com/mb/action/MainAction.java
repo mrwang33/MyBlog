@@ -16,11 +16,17 @@ import com.mb.entity.Article;
 import com.mb.entity.Classify;
 import com.mb.entity.Comment;
 import com.mb.entity.LeaveMsg;
+import com.mb.service.AboutService;
 import com.mb.service.ArticleService;
 import com.mb.service.ClassifyService;
 import com.mb.service.CommentService;
+import com.mb.service.IntroductionService;
 import com.mb.service.LeaveMsgService;
 
+/**
+ * @author 王欢
+ * 主站contorller
+ */
 @Controller
 @RequestMapping("/")
 public class MainAction {
@@ -32,17 +38,28 @@ public class MainAction {
 	private ClassifyService ClassifyService;
 	@Resource
 	private CommentService commentService;
+	@Resource
+	private AboutService aboutService;
+	@Resource
+	private IntroductionService introductionService;
 	
 	
 	public void addAttribute(Model model){
 		List<Classify> classify = ClassifyService.getAll();
+		//博文分类
 		model.addAttribute("classify", classify);
+		//热门博客
 		model.addAttribute("hotArticles", articleService.getHotArticles());
+		//自我介绍
+		model.addAttribute("introduction", introductionService.getById(1));
 	}
 
 	@RequestMapping("/about")
-	public String about() {
+	public String about(Model model) {
 		//TODO 把相关东西查好
+		this.addAttribute(model);
+		//关于本站
+		model.addAttribute("about", aboutService.getById(1));
 		return "about";
 	}
 	
@@ -54,16 +71,6 @@ public class MainAction {
 		//总留言数
 		model.addAttribute("length", leaveMsgService.getCount());
 		return "leaveMsg";
-	}
-	
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin/login";
-	}
-	
-	@RequestMapping("/noPermission")
-	public String error() {
-		return "noPermission";
 	}
 	
 	@RequestMapping("/blog")
@@ -99,6 +106,18 @@ public class MainAction {
 			return "error";
 		}
 		return "blogDetail";
+	}
+	
+	//跳转到后台管理
+	@RequestMapping("/admin")
+	public String admin() {
+		return "admin/login";
+	}
+	
+	//权限不足的处理
+	@RequestMapping("/noPermission")
+	public String error() {
+		return "noPermission";
 	}
 
 }

@@ -13,10 +13,20 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",
                 rules: {
-                	introduction: {
+                	summary: {
                         minlength: 10,
                         maxlength: 500,
                         required: true,
+                    },
+                    skill: {
+                    	minlength: 10,
+                        maxlength: 800,
+                        required: false
+                    },
+                    creed: {
+                    	minlength: 5,
+                        maxlength: 20,
+                        required: true
                     }
                 },
 

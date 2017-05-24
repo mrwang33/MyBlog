@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -41,7 +42,7 @@
 					<div id="ie-warning" class="alert alert-danger fade in">
 						<button type="button" class="close" data-dismiss="alert">×</button>
 						<span class="glyphicon glyphicon-exclamation-sign"></span>
-						请注意，ZynBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用FireFox浏览器。
+						请注意，GGBlog并不支持低于IE8的浏览器，为了获得最佳效果，推荐使用chrome浏览器。
 					</div>
 					<!-- 内容主体 包含三部分内容：1.每日提示、2.文章列表、3. 分页条-->
 
@@ -59,10 +60,7 @@
 									height="125" alt="微信扫一扫">
 							</div>
 							<div>
-								<p>本站定位为IT技术博客站，博客内容主要涉及编程语言、复杂网络、机器学习、推荐算法、数据挖掘等方面。
-									全站均由本人开发，基于ASP.NET MVC框架，使用C#进行编写，前端和后台UI框架采用Bootstrap搭建，数据库为MS
-									SQLServer，服务器为Windows Server 2012
-									R2版腾讯云主机，域名www.zynblog.com购自阿里万网, 豫ICP备16019396号-1。</p>
+								<p>${about.summary}</p>
 							</div>
 							<hr>
 							<h3>初衷</h3>
@@ -72,35 +70,12 @@
 							<p style="margin-top:1px;margin-bottom:0">对外：是别人了解你的最直接方式；是交流、分享经验的平台。</p>
 
 							<hr>
-							<h3>联系方式</h3>
-							<p>邮箱：zyn_haust@126.com</p>
-							<p>
-								新浪微博：<a href="http://www.zynblog.com/weibo.com/u/2298628981"
-									target="_blank" rel="nofollow">http://weibo.com</a>
-							</p>
-
-							<hr>
-							<h3>文章版权声明</h3>
-							<p>1、欢迎转载本站文章，本站文章版权归作者所有，转载请声明原文出处。 请尊重他人劳动成果,共建美好的网络环境。</p>
-							<p>
-								2、<a rel="license"
-									href="http://creativecommons.org/licenses/by-sa/3.0/cn/"> <img
-									alt="知识共享许可协议" style="border-width:0"
-									src="images/88x31.png">
-								</a> 本站作品采用 <a rel="license"
-									href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享
-									3.0 中国大陆许可协议</a>进行许可。
-							</p>
-							<p>3、本站转载的文章都有声明作者或文章的来源。但有部分文章找不到相关作者信息，这些文章版权为原作者所有。
-								如有版权等问题，原作者可发邮件给我以进行处理。</p>
-
-							<hr>
-							<h3>友链互换</h3>
-							<p>想要互换友链的朋友可以联系我: zyn_haust@126.com。</p>
+							<h3>使用到的技术</h3>
+							${about.skill}
 
 							<hr>
 							<h3>一句箴言</h3>
-							<p class="bg-success text-success">Just do it,now!</p>
+							<p class="bg-success text-success">${about.creed}</p>
 						</div>
 					</div>
 
@@ -111,7 +86,7 @@
 				<aside class="col-md-4" id="sidebar"> <aside>
 				<div class="panel panel-zyn hidden-xs">
 					<div class="panel-heading">
-						<span class="glyphicon glyphicon-user newicon"></span> 夜无痕
+						<span class="glyphicon glyphicon-user newicon"></span> 王欢
 					</div>
 					<div class="panel-body"
 						style="padding:10px;font-size: 15px; line-height: 1.5;">
@@ -124,9 +99,8 @@
 							</div>
 							<div style="text-indent:2em;">
 								<p>
-									这是一个程序员的独立博客站，主要用于分享与编程技术相关的内容， 同时这里也是博主记录工作学习中遇到的问题及其解决方案的地方。
-									PS:夜无痕:非著名程序员，IT界的一名小学生。目前在研究网络舆情、复杂网络、机器学习等... 更多信息请点击：<a
-										target="_blank" href="http://www.zynblog.com/About"
+									${introduction.introduction}更多信息请点击：<a
+										target="_blank" href="about.action"
 										style="color:#1abc9c">关于本站.</a>
 								</p>
 							</div>
@@ -147,121 +121,69 @@
 						</ul>
 					</div>
 				</div>
-				</aside> <aside id="zyn_latest_comments-2">
-				<div class="panel panel-zyn hidden-xs">
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-tree-deciduous newicon"></span>
-						雁过留声 <span class="panel-remove glyphicon glyphicon-remove-circle"></span>
-						<span class="panel-toggle glyphicon glyphicon-upload"></span>
+				</aside> 
+				<!-- 热门博客 -->				
+				<aside id="hot_article">
+					<div class="panel panel-zyn hidden-xs">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-leaf newicon"></span> 炙手可热 <span
+								class="panel-remove glyphicon glyphicon-remove-circle"></span> <span
+								class="panel-toggle glyphicon glyphicon-upload"></span>
+						</div>
+	
+						<ul class="list-group list-group-flush">
+							<c:forEach var="hot" items="${hotArticles}">
+								<li class="list-group-item">
+									<span class="post-title">
+										<a href="blogDetail.action?articleId=${hot.articleId}" title="${hot.articleTitle}">${hot.articleTitle}</a>
+									</span> 
+									<span class="badge">${hot.articleViews}</span>
+								</li>
+							</c:forEach>
+						</ul>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404746811076346212.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193404746811076346212.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									扎心了，老铁，你居然直接移除有害标签 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404074901084765038.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193404074901084765038.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									11 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403959818648681314.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193403959818648681314.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									很不错。模仿前端写了个界面 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193403609800414283917.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193403609800414283917.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/30#comments-title">
-									fsdfsdfd </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404226471614736025.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193404226471614736025.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									楼主加油 </a>
-						</span></li>
-						<li class="list-group-item"><span class="author-avatar">
-								<img
-								data-url="http://o82pwjziv.bkt.clouddn.com/HeadIcon/20160619/6360193404823377597946328.jpg"
-								class="avatar avatar-40 photo" height="40" width="40"
-								src="images/6360193404823377597946328.jpg">
-						</span> <span class="comment-log"> <a
-								href="http://www.zynblog.com/Archives/Index/1#comments-title">
-									123aa </a>
-						</span></li>
-
-					</ul>
-				</div>
-				</aside> <aside id="tag_cloud">
+				</aside> 
+				<!-- 热门博客结束 -->	
+				 <aside id="tag_cloud">
 				<div class="panel panel-zyn hidden-xs">
 					<div class="panel-heading">
 						<span class="glyphicon glyphicon-cloud newicon"></span> 上上签儿
 					</div>
 					<div id="tagbox">
-						<a href="http://www.zynblog.com/About#" title="4个话题"
-							style="color:#f76b70;font-size: 12.897959183673pt;">ASP.NET
-							MVC</a> <a href="http://www.zynblog.com/About#" title="18个话题"
-							style="color:#eab035;font-size: 20pt;">Zynblog</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#0094ff;font-size: 14pt;">非典型程序猿</a> <a
-							href="http://www.zynblog.com/About#" title="2个话题"
-							style="color:#be5bc1;font-size: 10.204081632653pt;">C#</a> <a
-							href="http://www.zynblog.com/About#" title="4个话题"
-							style="color:#f76b70;font-size: 12.897959183673pt;">javascript</a>
-						<a href="http://www.zynblog.com/About#" title="2个话题"
-							style="color:#be5bc1;font-size: 10.204081632653pt;">jQuery</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#0094ff;font-size: 14pt;">设计模式</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#23f0c9;font-size: 8pt;">Python</a> <a
-							href="http://www.zynblog.com/About#" title="2个话题"
-							style="color:#be5bc1;font-size: 10.204081632653pt;">Bootstrap</a>
-						<a href="http://www.zynblog.com/About#" title="3个话题"
-							style="color:#cba879;font-size: 11.673469387755pt;">Java</a> <a
-							href="http://www.zynblog.com/About#" title="18个话题"
-							style="color:#eab035;font-size: 20pt;">机器学习</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#0094ff;font-size: 14pt;">非著名程序员</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#23f0c9;font-size: 8pt;">数据挖掘</a> <a
-							href="http://www.zynblog.com/About#" title="3个话题"
-							style="color:#cba879;font-size: 11.673469387755pt;">分布式</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#23f0c9;font-size: 8pt;">C/C++</a> <a
-							href="http://www.zynblog.com/About#" title="3个话题"
-							style="color:#cba879;font-size: 11.673469387755pt;">前端</a> <a
-							href="http://www.zynblog.com/About#" title="2个话题"
-							style="color:#be5bc1;font-size: 10.204081632653pt;">推荐系统</a> <a
-							href="http://www.zynblog.com/About#" title="4个话题"
-							style="color:#f76b70;font-size: 12.897959183673pt;">大数据</a> <a
-							href="http://www.zynblog.com/About#" title="18个话题"
-							style="color:#eab035;font-size: 20pt;">Zynblog</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#0094ff;font-size: 14pt;">数据分析</a> <a
-							href="http://www.zynblog.com/About#" title="1个话题"
-							style="color:#23f0c9;font-size: 8pt;">复杂网络</a> <a
-							href="http://www.zynblog.com/About#" title="3个话题"
-							style="color:#cba879;font-size: 11.673469387755pt;">舆情分析</a>
+						<a href="#" title="4个话题"
+							style="color: rgb(247, 107, 112); font-size: 17px; left: -2.98099px; top: 162.464px; opacity: 1.30167; z-index: 0;">java
+							</a> <a href="#"
+							style="color: rgb(247, 107, 112); font-size: 14px; left: -12.2043px; top: 163.683px; opacity: 0.592785; z-index: 1;">javascript</a><a
+							href="#" 
+							style="color: rgb(234, 176, 53); font-size: 14px; left: 43.3827px; top: 213.174px; opacity: 0.567623; z-index: 2;">spring</a><a
+							href="#"
+							style="color: rgb(0, 148, 255); font-size: 16px; left: 130.308px; top: 209.782px; opacity: 1.18871; z-index: 3;">IT界小学生</a><a
+							href="#"
+							style="color: rgb(190, 91, 193); font-size: 20px; left: 82.8235px; top: 152.205px; opacity: 2.15612; z-index: 4;">html</a><a
+							href="#"
+							style="color: rgb(190, 91, 193); font-size: 19px; left: 53.4748px; top: 100.461px; opacity: 1.82944; z-index: 5;">jQuery</a><a
+							href="#"
+							style="color: rgb(0, 148, 255); font-size: 15px; left: 1.69911px; top: 79.6165px; opacity: 0.857923; z-index: 6;">设计模式</a><a
+							href="#"
+							style="color: rgb(35, 240, 201); font-size: 13px; left: 23.1734px; top: 112.9px; opacity: 0.342816; z-index: 7;">git</a><a
+							href="#"
+							style="color: rgb(203, 168, 121); font-size: 13px; left: 52.2437px; top: 159.91px; opacity: 0.180799; z-index: 8;">Java</a><a
+							href="#"
+							style="color: rgb(234, 176, 53); font-size: 13px; left: 130.737px; top: 195.69px; opacity: 0.26359; z-index: 9;">maven</a><a
+							href="#"
+							style="color: rgb(190, 91, 193); font-size: 14px; left: 140.895px; top: 188.416px; opacity: 0.618148; z-index: 10;">Bootstrap</a><a
+							href="#"
+							style="color: rgb(0, 148, 255); font-size: 17px; left: 147.34px; top: 154.519px; opacity: 1.32058; z-index: 11;">码农</a><a
+							href="#"
+							style="color: rgb(35, 240, 201); font-size: 19px; left: 151.404px; top: 99.7643px; opacity: 1.93362; z-index: 12;">springmvc</a><a
+							href="#"
+							style="color: rgb(203, 168, 121); font-size: 17px; left: 100.028px; top: 45.1292px; opacity: 1.46754; z-index: 13;">hibernate</a><a
+							href="#"
+							style="color: rgb(35, 240, 201); font-size: 15px; left: 69.3213px; top: 33.6199px; opacity: 0.682828; z-index: 14;">struts</a><a
+							href="#"
+							style="color: rgb(190, 91, 193); font-size: 13px; left: 74.8767px; top: 57.4684px; opacity: 0.249034; z-index: 15;">mybatis</a><a
+							href="#"
+							style="color: rgb(203, 168, 121); font-size: 13px; left: 108.679px; top: 107.978px; opacity: 0.115894; z-index: 16;">前端</a>
 					</div>
 				</div>
 				</aside> </aside>

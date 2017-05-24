@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="block-content collapse in">
                                 <div class="span12">
 					<!-- BEGIN FORM-->
-					<form action="role/addRole.action" method="post" id="form_sample_1" class="form-horizontal">
+					<form action="role/addRole.action" method="post" id="form_sample_1" class="form-horizontal" style="height: 300px;">
 						<fieldset>
 							<div class="alert alert-error hide">
 								<button class="close" data-dismiss="alert"></button>
