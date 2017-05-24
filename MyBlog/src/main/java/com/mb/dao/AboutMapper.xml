@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mb.dao.AboutMapper" >
+  <resultMap id="AboutMap" type="com.mb.entity.About" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="skill" property="skill" jdbcType="VARCHAR" />
+    <result column="creed" property="creed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, summary, skill, creed
+  </sql>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mb.entity.About" >
+    update about
+    <set >
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null" >
+        skill = #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="creed != null" >
+        creed = #{creed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.mb.entity.About" >
+    update about
+    set summary = #{summary,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      creed = #{creed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据id获取 -->
+  <select id="getById" resultMap="AboutMap">
+  	select <include refid="Base_Column_List"></include> FROM about WHERE id=#{id,jdbcType=INTEGER};
+  </select>
+</mapper>

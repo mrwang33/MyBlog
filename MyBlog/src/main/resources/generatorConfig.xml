@@ -33,23 +33,7 @@
 		<sqlMapGenerator targetPackage="com.mb.dao"
 			targetProject="MyBlog\src\main\java" />
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mb.dao" targetProject="MyBlog\src\main\java" />
-
-<!-- 		<table tableName="account" domainObjectName="Account" /> 
-			
-		<table tableName="supplier" domainObjectName="Supplier" />
-			<table tableName="sys_param" domainObjectName="SysParam" />
-				
-				<table tableName="account_records" domainObjectName="AccountRecords" />
-				<table tableName="buy_order" domainObjectName="BuyOrder" />
-				<table tableName="buy_order_detail" domainObjectName="BuyOrderDetail" />
-				-->	
-				<table tableName="user" domainObjectName="User" />
-				<table tableName="role" domainObjectName="Role" />
-				<table tableName="permission" domainObjectName="Permission" />
-				<table tableName="article" domainObjectName="Article" />
-				<table tableName="comment" domainObjectName="Comment" />
-				<table tableName="classify" domainObjectName="Classify" />
-				<table tableName="leavemsg" domainObjectName="LeaveMsg" />
-	
+		<table tableName="introduction" domainObjectName="Introduction" />
+		<table tableName="about" domainObjectName="About" />
 	</context>
 </generatorConfiguration>

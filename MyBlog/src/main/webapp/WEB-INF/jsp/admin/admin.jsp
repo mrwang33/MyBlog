@@ -174,13 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li>
 			<a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
 			</li>
-			<li class="sub-menu system_menus system_1 0">
-			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts-list"></i> 系统组织管理</a>
-			<ul>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('系统管理', 'crud.html');">系统管理</a></li>
-				<li><a class="waves-effect" href="javascript:Tab.addTab('组织管理', '/manage/organization/index');">组织管理</a></li>
-			</ul>
-			</li>
 			<li class="sub-menu system_menus system_1 3">
 			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 角色用户管理</a>
 			<ul>
@@ -201,6 +194,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li><a class="waves-effect" href="javascript:Tab.addTab('博文分类', 'admin/classify.action');">博文分类</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('评论管理', 'admin/comment.action');">评论管理</a></li>
 				<li><a class="waves-effect" href="javascript:Tab.addTab('留言管理', 'admin/leaveMsg.action');">留言管理</a></li>
+			</ul>
+			</li>
+			<li class="sub-menu system_menus system_1 0">
+			<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts-list"></i> 网站简介设置</a>
+			<ul>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('系统管理', 'crud.html');">个人介绍</a></li>
+				<li><a class="waves-effect" href="javascript:Tab.addTab('组织管理', 'about/goEdit.action');">关于网站</a></li>
 			</ul>
 			</li>
 			<li class="sub-menu system_menus system_2 12" style="display:none;">
