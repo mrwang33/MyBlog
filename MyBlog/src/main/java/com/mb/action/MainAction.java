@@ -77,7 +77,7 @@ public class MainAction {
 	public String blog(Model model,Integer pageIndex,String keyWords,String classifyId) {
 		//查找所有博文
 		int count = articleService.getCount(keyWords,classifyId);
-		Page<Article> page = new Page<Article>(3, count, null, null, 1);
+		Page<Article> page = new Page<Article>(6, count, null, null, 1);
 		page = CommonUtils.createPage(page, pageIndex, keyWords, classifyId);
 		page = articleService.getPage(page);
 		model.addAttribute("page", page);

@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 		//替换评论中的html标签 防止xss注入攻击
 		comment.setCommentContent(comment.getCommentContent().replaceAll("</?[^>]+>", ""));
 		//发送邮件
-		sendEmailService.sendEmailToComment(comment);
+//		sendEmailService.sendEmailToComment(comment);
 		//设置主键
 		comment.setCommentId(CommonUtils.getUUID());
 		//设置时间

@@ -43,8 +43,8 @@
 				/user/*.action=perms["user"]
 				/role/*.action=perms["role"]
 				/classify/*.action=perms["classify"]
-				/comment/*.action=perms["comment"]
-				/leaveMsg/*.action=perms["leaveMsg"]
+				/comment/deleteComment.action=perms["comment"]
+				/leaveMsg/deleteLeaveMsg.action=perms["leaveMsg"]
 				/about/*.action=perms["about"]
 				/introduction/*.action=perms["introduction"]
 				/admin/*.action=authc

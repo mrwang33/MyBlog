@@ -28,9 +28,11 @@
         <property name="javaMailProperties">  
             <props>  
                 <!-- 设置认证开关 -->  
+                
+       	      <prop key="mail.smtp.starttls.enable">true</prop>
                 <prop key="mail.smtp.auth">true</prop>  
                 <!-- 启动调试开关 -->  
-                <prop key="mail.debug">true</prop>  
+<!--                 <prop key="mail.debug">true</prop>   -->
 <!--                 <prop key="mail.smtp.socketFactory.class"></prop> -->
                 <!-- 设置发送延时 -->
                 <prop key="mail.smtp.timeout">0</prop>
