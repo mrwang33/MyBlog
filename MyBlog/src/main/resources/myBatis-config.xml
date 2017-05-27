@@ -12,8 +12,4 @@
  <package name="com.mb.entity"/>
  </typeAliases>
 
-<!-- 	<mappers>
-		<mapper resource="cn/itcast/scm/entity/DeptMapper.xml" />
-	</mappers>
-		 -->
 </configuration>
