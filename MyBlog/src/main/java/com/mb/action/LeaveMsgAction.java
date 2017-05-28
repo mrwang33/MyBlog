@@ -18,6 +18,8 @@ import com.mb.service.ClassifyService;
 /**
  * @author 王欢
  * 留言管理controller
+ * 
+ * 
  */
 @Controller
 @RequestMapping("/leaveMsg")
