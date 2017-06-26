@@ -109,14 +109,14 @@
 					<hr style="margin:0 0 10px 0">
 					<div class="gzwm">
 						<ul>
-							<li><a class="github" href="https://github.com/YallZhang"
+							<li><a class="github" href="https://github.com/mrwang33"
 								target="_blank" title="GitHub"></a></li>
-							<li><a class="xlwb" href="http://weibo.com/u/2298628981"
+							<li><a class="xlwb" href="http://weibo.com/1825647474"
 								target="_blank" title="新浪微博"></a></li>
 							<li><a class="douban"
-								href="https://www.douban.com/people/zyn_" target="_blank"
+								href="#" target="_blank"
 								title="豆瓣"></a></li>
-							<li><a class="twitter" href="http://www.twitter.com/"
+							<li><a class="twitter" href="https://twitter.com/11914724671"
 								title="推特"></a></li>
 						</ul>
 					</div>
