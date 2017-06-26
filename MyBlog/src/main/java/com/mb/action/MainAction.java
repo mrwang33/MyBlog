@@ -75,6 +75,10 @@ public class MainAction {
 	
 	@RequestMapping("/blog")
 	public String blog(Model model,Integer pageIndex,String keyWords,String classifyId) {
+		if(keyWords!=null&&"".equals(keyWords)) {
+			//替换留言中的html标签 防止xss注入攻击
+			keyWords = keyWords.replaceAll("</?[^>]+>", "");
+		}
 		//查找所有博文
 		int count = articleService.getCount(keyWords,classifyId);
 		Page<Article> page = new Page<Article>(6, count, null, null, 1);
