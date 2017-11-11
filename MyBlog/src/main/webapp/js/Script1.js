@@ -5273,12 +5273,8 @@ if (function(n, t) {
 		t.data("typeahead") || t.typeahead(t.data())
 	})
 }(window.jQuery);jQuery(function() {
-	zyn.init()
 });
 var zyn = {
-		init : function() {
-			this.autoComplete();this.viewStatistic();this.pariseShow();this.goTop();this.dropDown();this.panelToggle();this.panelClose();this.commentValidate();this.ajaxCommentsReply()
-		},
 		autoComplete : function() {
 			jQuery("#searchWords").typeahead({
 				source : function(n, t) {

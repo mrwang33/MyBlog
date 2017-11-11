@@ -3,7 +3,7 @@
 <footer id="zyn-footer">
 	<div class="container">
 		Copyright © 2016 <a href="#">GGblog</a>&nbsp; | &nbsp;联系我 : <a
-			href="wang1386528@gmail.com">GGblog@126.com</a>&nbsp; | &nbsp;All
+			href="wang1386528@gmail.com">wang1386528@gmail.com</a>&nbsp; | &nbsp;All
 		Rights Reserved.&nbsp; | &nbsp;
 	</div>
 </footer>
