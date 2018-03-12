@@ -46,7 +46,7 @@
 
 
 			<script type="text/javascript">
-				$(function() {
+				/*$(function() {
 					$('#searchWords').on('keydown', function(e) {
 						var key = e.which;
 						if (key == 13) {
@@ -61,7 +61,7 @@
 						}
 						return false;
 					});
-				});
+				});*/
 			</script>
 			<form id="searchform" class="navbar-form navbar-right" role="search"
 				target="_blank" method="post"
